@@ -8,6 +8,8 @@ const Singer = () => import('../views/Singer/Singer.vue')
 const Song = () => import('../views/Song/Song.vue')
 const Mv = () => import('../views/Mv/Mv.vue')
 const SongDetails = () => import('../views/SongDetails/SongDetails.vue')
+const SingerDetails = () => import('../views/SingerDetails/SingerDetails.vue')
+
 
 export default new Router({
   routes: [
@@ -44,6 +46,10 @@ export default new Router({
         {
           path: '/songdetails',
           component: SongDetails
+        },
+        {
+          path: '/singerdetails',
+          component: SingerDetails
         }
       ]
     }

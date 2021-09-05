@@ -53,6 +53,7 @@ export default {
       id: 0,
       songDetailList: {},
       songList: [],
+      songId: [],
       creator: {},
       likeList: [],
       relatedPlayList: [],
@@ -67,14 +68,17 @@ export default {
       const res = await getPlayListDetails(id);
       this.songDetailList = res.playlist;
       this.creator = res.playlist.creator;
+      const str = [];
       this.songDetailList.trackIds.forEach(item => {
-        this.getSongDetails(item.id);
+        str.push(item.id);
       });
+      this.songId = str.join(",");
+      this.getSongDetails(this.songId);
     },
     //获取歌曲
     async getSongDetails(id) {
       const result = await getSongDetails(id);
-      this.songList.push(result.songs[0]);
+      this.songList = result.songs;
     },
     async getPlayListCollect(id) {
       const res = await getPlayListCollect(id);

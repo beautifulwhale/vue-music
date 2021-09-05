@@ -1,5 +1,4 @@
 <template>
-  <div>
     <el-table :data="songList" style="width: 100%" stripe>
       <el-table-column label="序号">
         <template slot-scope="scope">
@@ -26,7 +25,6 @@
         </template>
       </el-table-column>
     </el-table>
-  </div>
 </template>
 <script>
 import { FormatTime } from "../../utils/utils";

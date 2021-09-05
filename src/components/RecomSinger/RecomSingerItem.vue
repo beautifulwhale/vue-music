@@ -1,5 +1,5 @@
 <template>
-  <div class="singeritem">
+  <div class="singeritem" @click="singerDetails(singerItem.id)">
     <div class="avator">
       <img :src="singerItem.picUrl" />
     </div>
@@ -15,6 +15,11 @@ export default {
       default() {
         return {};
       }
+    }
+  },
+  methods: {
+    singerDetails(id) {
+      this.$router.push({ path: "/singerdetails", query: { id: id } });
     }
   }
 };
