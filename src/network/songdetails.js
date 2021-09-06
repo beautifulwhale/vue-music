@@ -44,3 +44,13 @@ export function getComment(id) {
         }
     })
 }
+
+//获取歌曲的url
+export function getMusicUrl(id) {
+    return request({
+        url: "/song/url",
+        params: {
+            id
+        }
+    })
+}

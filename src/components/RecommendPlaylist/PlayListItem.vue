@@ -3,7 +3,7 @@
     <div class="image">
       <img :src="imageUrl" />
       <div class="playnumber">
-        <div class="playnum">
+        <div class="playnum" v-if="recomSongItem.playCount">
           <i class="el-icon-service"></i>
           <span>{{ listenNumber }}</span>
         </div>
@@ -18,10 +18,13 @@
     <div class="title">
       {{ recomSongItem.name }}
     </div>
+    <div class="publish-time" v-if="recomSongItem.publishTime">
+      {{publishTime}}
+    </div>
   </div>
 </template>
 <script>
-import { tranNumber } from "../../utils/utils";
+import { tranNumber,dateFormat } from "../../utils/utils";
 export default {
   props: {
     recomSongItem: {
@@ -38,10 +41,17 @@ export default {
   },
   computed: {
     listenNumber() {
-      return tranNumber(this.recomSongItem.playCount, 0);
+      if(this.recomSongItem.playCount){
+        return tranNumber(this.recomSongItem.playCount, 0);
+      }
     },
     imageUrl() {
       return this.recomSongItem.picUrl || this.recomSongItem.coverImgUrl;
+    },
+    publishTime(){
+       if(this.recomSongItem.publishTime){
+        return dateFormat(this.recomSongItem.publishTime);
+      }
     }
   },
   methods: {
@@ -105,6 +115,11 @@ export default {
     font-size: 13px;
     color: gray;
     margin: 5px 0;
+    font-weight: bold;
+  }
+  .publish-time{
+    font-size: 12px;
+    color: gray;
   }
 }
 </style>

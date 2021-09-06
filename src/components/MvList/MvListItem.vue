@@ -1,7 +1,7 @@
 <template>
   <div class="mv-list-item">
     <div class="img" @mouseenter="showIcon" @mouseleave="hiddenIcon">
-      <img :src="mvListItem.cover" />
+      <img :src="imgUrl" />
       <div class="smoke">
         <div class="artist">
           <span>{{ mvListItem.artistName }}</span>
@@ -40,6 +40,11 @@ export default {
     hiddenIcon() {
       this.isShowIcon = false;
     }
+  },
+  computed:{
+    imgUrl(){
+      return this.mvListItem.imgurl || this.mvListItem.cover
+    }
   }
 };
 </script>
@@ -53,8 +58,8 @@ export default {
     height: 178px;
     position: relative;
     img {
-      width: 310px;
-      height: 178px;
+      width: 100%;
+      height: 172px;
       border-radius: 10px;
     }
     .smoke {

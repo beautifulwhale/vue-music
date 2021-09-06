@@ -30,6 +30,7 @@ export default {
   flex-flow: column;
   justify-content: space-around;
   align-items: center;
+  cursor: pointer;
   .avator {
     width: 100px;
     height: 100px;

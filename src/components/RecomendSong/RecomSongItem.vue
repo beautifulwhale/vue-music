@@ -28,6 +28,7 @@ export default {
   align-items: center;
   box-shadow: 0 1px 2px #000, 0 0 1px #000, 0 0 1px #000;
   border-radius: 5px;
+  cursor: pointer;
 }
 img {
   width: 55px;
