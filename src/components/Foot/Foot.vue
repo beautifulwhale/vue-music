@@ -13,7 +13,7 @@
       </div>
       <!-- 播放暂停 -->
       <div class="control">
-        <span class="iconfont icon-prev"></span>
+        <span class="iconfont icon-prev" @click="changeSong('up')"></span>
         <span
           class="iconfont icon-zanting"
           v-show="isShowPlay"
@@ -24,11 +24,18 @@
           v-show="isShowPause"
           @click="pauseMusic"
         ></span>
-        <span class="iconfont icon-xiayishou" @change="changeLong"></span>
+        <span
+          class="iconfont icon-xiayishou"
+          @click="changeSong('down')"
+        ></span>
       </div>
       <!-- 进度条 -->
       <div class="block">
-        <el-slider v-model="progress"></el-slider>
+        <el-slider
+          v-model="progress"
+          @change="changeLong"
+          :show-tooltip="false"
+        ></el-slider>
       </div>
       <!-- 时长 -->
       <div class="playerTime">
@@ -42,31 +49,43 @@
       <div class="info">
         <span class="iconfont icon-shengyin"></span>
         <div class="voice-slider">
-          <el-slider v-model="voice"></el-slider>
+          <el-slider
+            v-model="volume"
+            @change="changVolume"
+            :show-tooltip="false"
+          ></el-slider>
         </div>
-
         <span
-          v-show="isShowOrder"
           class="iconfont icon-shunxubofang"
-          @click="changeOrder"
+          v-if="playMode === 0"
+          @click="changePlayMode(2)"
         ></span>
         <span
-          v-show="isShowORandom"
           class="iconfont icon-suiji"
-          @click="changeRandom"
+          v-else-if="playMode === 1"
+          @click="changePlayMode(0)"
         ></span>
         <span
-          v-show="isShowCycle"
           class="iconfont icon-xunhuanshunxubofangicon"
-          @click="changeCycle"
+          v-else
+          @click="changePlayMode(1)"
         ></span>
-        <span class="iconfont icon-shouye-bofangmoshi-shunxubofang"></span>
+        <span
+          class="iconfont icon-shouye-bofangmoshi-shunxubofang"
+          @click="currentPlayClick"
+        ></span>
       </div>
     </div>
+    <!-- 当前播放列表 -->
+    <current-play-list
+      v-show="isShowCurrentPlay"
+      class="current-play"
+    ></current-play-list>
     <audio
       v-if="music.length"
       :src="musicUrl"
       @timeupdate="getCurrentTime"
+      @loadedmetadata="onLoadMetaData"
       autoplay
       controls
       ref="audioRef"
@@ -74,8 +93,10 @@
   </div>
 </template>
 <script>
+import CurrentPlayList from "@/components/Foot/CurrentPlayList";
 import { getSongDetails, getMusicUrl } from "../../network/songdetails";
 import { FormatTime } from "../../utils/utils";
+import { mapState } from "vuex";
 export default {
   data() {
     return {
@@ -86,22 +107,23 @@ export default {
         musicPlayTime: 0
       },
       music: [],
-      voice: 0,
-      isShowOrder: true,
-      isShowORandom: false,
-      isShowCycle: false,
       musicUrl: "",
       isShowPlay: true,
       isShowPause: false,
       duration: 0,
       progress: 0,
-      currentTime: 0
+      currentTime: 0,
+      volume: 20,
+      isShowCurrentPlay: false,
+      //当前歌曲下标
+      currentId: null,
+      currentIndex: null
     };
   },
   methods: {
+    //获取当前歌曲信息
     async getSongDetails(id) {
       const res = await getSongDetails(id);
-      console.log(res);
       this.music = res.songs;
       this.musicInfo.musicImg = res.songs[0].al.picUrl;
       this.musicInfo.musicName = res.songs[0].name;
@@ -112,22 +134,6 @@ export default {
     async getMusicUrl(id) {
       const res = await getMusicUrl(id);
       this.musicUrl = res.data[0].url;
-      console.log(res);
-    },
-    changeOrder() {
-      this.isShowOrder = false;
-      this.isShowORandom = true;
-      this.isShowCycle = false;
-    },
-    changeRandom() {
-      this.isShowOrder = false;
-      this.isShowORandom = false;
-      this.isShowCycle = true;
-    },
-    changeCycle() {
-      this.isShowOrder = true;
-      this.isShowORandom = false;
-      this.isShowCycle = false;
     },
     //秒数转化为mm:ss形式
     toTime(sec) {
@@ -140,45 +146,95 @@ export default {
     },
     //暂停歌曲
     pauseMusic() {
-      this.isShowPause = false;
       this.isShowPlay = true;
+      this.isShowPause = false;
       this.$refs.audioRef.play();
     },
     //播放歌曲
     playMusic() {
-      this.isShowPause = true;
       this.isShowPlay = false;
+      this.isShowPause = true;
       this.$refs.audioRef.pause();
     },
     //获取时长
-    showLongTime() {
-      this.duration = parseInt(this.$refs.audioRef.duration);
+    onLoadMetaData(res) {
+      this.duration = parseInt(res.target.duration);
     },
     //音频进度改变时触发
     getCurrentTime() {
       this.currentTime = parseInt(this.$refs.audioRef.currentTime);
-    //   this.currentTime = toTime(this.currentTime)
-      this.progress = this.currentTime / this.duration * 100
+      this.progress = parseInt((this.currentTime / this.duration) * 100);
     },
     //改变时长
     changeLong() {
       let ct = (this.progress * this.duration) / 100;
       if (!isNaN(ct)) {
         this.$refs.audioRef.currentTime = ct;
+        this.isShowPlay = true;
+        this.isShowPause = false;
+        this.$refs.audioRef.play();
+      }
+    },
+    //控制声音
+    changVolume(val) {
+      this.volume = val;
+      this.$refs.audioRef.volume = val / 100;
+    },
+    //更改播放模式
+    changePlayMode(num) {
+      this.$store.commit({ type: "changePlayMode", num });
+    },
+    currentPlayClick() {
+      this.isShowCurrentPlay = !this.isShowCurrentPlay;
+    },
+    //切换上一曲下一曲
+    changeSong(type) {
+      for (let i = 0; i <= this.songList.length; i++) {
+        if (this.currentId === this.songList[i].id) {
+          this.currentIndex = i;
+          break;
+        }
+      }
+      var index = 0;
+      if (this.playMode === 0) {
+        if (type === "up") {
+          if (this.currentIndex === 0) {
+            return;
+          }
+          index = this.currentIndex - 1;
+          this.currentId = this.songList[index].id;
+        } else if (type === "down") {
+          if (this.currentIndex === this.songList.length) return;
+          index = this.currentIndex + 1;
+          this.currentId = this.songList[index].id;
+        }
+        this.getSongDetails(this.songList[index].id);
+        this.getMusicUrl(this.songList[index].id);
+      } else if (this.playMode === 1) {
+        this.currentIndex = Math.floor(Math.random() * this.songList.length);
+        this.getSongDetails(this.songList[this.currentIndex].id);
+        this.getMusicUrl(this.songList[this.currentIndex].id);
+      } else if (this.playMode === 2) {
+        this.$refs.audioRef.load();
       }
     }
   },
   computed: {
+    ...mapState(["playMode", "songList"]),
     playTime() {
       return FormatTime(this.musicInfo.musicPlayTime / 1000);
     }
   },
   mounted() {
     this.$bus.$on("getMusic", data => {
+      this.currentId = data;
       this.getSongDetails(data);
       this.getMusicUrl(data);
     });
-  }
+  },
+  components: {
+    CurrentPlayList
+  },
 };
 </script>
 <style lang="less" scoped>
@@ -268,5 +324,23 @@ export default {
       }
     }
   }
+  .current-play {
+    width: 450px;
+    height: 500px;
+    position: absolute;
+    right: 0;
+    bottom: 63px;
+  }
+}
+// 控制滑块的默认颜色
+/deep/ .el-slider__bar {
+  background: tomato;
+}
+.el-slider__button {
+  width: 8px;
+  height: 8px;
+  border: 2px solid tomato !important;
+  background-color: #fff;
+  border-radius: 50%;
 }
 </style>

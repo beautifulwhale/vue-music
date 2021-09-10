@@ -37,6 +37,7 @@ export default {
     },
     getMusic(row, event, column){
       this.$bus.$emit('getMusic', row.id);
+      this.$store.commit('getSongList', this.songList)
     }
   }
 };
