@@ -62,6 +62,7 @@ export default {
     },
     clearSongList() {
       this.$store.dispatch("clearSongList");
+      this.$emit('clearPlay');
     }
   }
 };
@@ -73,7 +74,7 @@ export default {
   padding: 10px;
   overflow: hidden;
   overflow-y: scroll;
-  z-index: 9;
+  z-index: 999;
   background-color: #fff;
   .info {
     width: 450px;

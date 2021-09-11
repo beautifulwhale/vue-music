@@ -36,13 +36,13 @@ export default {
 
 <style lang="less" scoped>
 .recomsong {
-  margin-left: 120px;
   margin-top: 40px;
-  width: 1332px;
-  height: 550px;
+  width: 1200px;
+  height: 500px;
   .recomsongitem {
-    width: 642px;
-    margin: 10px;
+    width: 500px;
+    height: 50px;
+    margin: 20px;
     float: left;
     padding: 2px 5px 2px 0;
   }

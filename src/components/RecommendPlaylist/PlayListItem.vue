@@ -2,7 +2,7 @@
   <div class="recomsongitem" @click="playListClick(recomSongItem.id)">
     <div class="image">
       <img :src="imageUrl" />
-      <div class="playnumber">
+      <div class="smoker">
         <div class="playnum" v-if="recomSongItem.playCount">
           <i class="el-icon-service"></i>
           <span>{{ listenNumber }}</span>
@@ -76,20 +76,22 @@ export default {
   .image {
     img {
       border-radius: 10px;
-      box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+      box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
       width: 130px;
       height: 130px;
       position: relative;
     }
-    .playnumber {
+    .smoker {
       width: 130px;
       height: 30px;
-      position: absolute;
+      position: relative;
       margin-top: -32px;
-      background-color: black;
-      opacity: 0.5;
+      
+      // margin-top: -32px;
+      background-color: rgba(0, 0, 0, 0.5);
       border-radius: 5px;
       padding: 0 5px;
+      color: white;
       display: flex;
       justify-content: space-between;
       i {

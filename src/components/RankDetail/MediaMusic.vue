@@ -32,13 +32,12 @@ export default {
 </script>
 <style lang="less" scoped>
 .mediamusic{
-    width: 1350px;
+    width: 1200px;
     height: 1000px;
-    padding: 10px 100px;
     .media-music-item{
         margin: 10px 0 20px 10px;
         display: flex;
-        justify-content: space-between;
+        flex: 1;
         flex-wrap: wrap;
     }
 }

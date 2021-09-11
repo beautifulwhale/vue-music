@@ -37,7 +37,7 @@ export default {
       queryInfo: {
         order: "hot",
         cat: "全部",
-        limit: 35,
+        limit: 30,
         offset: 0
       }
     };
@@ -88,7 +88,6 @@ export default {
 .pagination {
   width: 554px;
   height: 32px;
-
   margin: 20px auto;
 }
 </style>

@@ -88,9 +88,8 @@ export default {
 </script>
 <style lang="less" scoped>
 .song-filter {
-  margin-top: 90px;
-  width: 1320px;
-  margin-left: 100px;
+  margin-top: 20px;
+  width: 1200px;
   height: 60px;
   background-color: #fff;
   display: flex;
@@ -127,8 +126,8 @@ export default {
   background-color: #fff;
   border-radius: 10px;
   position: fixed;
-  left: 100px;
-  top: 150px;
+  left: 300px;
+  top: 180px;
   padding: 15px;
   overflow: hidden;
   overflow-y: scroll;

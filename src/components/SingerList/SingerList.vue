@@ -27,9 +27,8 @@ export default {
 <style lang="less" scoped>
 .singer-list {
   height: 1000px;
-  width: 1380px;
-  margin-left: 100px;
-  margin-top: 30px;
+  width: 1200px;
+  margin-top: 20px;
   cursor: pointer;
   .singeritem {
     display: flex;

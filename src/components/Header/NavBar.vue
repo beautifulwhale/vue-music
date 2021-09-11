@@ -1,25 +1,6 @@
 <template>
   <div class="header_title">
     <img src="../../assets/image/logo.jpg" />
-
-    <!-- 分类 -->
-    <div class="detailrouter">
-      <router-link class="routers" active-class="activeClass" to="/recommend"
-        >发现音乐</router-link
-      >
-      <router-link class="routers" active-class="activeClass" to="/rank"
-        >排行榜</router-link
-      >
-      <router-link class="routers" active-class="activeClass" to="/song"
-        >歌单</router-link
-      >
-      <router-link class="routers" active-class="activeClass" to="/singer"
-        >歌手</router-link
-      >
-      <router-link class="routers" active-class="activeClass" to="/mv"
-        >MV</router-link
-      >
-    </div>
     <!-- 搜索 -->
     <search></search>
   </div>
@@ -48,21 +29,6 @@ export default {
   img {
     padding: 4px 20px;
   }
-  .detailrouter {
-    display: flex;
-    justify-content: space-between;
-    .routers {
-      width: 120px;
-      height: 70px;
-      line-height: 70px;
-      font-size: 17px;
-      color: rgb(153, 153, 153);
-      font-weight: bold;
-      text-align: center;
-    }
-    .activeClass {
-      border-bottom: 4px solid rgb(248, 107, 107);
-    }
-  }
+ 
 }
 </style>

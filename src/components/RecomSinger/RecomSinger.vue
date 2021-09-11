@@ -1,6 +1,6 @@
 <template>
   <div class="singerInfo">
-    <recom-title :title-name="title"></recom-title>
+    <recom-title :title-name="title" @click.native='goToSinger'></recom-title>
     <div class="singer">
       <recom-singer-item
         v-for="(item, index) in recomSinger"
@@ -31,19 +31,22 @@ export default {
   components: {
     RecomSingerItem,
     RecomTitle
-  }
+  },
+  methods: {
+    goToSinger(){
+      this.$router.push('/singer')
+    }
+  },
 };
 </script>
 <style lang="less" scoped>
 .singerInfo {
-  width: 1320px;
-  height: 805px;
-  margin-left: 120px;
+  width: 1200px;
+  height: 600px;
   margin-top: 30px;
   .singer {
-      height: 780px;
-      width: 1380px;
-      margin-left: 10px;
+    width: 1200px;
+    height: 600px;
     .singeritem {
       display: flex;
       justify-content: space-around;

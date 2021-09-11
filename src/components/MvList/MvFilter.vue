@@ -84,12 +84,11 @@ export default {
 </script>
 <style lang="less" scoped>
 .mv-filter {
-  width: 1350px;
+  width: 1200px;
   height: 170px;
-  margin-left: 50px;
-  margin-top: 90px;
+  margin-top: 20px;
   .region {
-    width: 1350px;
+    width: 1200px;
     height: 50px;
     display: flex;
     flex: 1;
@@ -105,7 +104,7 @@ export default {
     }
   }
   .type {
-    width: 1350px;
+    width: 1200px;
     height: 50px;
     display: flex;
     flex: 1;
@@ -122,7 +121,7 @@ export default {
     }
   }
   .order {
-    width: 1350px;
+    width:1200px;
     height: 50px;
     display: flex;
     flex: 1;

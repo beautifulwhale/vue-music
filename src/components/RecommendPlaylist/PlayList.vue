@@ -1,6 +1,6 @@
 <template>
   <div class="recom-song">
-    <recom-title :title-name="title"></recom-title>
+    <recom-title :title-name="title" @click.native='goToPlayList'></recom-title>
     <div class="recomsongul">
       <div
         v-for="(item, index) in recomSongList"
@@ -29,6 +29,11 @@ export default {
       }
     }
   },
+  methods: {
+    goToPlayList(){
+      this.$router.push('/song')
+    }
+  },
   components: {
     PlayListItem,
     RecomTitle
@@ -37,13 +42,11 @@ export default {
 </script>
 <style lang="less" scoped>
 .recom-song {
-  width: 1400px;
-  height: 872px;
-  padding-left: 120px;
-  padding-top: 10px;
+  width: 1200px;
+  height: 650px;
   .recomsongul {
-    width: 1320px;
-    height: 872px;
+    width: 1200px;
+    height: 650px;
     padding-left: 20px;
     display: flex;
     flex-wrap: wrap;

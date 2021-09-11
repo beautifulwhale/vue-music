@@ -7,8 +7,8 @@
           <span>{{ mvListItem.artistName }}</span>
         </div>
         <div class="play">
-          <span>播放量:{{ mvListItem.playCount }}</span>
-          <span>{{ mvListItem.duration }}</span>
+          <span>播放量:{{ playCount }}</span>
+          <span>{{ duration }}</span>
         </div>
       </div>
       <div class="smokeIcon" v-show="isShowIcon">
@@ -21,6 +21,7 @@
   </div>
 </template>
 <script>
+import { FormatTime, tranNumber } from "../../utils/utils";
 export default {
   props: {
     mvListItem: {
@@ -41,9 +42,15 @@ export default {
       this.isShowIcon = false;
     }
   },
-  computed:{
-    imgUrl(){
-      return this.mvListItem.imgurl || this.mvListItem.cover
+  computed: {
+    imgUrl() {
+      return this.mvListItem.imgurl || this.mvListItem.cover;
+    },
+    duration() {
+      return FormatTime(this.mvListItem.duration / 1000);
+    },
+    playCount() {
+      return tranNumber(this.mvListItem.playCount,0);
     }
   }
 };
@@ -51,15 +58,16 @@ export default {
 <style lang="less" scoped>
 .mv-list-item {
   width: 310px;
-  height: 230px;
+  height: 210px;
+  margin-right: 40px;
   cursor: pointer;
   .img {
     width: 310px;
-    height: 178px;
+    height: 180px;
     position: relative;
     img {
       width: 100%;
-      height: 172px;
+      height: 180px;
       border-radius: 10px;
     }
     .smoke {

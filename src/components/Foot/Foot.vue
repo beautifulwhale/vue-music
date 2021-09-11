@@ -16,14 +16,10 @@
         <span class="iconfont icon-prev" @click="changeSong('up')"></span>
         <span
           class="iconfont icon-zanting"
-          v-show="isShowPlay"
-          @click="playMusic"
+          v-if="isPlay"
+          @click="isPlayMusic"
         ></span>
-        <span
-          class="iconfont icon-bofang"
-          v-show="isShowPause"
-          @click="pauseMusic"
-        ></span>
+        <span class="iconfont icon-bofang" v-else @click="isPlayMusic"></span>
         <span
           class="iconfont icon-xiayishou"
           @click="changeSong('down')"
@@ -80,6 +76,7 @@
     <current-play-list
       v-show="isShowCurrentPlay"
       class="current-play"
+      @clearPlay="clearPlay"
     ></current-play-list>
     <audio
       v-if="music.length"
@@ -87,7 +84,6 @@
       @timeupdate="getCurrentTime"
       @loadedmetadata="onLoadMetaData"
       autoplay
-      controls
       ref="audioRef"
     ></audio>
   </div>
@@ -108,8 +104,6 @@ export default {
       },
       music: [],
       musicUrl: "",
-      isShowPlay: true,
-      isShowPause: false,
       duration: 0,
       progress: 0,
       currentTime: 0,
@@ -144,17 +138,12 @@ export default {
           : Math.floor(sec / 60);
       return min + ":" + s;
     },
-    //暂停歌曲
-    pauseMusic() {
-      this.isShowPlay = true;
-      this.isShowPause = false;
-      this.$refs.audioRef.play();
-    },
-    //播放歌曲
-    playMusic() {
-      this.isShowPlay = false;
-      this.isShowPause = true;
-      this.$refs.audioRef.pause();
+    isPlayMusic() {
+      if (!this.songList.length) {
+        this.$store.commit("isPlay", false);
+      }
+      this.isPlay ? this.$refs.audioRef.pause() : this.$refs.audioRef.play();
+      this.$store.commit("isPlay", !this.$refs.audioRef.paused);
     },
     //获取时长
     onLoadMetaData(res) {
@@ -164,14 +153,20 @@ export default {
     getCurrentTime() {
       this.currentTime = parseInt(this.$refs.audioRef.currentTime);
       this.progress = parseInt((this.currentTime / this.duration) * 100);
+      if (this.currentTime === this.duration) {
+        if (this.playMode === 0) {
+          this.currentIndex--
+          this.changeSong("down");
+        } else {
+          this.changeSong();
+        }
+      }
     },
     //改变时长
     changeLong() {
       let ct = (this.progress * this.duration) / 100;
       if (!isNaN(ct)) {
         this.$refs.audioRef.currentTime = ct;
-        this.isShowPlay = true;
-        this.isShowPause = false;
         this.$refs.audioRef.play();
       }
     },
@@ -217,10 +212,15 @@ export default {
       } else if (this.playMode === 2) {
         this.$refs.audioRef.load();
       }
+    },
+    //清空列表
+    clearPlay() {
+      this.$store.state.isPlay = false;
+      this.$refs.audioRef.pause();
     }
   },
   computed: {
-    ...mapState(["playMode", "songList"]),
+    ...mapState(["playMode", "songList", "isPlay"]),
     playTime() {
       return FormatTime(this.musicInfo.musicPlayTime / 1000);
     }
@@ -234,7 +234,7 @@ export default {
   },
   components: {
     CurrentPlayList
-  },
+  }
 };
 </script>
 <style lang="less" scoped>

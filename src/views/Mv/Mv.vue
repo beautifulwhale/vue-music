@@ -64,7 +64,6 @@ export default {
         params.area
       );
       this.mvList = res.data;
-      console.log(res);
     },
     changeMv(obj) {
       if (obj.type === "region") {

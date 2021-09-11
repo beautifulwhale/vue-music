@@ -23,10 +23,9 @@ export default {
 </script>
 <style lang="less" scoped>
  .song-list {
-    width: 1320px;
-    height: 1000px;
-    padding-left: 20px;
-    margin-left: 100px;
+    width: 1200px;
+    height: 1100px;
+    margin-top: 15px;
     display: flex;
     flex-wrap: wrap;
     .song-listitem {

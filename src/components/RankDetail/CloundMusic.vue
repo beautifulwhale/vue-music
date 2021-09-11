@@ -32,10 +32,9 @@ export default {
 </script>
 <style lang="less" scoped>
 .cloudmusic{
-    width: 1350px;
-    height: 223px;
-    margin-top: 80px;
-    padding: 10px 100px;
+    width: 1200px;
+    height: 230px;
+    margin-top: 20px;
     .cloud-music-item{
         margin: 10px 0 20px 10px;
         display: flex;

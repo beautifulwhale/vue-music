@@ -30,7 +30,7 @@
         :class="[
           item1.label === '热门' ? 'other' : '',
           item1.label === '其他' ? 'other' : '',
-          nameActive === item1.label ? 'active1' : ''
+          nameActive === item1.label ? 'active' : ''
         ]"
         @click="sellectName(item1.label, item1.value)"
       >
@@ -85,69 +85,70 @@ export default {
 </script>
 <style lang="less" scoped>
 .singerfilter {
-  margin-top: 90px;
-  width: 1350px;
+  margin-top: 20px;
+  width: 1200px;
   height: 170px;
-  margin-left: 100px;
   .language-fliter {
-    width: 1350px;
+    width: 1200px;
     height: 50px;
     margin: 10px 0;
     display: flex;
     flex: 1;
+    align-items: center;
     .every-language {
       width: 70px;
-      height: 50px;
+      height: 35px;
       padding: 5px;
-      margin: 0 5px;
+      margin: 0 20px;
       text-align: center;
-      line-height: 40px;
+      line-height: 25px;
     }
   }
   .singers-filter {
-    width: 1350px;
+    width: 1200px;
     height: 50px;
     margin: 10px 0;
     display: flex;
     flex: 1;
+    align-items: center;
     .every-singers {
       width: 70px;
-      height: 50px;
+      height: 35px;
       padding: 5px;
-      margin: 0 5px;
+      margin: 0 15px;
       text-align: center;
-      line-height: 40px;
+      line-height: 25px;
     }
   }
   .name-filter {
-    width: 1350px;
+    width: 1200px;
     height: 50px;
     margin: 20px 5px;
     display: flex;
     flex: 1;
+    align-items: center;
     .every-name {
       width: 30px;
       height: 30px;
-      padding: 5px;
-      margin: 5px 5px;
+      margin: 0 7px;
       padding: 5px;
       text-align: center;
-      line-height: 30px;
+      line-height: 25px;
     }
     .other {
       width: 60px;
-      height: 50px;
+      height: 30px;
     }
   }
 }
 .active {
   color: #fff;
   background-color: rgb(245, 93, 93);
-  border-radius: 20px;
+  border-radius: 10px;
 }
-.active1 {
-  color: #fff;
-  background-color: rgb(245, 93, 93);
-  border-radius: 50%;
-}
+// .active1 {
+//   color: #fff;
+//   background-color: rgb(245, 93, 93);
+//   border-radius: 50%;
+// }
 </style>

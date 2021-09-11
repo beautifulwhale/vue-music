@@ -24,12 +24,11 @@ export default {
 </script>
 <style lang="less" scoped>
 .mvlist{
-    width: 1350px;
-    height: 860px;
-    margin-left: 50px;
+    width: 1200px;
+    height: 1100px;
     margin-top: 30px;
     display: flex;
-    justify-content: space-between;
+    flex: 1;
     flex-wrap: wrap;
 }
 </style>

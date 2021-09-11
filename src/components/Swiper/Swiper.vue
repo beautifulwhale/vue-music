@@ -49,13 +49,13 @@ export default {
 </script>
 <style lang="less" scoped>
 .el-carousel{
-  width: 1350px;
-  height: 250px;
-  margin-left:100px;
-  margin-top: 80px;
+  width: 1100px;
+  height: 300px;
+  margin-top: 20px;
   img{  
     width: 100%;
     height: 220px;
+    border-radius: 10px;
   }
 }
   .el-carousel__item  {
