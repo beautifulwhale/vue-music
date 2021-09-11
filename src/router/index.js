@@ -31,7 +31,7 @@ export default new Router({
           component:FindMusic,
           children:[
             {
-              path: '', 
+              path: '/', 
               redirect: '/recommend'
             },
             {

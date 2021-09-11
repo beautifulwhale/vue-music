@@ -7,6 +7,7 @@
       <div class="title">
         <h2>{{ songDetailsTop.name }}</h2>
       </div>
+      <!-- 作者 -->
       <div class="creator">
         <div class="imghead">
           <img :src="creator.avatarUrl" />
@@ -14,12 +15,29 @@
         <div class="nickname">{{ creator.nickname }}</div>
         <div class="create-time">{{ createTime }} 创建</div>
       </div>
-      <div class="tags">
+      <!-- 播放/收藏/分享 -->
+      <div class="operation">
+        <el-button type="danger" round size="mini" @click="playAll(songList[0].id)">
+          <span class="iconfont icon-bofang1" ></span>
+          播放全部
+        </el-button>
+        <el-button round size="mini">
+          <span class="iconfont icon-a-shoucang"></span>
+          收藏
+        </el-button>
+        <el-button round size="mini">
+          <span class="iconfont icon-fenxiang2"></span>
+          分享
+        </el-button>
+      </div>
+      <!-- 标签 -->
+      <div class="tags" >
         <span>标签:</span>
         <div class="tag-item" v-for="item in songDetailsTop.tags" :key="item">
           {{ item }}
         </div>
       </div>
+      <!-- 描述 -->
       <div class="desc">
         <span>描述:</span>
         <p>{{ songDetailsTop.description }}</p>
@@ -32,6 +50,7 @@
 </template>
 <script>
 import { dateFormat } from "../../utils/utils";
+import { mapState } from "vuex";
 export default {
   name: "DetailTop",
   props: {
@@ -47,6 +66,7 @@ export default {
     }
   },
   computed: {
+    ...mapState(["songList"]),
     createTime() {
       return dateFormat(this.songDetailsTop.createTime, "YYYY-MM-DD");
     }
@@ -54,35 +74,45 @@ export default {
   methods: {
     toggleDescClick() {
       this.$emit("toggleDescClick");
+    },
+    playAll(id) {
+      this.$bus.$emit("getMusic", id);
     }
   }
 };
 </script>
 <style lang="less">
 .details-top {
-  width: 930px;
-  height: 180px;
+  width: 1200px;
+  height: 230px;
   margin-top: 10px;
   padding: 10px 20px;
   display: flex;
-  justify-content: space-between;
+  flex: 1;
   .avatar {
+    margin-right: 30px;
     img {
-      border-radius: 10px;
-      width: 130px;
-      height: 130px;
+      width: 200px;
+      height: 200px;
     }
   }
   .content {
     width: 700px;
     height: 160px;
-    display: flex;
-    justify-content: space-between;
     flex-flow: column;
+    .title {
+      color: black;
+      margin-bottom: 10px;
+    }
     .creator {
       display: flex;
       justify-content: flex-start;
       align-items: center;
+      margin-bottom: 10px;
+      .nickname {
+        font-size: 13px;
+        color: rgb(82, 82, 253);
+      }
       .imghead {
         margin-right: 10px;
         img {
@@ -97,10 +127,18 @@ export default {
         color: gray;
       }
     }
+    .operation {
+      margin-bottom: 15px;
+    }
+    .el-button--danger {
+      background-color: red;
+      border-color: red;
+    }
     .tags {
       display: flex;
       justify-content: flex-start;
       align-items: center;
+      margin-bottom: 10px;
       span {
         margin-right: 5px;
         font-weight: bold;
@@ -126,17 +164,18 @@ export default {
       -webkit-line-clamp: 3; /** 显示的行数 **/
       overflow: hidden;
       span {
-        font-weight: bold;
+        font-size: 13px;
         margin-right: 3px;
         float: left;
       }
       p {
         font-size: 13px;
+        margin-bottom: 10px;
       }
     }
     .content-toggle {
-      font-size: 14px;
-      color: tomato;
+      font-size: 13px;
+      color: grey;
     }
   }
 }

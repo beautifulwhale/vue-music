@@ -1,37 +1,35 @@
 <template>
   <div>
-    <div class="left">
-      <el-card class="song-card">
-        <!-- 头部 -->
-        <detail-top
-          :song-details-top="songDetailList"
-          :creator="creator"
-          @toggleDescClick="toggleDescClick"
-          :content-toggle="contentToggle"
-        ></detail-top>
+    <!-- 头部 -->
+    <div class="playlist-info">
+      <detail-top
+        :song-details-top="songDetailList"
+        :creator="creator"
+        @toggleDescClick="toggleDescClick"
+        :content-toggle="contentToggle"
+      ></detail-top>
+      <!-- 文字遮罩层 -->
+      <transition>
+        <div class="smoke-mark" v-show="isShowDesc">
+          <p>{{ songDetailList.description }}</p>
+        </div>
+      </transition>
+    </div>
+    <!-- 导航栏 -->
+    <el-tabs v-model="activeName" @tab-click="handleClick">
+      <el-tab-pane label="歌曲列表" name="first">
         <detail-list :song-list="songList"></detail-list>
-        <!-- 文字遮罩层 -->
-        <transition>
-          <div class="smoke-mark" v-show="isShowDesc">
-            <p>{{ songDetailList.description }}</p>
-          </div>
-        </transition>
-      </el-card>
-    </div>
-    <div class="right">
-      <!-- 喜欢歌单 -->
-      <el-card class="like-card">
+      </el-tab-pane>
+      <el-tab-pane label="评论" name="second">
+        <comments :comment-list="commentList" :hot-comment-list='hotCommentList'></comments>
+      </el-tab-pane>
+      <el-tab-pane label="收藏者" name="third">
         <collect-list :like-list="likeList"></collect-list>
-      </el-card>
-      <!-- 推荐歌单 -->
-      <el-card class="related-card">
+      </el-tab-pane>
+      <el-tab-pane label="推荐歌单" name="fourth">
         <related :related-play-list="relatedPlayList"></related>
-      </el-card>
-      <!-- 热门评论 -->
-      <el-card class="comment-card">
-        <comments :comment-list="commentList"></comments>
-      </el-card>
-    </div>
+      </el-tab-pane>
+    </el-tabs>
   </div>
 </template>
 <script>
@@ -58,8 +56,11 @@ export default {
       likeList: [],
       relatedPlayList: [],
       commentList: [],
+      //精彩评论
+      hotCommentList:[],
       contentToggle: "全部",
-      isShowDesc: false
+      isShowDesc: false,
+      activeName: "first"
     };
   },
   methods: {
@@ -79,6 +80,8 @@ export default {
     async getSongDetails(id) {
       const result = await getSongDetails(id);
       this.songList = result.songs;
+      console.log(result)
+      this.$store.commit('getSongList',this.songList)
     },
     async getPlayListCollect(id) {
       const res = await getPlayListCollect(id);
@@ -91,6 +94,7 @@ export default {
     async getComment(id) {
       const res = await getComment(id);
       this.commentList = res.comments;
+      this.hotCommentList = res.hotComments
     },
     toggleDescClick() {
       this.isShowDesc = !this.isShowDesc;
@@ -98,6 +102,8 @@ export default {
       if (!this.isShowDesc) {
         this.contentToggle = "全部";
       }
+    },
+    handleClick(tab, event) {
     }
   },
   created() {
@@ -141,47 +147,39 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-.left {
-  width: 950px;
-  margin: 90px 15px 0 80px;
-  .song-card {
-    width: 950px;
-    border-radius: 10px;
-    box-shadow: 0 0 5px gray;
-    position: relative;
-    .smoke-mark {
-      position: absolute;
-      width: 683px;
-      padding: 10px;
-      background-color: #fff;
-      top: 140px;
-      left: 270px;
-      box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
-    }
-  }
-}
-.right {
-  width: 380px;
+.playlist-info {
+  width: 1200px;
   margin-top: 90px;
-  margin-right: 100px;
-  .like-card {
-    width: 380px;
-    border-radius: 10px;
-    box-shadow: 0 0 5px gray;
-  }
-  .related-card {
-    width: 380px;
-    border-radius: 10px;
-    box-shadow: 0 0 5px gray;
-    margin-top: 20px;
-  }
-  .comment-card {
-    margin-top: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 5px gray;
-    margin-top: 20px;
+  position: relative;
+  .smoke-mark {
+    position: absolute;
+    width: 683px;
+    padding: 10px;
+    background-color: #fff;
+    top: 140px;
+    left: 270px;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
   }
 }
+
+// .like-card {
+//   width: 380px;
+//   border-radius: 10px;
+//   box-shadow: 0 0 5px gray;
+// }
+// .related-card {
+//   width: 380px;
+//   border-radius: 10px;
+//   box-shadow: 0 0 5px gray;
+//   margin-top: 20px;
+// }
+// .comment-card {
+//   margin-top: 20px;
+//   border-radius: 10px;
+//   box-shadow: 0 0 5px gray;
+//   margin-top: 20px;
+// }
+
 .v-enter,
 .v-leave-to {
   opacity: 0; /*透明度*/

@@ -8,7 +8,7 @@
       v-for="(item, index) in relatedPlayList"
       :key="index"
       :related-item="item"
-      class='related-item'
+      class="related-item"
     ></related-item>
   </div>
 </template>
@@ -28,15 +28,22 @@ export default {
 </script>
 <style lang="less" scoped>
 .related-list {
-  width: 380px;
+  width: 1000px;
   .recom-song {
-    font-size: 14px;
+    .iconfont{
+      font-size: 25px;
+      color: black;
+    }
     span {
       margin-left: 3px;
+      color: black;
+      font-size: 18px;
     }
   }
-//   .related-item{
-
-//   }
+  .related-item {
+    width: 400px;
+    height: 200px;
+   
+  }
 }
 </style>

@@ -42,30 +42,32 @@ export default {
 </script>
 <style lang="less" scoped>
 .relate {
-  width: 310px;
-  height: 54px;
-  margin: 15px;
+  width: 400px;
+  height: 200px;
+  margin-right: 50px;
+  margin-top: 30px;
   cursor: pointer; 
   .avatar {
-    width: 50px;
+    width: 150px;
+    height: 150px;
     margin-right: 15px;
     float: left;
     img {
-      width: 50px;
-      height: 54px;
+      width: 150px;
+      height: 150px;
       border-radius: 10px;
     }
   }
   .name {
-    height: 54px;
-    width: 240px;
-    margin-left: 60px;
+    height: 150px;
+    width: 250px;
+    margin-left: 160px;
     .songname {
       font-weight: bold;
       margin-bottom: 15px;
-      text-overflow: ellipsis;
-      overflow: hidden;
-      white-space: nowrap;
+      // text-overflow: ellipsis;
+      // overflow: hidden;
+      // white-space: nowrap;
     }
     .nickname {
       font-size: 12px;
