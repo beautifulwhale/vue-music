@@ -28,14 +28,22 @@ export default {};
 .find-music {
   width: 1200px;
   height: 3000px;
+  position: relative;
   .detailrouter {
-    width: 500px;
-    height: 30px;
+    width: 1200px;
+    height: 70px;
     display: flex;
-    justify-content: space-between;
+    flex: 1;
+    align-items: center;
+    background-color: #ffffff;
+    position: fixed;
+    top: 70px;
+    left: 300px;
+    z-index: 999;
     .routers {
       width: 80px;
       height: 30px;
+      margin-left: 20px;
       line-height: 30px;
       font-size: 15px;
       color: black;

@@ -34,7 +34,7 @@ export default {
 .cloudmusic{
     width: 1200px;
     height: 230px;
-    margin-top: 20px;
+    margin-top: 90px;
     .cloud-music-item{
         margin: 10px 0 20px 10px;
         display: flex;

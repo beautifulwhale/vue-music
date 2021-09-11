@@ -40,9 +40,9 @@ export default {
 </script>
 <style lang="less" scoped>
 .singer-desc {
-  width: 1350px;
+  width: 1200px;
   height: 367px;
-  margin: 80px auto 0;
+  margin: 90px auto 0;
   display: flex;
   flex-flow: column;
   justify-content: space-around;

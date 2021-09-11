@@ -181,13 +181,14 @@ export default {
   }
   .mv {
     width: 1000px;
+    margin-top: 30px;
     display: flex;
-    justify-content: space-between;
+    flex: 1;
     flex-wrap: wrap;
     .mvitem {
-      width: 230px;
-      height: 192px;
-      margin: 20px;
+      width: 310px;
+      height: 210px;
+      margin-right: 23px;
     }
   }
   .singer-desc{

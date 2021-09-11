@@ -85,7 +85,7 @@ export default {
 </script>
 <style lang="less" scoped>
 .singerfilter {
-  margin-top: 20px;
+  margin-top: 90px;
   width: 1200px;
   height: 170px;
   .language-fliter {

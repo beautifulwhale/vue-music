@@ -107,7 +107,7 @@ export default {
 </script>
 <style lang="less" scoped>
 .works-card {
-  width: 1350px;
+  width: 1100px;
   margin: 0 auto;
   .works {
     width: 1040px;

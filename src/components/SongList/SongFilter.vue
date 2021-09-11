@@ -88,7 +88,7 @@ export default {
 </script>
 <style lang="less" scoped>
 .song-filter {
-  margin-top: 20px;
+  margin-top: 90px;
   width: 1200px;
   height: 60px;
   background-color: #fff;
