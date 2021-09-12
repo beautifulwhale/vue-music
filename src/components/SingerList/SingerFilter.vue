@@ -86,10 +86,10 @@ export default {
 <style lang="less" scoped>
 .singerfilter {
   margin-top: 90px;
-  width: 1200px;
+  width: 1300px;
   height: 170px;
   .language-fliter {
-    width: 1200px;
+    width: 1300px;
     height: 50px;
     margin: 10px 0;
     display: flex;
@@ -105,7 +105,7 @@ export default {
     }
   }
   .singers-filter {
-    width: 1200px;
+    width: 1300px;
     height: 50px;
     margin: 10px 0;
     display: flex;
@@ -121,7 +121,7 @@ export default {
     }
   }
   .name-filter {
-    width: 1200px;
+    width: 1300px;
     height: 50px;
     margin: 20px 5px;
     display: flex;
@@ -146,9 +146,4 @@ export default {
   background-color: rgb(245, 93, 93);
   border-radius: 10px;
 }
-// .active1 {
-//   color: #fff;
-//   background-color: rgb(245, 93, 93);
-//   border-radius: 50%;
-// }
 </style>

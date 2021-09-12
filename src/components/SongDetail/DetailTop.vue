@@ -3,7 +3,7 @@
     <div class="avatar">
       <img :src="songDetailsTop.coverImgUrl" />
     </div>
-    <div class="content">
+    <div class="content" v-if="Object.keys(songDetailsTop).length !== 0">
       <div class="title">
         <h2>{{ songDetailsTop.name }}</h2>
       </div>
@@ -17,8 +17,13 @@
       </div>
       <!-- 播放/收藏/分享 -->
       <div class="operation">
-        <el-button type="danger" round size="mini" @click="playAll(songList[0].id)">
-          <span class="iconfont icon-bofang1" ></span>
+        <el-button
+          type="danger"
+          round
+          size="mini"
+          @click="playAll(songList[0].id)"
+        >
+          <span class="iconfont icon-bofang1"></span>
           播放全部
         </el-button>
         <el-button round size="mini">
@@ -31,7 +36,7 @@
         </el-button>
       </div>
       <!-- 标签 -->
-      <div class="tags" >
+      <div class="tags" v-if="songDetailsTop.tags.length !== 0">
         <span>标签:</span>
         <div class="tag-item" v-for="item in songDetailsTop.tags" :key="item">
           {{ item }}

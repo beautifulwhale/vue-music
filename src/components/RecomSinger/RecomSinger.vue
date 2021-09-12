@@ -41,11 +41,11 @@ export default {
 </script>
 <style lang="less" scoped>
 .singerInfo {
-  width: 1200px;
+  width: 1300px;
   height: 600px;
   margin-top: 30px;
   .singer {
-    width: 1200px;
+    width: 1300px;
     height: 600px;
     .singeritem {
       display: flex;

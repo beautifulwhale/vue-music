@@ -102,7 +102,7 @@ export default {
 .paging {
   width: 500px;
   height: 80px;
-  margin: 50px auto;
+  margin: 80px auto;
   background-color: #fff;
   display: flex;
   justify-content: space-around;

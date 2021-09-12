@@ -80,7 +80,6 @@ export default {
     async getSongDetails(id) {
       const result = await getSongDetails(id);
       this.songList = result.songs;
-      console.log(result)
       this.$store.commit('getSongList',this.songList)
     },
     async getPlayListCollect(id) {

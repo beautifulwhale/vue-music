@@ -87,6 +87,7 @@ export default {
   width: 1200px;
   height: 170px;
   margin-top: 90px;
+  margin-left: 50px;
   .region {
     width: 1200px;
     height: 50px;

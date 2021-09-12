@@ -55,7 +55,7 @@ export default {
     height: 100px;
     margin-bottom: 30px;
     .textarea {
-      width: 1200px;
+      width: 1180px;
       height: 70px;
     }
     .comment-button{

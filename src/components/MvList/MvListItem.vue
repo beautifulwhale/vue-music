@@ -59,7 +59,8 @@ export default {
 .mv-list-item {
   width: 310px;
   height: 210px;
-  margin-right: 40px;
+  margin-right: 70px;
+  margin-bottom: 20px;
   cursor: pointer;
   .img {
     width: 310px;

@@ -5,7 +5,6 @@
       <i class="iconfont icon-daosanjiao"></i>
     </div>
     <div class="hotlabel">
-      <span>热门标签:</span>
       <span
         v-for="(item, index) in hotSongCategories"
         :key="index"
@@ -110,7 +109,7 @@ export default {
   .hotlabel {
     flex: 10;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-evenly;
   }
 }
 .acitveClass {

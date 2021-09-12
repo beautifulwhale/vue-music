@@ -14,9 +14,6 @@
       <router-link class="routers" active-class="activeClass" to="/singer"
         >歌手</router-link
       >
-      <router-link class="routers" active-class="activeClass" to="/mv"
-        >MV</router-link
-      >
     </div>
     <div class="content"><router-view></router-view></div>
   </div>
@@ -26,8 +23,8 @@ export default {};
 </script>
 <style lang="less" scoped>
 .find-music {
-  width: 1200px;
-  height: 3000px;
+  width: 1300px;
+  // height: 3000px;
   position: relative;
   .detailrouter {
     width: 1200px;
@@ -38,7 +35,7 @@ export default {};
     background-color: #ffffff;
     position: fixed;
     top: 70px;
-    left: 300px;
+    left: 200px;
     z-index: 999;
     .routers {
       width: 80px;
