@@ -4,7 +4,7 @@
       <img :src="singerItem.picUrl" />
     </div>
     <div class="name">{{ singerItem.name }}</div>
-    <div class="music-size">单曲:{{ singerItem.musicSize }}</div>
+    <div class="music-size" v-if="singerItem.musicSize">单曲:{{ singerItem.musicSize }}</div>
   </div>
 </template>
 <script>

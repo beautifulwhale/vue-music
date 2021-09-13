@@ -24,7 +24,6 @@ export default {};
 <style lang="less" scoped>
 .find-music {
   width: 1300px;
-  // height: 3000px;
   position: relative;
   .detailrouter {
     width: 1200px;
@@ -36,7 +35,7 @@ export default {};
     position: fixed;
     top: 70px;
     left: 200px;
-    z-index: 999;
+    z-index: 3;
     .routers {
       width: 80px;
       height: 30px;

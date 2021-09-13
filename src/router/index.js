@@ -13,6 +13,7 @@ const DetailMv = () => import('../views/Mv/DetailMv.vue')
 const VideoDetails = () => import('../views/VideoDetails/VideoDetails.vue')
 const SongDetails = () => import('../views/SongDetails/SongDetails.vue')
 const SingerDetails = () => import('../views/SingerDetails/SingerDetails.vue')
+const SearchList = () => import('../views/SearchList/SearchList.vue')
 
 
 export default new Router({
@@ -68,22 +69,26 @@ export default new Router({
           component: Video,
           children: [
             {
-              path:'',
-              redirect:'/mv'
+              path: '',
+              redirect: '/mv'
             },
             {
               path: '/mv',
               component: Mv
             },
             {
-              path:'/detailmv',
-              component:DetailMv
+              path: '/detailmv',
+              component: DetailMv
             },
             {
-              path:'/videodetails',
-              component:VideoDetails
+              path: '/videodetails',
+              component: VideoDetails
             }
           ]
+        },
+        {
+          path: '/search',
+          component: SearchList
         }
       ]
     }

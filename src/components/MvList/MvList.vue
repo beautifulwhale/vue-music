@@ -25,7 +25,7 @@ export default {
 <style lang="less" scoped>
 .mvlist{
     width: 1200px;
-    height: 1200px;
+    // height: 1200px;
     margin-top: 30px;
     margin-left: 50px;
     display: flex;

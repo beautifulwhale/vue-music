@@ -33,7 +33,7 @@ export default {};
     position: fixed;
     top: 70px;
     left: 200px;
-    z-index: 999;
+    z-index: 3;
     .routers {
       width: 80px;
       height: 30px;

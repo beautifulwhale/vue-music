@@ -6,7 +6,7 @@
   </div>
 </template>
 <script>
-import Search from "@/components/Header/Search";
+import Search from '@/components/Search/Search'
 export default {
   components: {
     Search
@@ -24,10 +24,11 @@ export default {
   z-index: 9;
   background-color: #fff;
   display: flex;
-  justify-content: space-between;
+  flex: 1;
   box-shadow: 2px 0 1px rgba(0, 0, 0, 0.8);
   img {
     padding: 4px 20px;
+    margin-right: 150px;
   }
  
 }

@@ -16,7 +16,10 @@
     <!-- 专辑 -->
     <div class="album" v-show="isShowAlbum">
       <div class="album-item" v-for="(item, index) in singerAlbum" :key="index">
-        <play-list-item :recom-song-item="item"></play-list-item>
+        <play-list-item
+          :recom-song-item="item"
+          @click.native="getPlayList(item.id)"
+        ></play-list-item>
       </div>
       <!-- 分页 -->
       <div class="page">
@@ -129,6 +132,9 @@ export default {
     },
     pageDown() {
       this.$emit("pageDown");
+    },
+    getPlayList(id) {
+      this.$router.push({ path: "/songdetails", query: { id: id } });
     }
   },
   computed: {},
@@ -191,21 +197,21 @@ export default {
       margin-right: 23px;
     }
   }
-  .singer-desc{
+  .singer-desc {
     width: 1000px;
     margin-top: 20px;
-    .brief-desc{
+    .brief-desc {
       margin-bottom: 30px;
-      h2{
+      h2 {
         margin-bottom: 10px;
       }
-      >div{
-        text-indent:2em;
+      > div {
+        text-indent: 2em;
       }
     }
-    .detail-desc{
+    .detail-desc {
       margin-bottom: 30px;
-      h2{
+      h2 {
         margin-bottom: 10px;
       }
     }
