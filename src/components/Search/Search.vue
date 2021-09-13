@@ -5,15 +5,19 @@
       v-model="keywords"
       class="input-with-select"
       @focus="focusEvent"
-      @blur="blurEvent"
     >
+      <!-- @blur="blurEvent" -->
       <el-button
         slot="append"
         icon="el-icon-search"
         @click="searchContent"
       ></el-button>
     </el-input>
-    <hot-search :hot-search="hotSearch" v-show="isShowHotSearch"></hot-search>
+    <hot-search
+      :hot-search="hotSearch"
+      v-show="isShowHotSearch"
+      @searchHot="searchHot"
+    ></hot-search>
   </div>
 </template>
 <script>
@@ -40,18 +44,28 @@ export default {
     async getHotSearch() {
       const res = await getHotSearch();
       this.hotSearch = res.data;
-      console.log(res)
     },
     searchContent() {
       this.$router.push({
         path: "/search",
         query: { keywords: this.keywords }
       });
+      this.$bus.$emit('changeSearch', this.keywords);
+      this.isShowHotSearch = false
     },
     focusEvent() {
       this.isShowHotSearch = true;
     },
-    blurEvent() {
+    // blurEvent() {
+    //   this.isShowHotSearch = false;
+    // },
+    searchHot(keywords) {
+      this.keywords = keywords
+      this.$router.push({
+        path: "/search",
+        query: { keywords: keywords }
+      });
+      this.$bus.$emit('changeSearch', keywords);
       this.isShowHotSearch = false;
     }
   },
@@ -61,7 +75,8 @@ export default {
   },
   components: {
     HotSearch
-  }
+  },
+  mounted() {}
 };
 </script>
 <style lang="less" scoped>

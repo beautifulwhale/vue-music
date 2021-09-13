@@ -1,5 +1,13 @@
 <template>
   <div>
+    <div class="title">
+      <h3 v-if="activeName === 'first'">找到{{ songCount }}首单曲</h3>
+      <h3 v-if="activeName === 'second'">找到{{ artistCount }}位歌手</h3>
+      <h3 v-if="activeName === 'third'">找到{{ albumCount }}张专辑</h3>
+      <h3 v-if="activeName === 'fourth'">找到{{ mvCount }}个视频</h3>
+      <h3 v-if="activeName === 'fifth'">找到{{ playlistCount }}个歌单</h3>
+      <h3 v-if="activeName === 'sixth'">找到{{ userCount }}位用户</h3>
+    </div>
     <el-tabs v-model="activeName" @tab-click="handleClick">
       <el-tab-pane label="单曲" name="first">
         <songs :songs="songs"></songs>
@@ -14,11 +22,10 @@
         <mvs :mvs="mvs"></mvs>
       </el-tab-pane>
       <el-tab-pane label="歌单" name="fifth">
-          <play-lists :play-lists='playlists'></play-lists>
+        <play-lists :play-lists="playlists"></play-lists>
       </el-tab-pane>
-      <el-tab-pane label="歌词" name="sixth">bbbb</el-tab-pane>
-      <el-tab-pane label="用户" name="senventh">
-          <users :users='users'></users>
+      <el-tab-pane label="用户" name="sixth">
+        <users :users="users"></users>
       </el-tab-pane>
     </el-tabs>
   </div>
@@ -28,10 +35,9 @@
 import Songs from "@/views/SearchList/Songs";
 import Albums from "@/views/SearchList/Albums";
 import Artists from "@/views/SearchList/Artists";
-import Lyrics from "@/views/SearchList/Lyrics";
 import PlayLists from "@/views/SearchList/PlayLists";
 import Users from "@/views/SearchList/Users";
-import Mvs from '@/views/SearchList/Mvs'
+import Mvs from "@/views/SearchList/Mvs";
 import { getSearchCotent } from "../../network/search";
 export default {
   data() {
@@ -62,6 +68,7 @@ export default {
   methods: {
     handleClick(targetName) {
       if (targetName.paneName == "first") {
+        this.queryInfo.type = 1;
         this.getSearchCotent(this.queryInfo);
       } else if (targetName.paneName == "second") {
         this.queryInfo.type = 100;
@@ -76,9 +83,6 @@ export default {
         this.queryInfo.type = 1000;
         this.getSearchCotent(this.queryInfo);
       } else if (targetName.paneName == "sixth") {
-        this.queryInfo.type = 1006;
-        this.getSearchCotent(this.queryInfo);
-      } else if (targetName.paneName == "senventh") {
         this.queryInfo.type = 1002;
         this.getSearchCotent(this.queryInfo);
       }
@@ -91,7 +95,7 @@ export default {
         params.offset,
         params.type
       );
-    //   console.log(res);
+      // console.log(res);
       const data = res.result;
       this.songs = data.songs;
       this.songCount = data.songCount;
@@ -113,18 +117,24 @@ export default {
     Songs,
     Albums,
     Artists,
-    Lyrics,
     PlayLists,
     Users,
     Mvs
   },
-
   mounted() {
     this.queryInfo.keywords = this.$route.query.keywords;
-    console.log(this.queryInfo.keywords);
+    this.$bus.$on("changeSearch", keywords => {
+      this.queryInfo.keywords = keywords;
+    });
     this.getSearchCotent(this.queryInfo);
   }
 };
 </script>
 <style lang="less" scoped>
+.title {
+  width: 200px;
+  height: 40px;
+  color: black;
+  line-height: 40px;
+}
 </style>

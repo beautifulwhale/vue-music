@@ -1,5 +1,5 @@
 <template>
-  <div class="hot-search-item" @click="searchHot(hotSearchItem.searchWord)">
+  <div class="hot-search-item">
     <div
       class="number"
       :class="number === 1 || number === 2 || number === 3 ? 'active' : ''"
@@ -32,14 +32,7 @@ export default {
       default: 0
     }
   },
-  methods: {
-    searchHot(keywords) {
-      this.$router.push({
-        path: "/search",
-        query: { keywords: keywords }
-      });
-    }
-  }
+
 };
 </script>
 <style lang="less" scoped>

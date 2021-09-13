@@ -4,6 +4,7 @@
     <div class="hotsearch-item">
       <div class="search-item" v-for="(item, index) in hotSearch" :key="index">
         <hot-search-item
+          @click.native="searchHot(item.searchWord)"
           :hot-search-item="item"
           :number="index + 1"
         ></hot-search-item>
@@ -22,6 +23,13 @@ export default {
   },
   components: {
     HotSearchItem
+  },
+  methods: {
+    searchHot(keywords) {
+      console.log('ABCD')
+      this.$emit('searchHot',keywords);
+
+    }
   }
 };
 </script>
@@ -40,9 +48,5 @@ export default {
     display: none;
     width: 0;
   }
-//   ::-webkit-scrollbar {
-//     /*隐藏滚轮*/
-//     display: none;
-//   }
 }
 </style>

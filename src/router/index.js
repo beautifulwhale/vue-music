@@ -20,7 +20,7 @@ export default new Router({
   routes: [
     {
       path: '/',
-      redirect: '/home'
+      redirect: '/findmusic'
     },
     {
       path: '/home',

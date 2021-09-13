@@ -25,7 +25,6 @@ export default {
   },
   methods: {
     getUserMessage(row) {
-      console.log(row);
       this.$router.push({ path: "/singerdetails", query: { id: row.userId } });
     }
   }
