@@ -22,7 +22,12 @@
 </template>
 <script>
 import HotSearch from "@/components/Search/HotSearch";
-import { getDefaultKeyWords, getHotSearch } from "../../network/search";
+import {
+  getDefaultKeyWords,
+  getHotSearch,
+  getSearchCotent
+} from "../../network/search";
+
 export default {
   data() {
     return {
@@ -50,22 +55,19 @@ export default {
         path: "/search",
         query: { keywords: this.keywords }
       });
-      this.$bus.$emit('changeSearch', this.keywords);
-      this.isShowHotSearch = false
+      this.$bus.$emit("changeSearch", this.keywords);
+      this.isShowHotSearch = false;
     },
     focusEvent() {
       this.isShowHotSearch = true;
     },
-    // blurEvent() {
-    //   this.isShowHotSearch = false;
-    // },
     searchHot(keywords) {
-      this.keywords = keywords
+      this.keywords = keywords;
       this.$router.push({
         path: "/search",
         query: { keywords: keywords }
       });
-      this.$bus.$emit('changeSearch', keywords);
+      this.$bus.$emit("changeSearch", keywords);
       this.isShowHotSearch = false;
     }
   },

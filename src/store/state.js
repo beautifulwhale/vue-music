@@ -3,5 +3,7 @@ export default {
     playMode:0,
     songList:[],
     //是否播放
-    isPlay:true
+    isPlay:true,
+    //排行云音乐显示(失败了)
+    cloudPlayList:[]
 }

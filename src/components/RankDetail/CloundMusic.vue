@@ -1,18 +1,14 @@
 <template>
   <div class="cloudmusic">
     <recom-title :title-name="title"></recom-title>
-    <div class="cloud-music-item">
-      <rank-item
-        v-for="(item, index) in cloudList"
-        :key="index"
-        :rank-item="item"
-      ></rank-item>
+    <div class="cloud-music-item" v-for="item in cloudList" :key="item.id">
+      <cloud-music-item :cloud-item="item"></cloud-music-item>
     </div>
   </div>
 </template>
 <script>
-import RankItem from "@/components/RankDetail/RankItem";
 import RecomTitle from "@/components/RecomTitle/RecomTitle";
+import CloudMusicItem from "@/components/RankDetail/CloudMusicItem";
 export default {
   data() {
     return {
@@ -24,21 +20,29 @@ export default {
       type: Array
     }
   },
+  methods: {
+    getCloudPlay(id) {
+      this.$router.push({ path: "/songdetails", query: { id: id } });
+    }
+  },
   components: {
     RecomTitle,
-    RankItem
+    CloudMusicItem
   }
 };
 </script>
 <style lang="less" scoped>
-.cloudmusic{
+.cloudmusic {
+  width: 1200px;
+  height: 900px;
+  margin-top: 70px;
+  margin-left: 50px;
+  .cloud-music-item {
     width: 1200px;
-    height: 230px;
-    margin-top: 90px;
-    .cloud-music-item{
-        margin: 10px 0 20px 10px;
-        display: flex;
-        flex: 1;
-    }
+    height: 250px;
+    margin-bottom: 30px;
+    margin-left: 20px;
+ 
+  }
 }
 </style>

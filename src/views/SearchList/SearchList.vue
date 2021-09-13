@@ -8,7 +8,11 @@
       <h3 v-if="activeName === 'fifth'">找到{{ playlistCount }}个歌单</h3>
       <h3 v-if="activeName === 'sixth'">找到{{ userCount }}位用户</h3>
     </div>
-    <el-tabs v-model="activeName" @tab-click="handleClick">
+    <el-tabs
+      v-model="activeName"
+      @tab-click="handleClick"
+      v-if="queryInfo.keywords !== ''"
+    >
       <el-tab-pane label="单曲" name="first">
         <songs :songs="songs"></songs>
       </el-tab-pane>
@@ -28,6 +32,11 @@
         <users :users="users"></users>
       </el-tab-pane>
     </el-tabs>
+    <el-image
+      style="width: 100px; height: 100px"
+      src="../../assets/image/load.gif"
+      v-else
+    ></el-image>
   </div>
 </template>
 <script>
@@ -59,8 +68,6 @@ export default {
       mvCount: 0,
       playlists: [],
       playlistCount: 0,
-      lyrics: [],
-      lyricsCount: 0,
       users: [],
       userCount: 0
     };
@@ -107,8 +114,6 @@ export default {
       this.mvCount = data.mvCount;
       this.playlists = data.playlists;
       this.playlistCount = data.playlistCount;
-      this.lyrics = data.songs;
-      this.lyricsCount = data.songCount;
       this.users = data.userprofiles;
       this.userCount = data.userprofileCount;
     }

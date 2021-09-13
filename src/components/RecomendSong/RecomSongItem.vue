@@ -1,5 +1,11 @@
 <template>
-  <div class="song" @mouseenter="enter" @mouseleave="leave" :class="{active:isShow}">
+  <div
+    class="song"
+    @mouseenter="enter"
+    @mouseleave="leave"
+    :class="{ active: isShow }"
+    @click="getMusic(songItem.id)"
+  >
     <img :src="songItem.picUrl" />
     <div class="name">{{ songItem.name }}</div>
     <div class="album">{{ songItem.song.album.name }}</div>
@@ -18,17 +24,20 @@ export default {
   },
   data() {
     return {
-      isShow:false
-    }
+      isShow: false
+    };
   },
   methods: {
-    enter(){
-      this.isShow = true
+    enter() {
+      this.isShow = true;
     },
-    leave(){
-      this.isShow = false
+    leave() {
+      this.isShow = false;
+    },
+    getMusic(id) {
+      this.$bus.$emit("getMusic", id);
     }
-  },
+  }
 };
 </script>
 <style lang="less" scoped>
@@ -42,30 +51,30 @@ export default {
   box-shadow: 0 1px 2px #000, 0 0 1px #000, 0 0 1px #000;
   border-radius: 5px;
   cursor: pointer;
-img {
-  width: 35px;
-  height: 35px;
+  img {
+    width: 35px;
+    height: 35px;
+  }
+  .name {
+    line-height: 75px;
+    max-width: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .album {
+    line-height: 75px;
+    max-width: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .artists {
+    line-height: 75px;
+    font-weight: bold;
+  }
 }
-.name {
-  line-height: 75px;
-  max-width: 100px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-.album {
-  line-height: 75px;
-  max-width: 100px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-.artists {
-  line-height: 75px;
-  font-weight: bold;
-}
-}
-.active{
+.active {
   background-color: gainsboro;
   color: white;
 }

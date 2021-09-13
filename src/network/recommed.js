@@ -1,4 +1,11 @@
 import { request } from './request'
+//轮播图
+export function getBanner(type) {
+    return request({
+        url: "/banner",
+        params:{type}
+    })
+}
 //推荐歌单
 export function getRecomPlayList() {
     return request({

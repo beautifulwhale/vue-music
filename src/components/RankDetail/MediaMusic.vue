@@ -34,6 +34,7 @@ export default {
 .mediamusic{
     width: 1200px;
     height: 1000px;
+    margin-left: 50px;
     .media-music-item{
         margin: 10px 0 20px 10px;
         display: flex;

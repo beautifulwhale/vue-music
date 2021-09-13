@@ -11,5 +11,9 @@ export default {
     },
     isPlay(state,flag){
         state.isPlay = flag
+    },
+    getCloudPlayList(state,payload){
+        state.cloudPlayList = payload
+        console.log(state.cloudPlayList)
     }
 }
