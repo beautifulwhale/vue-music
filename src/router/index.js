@@ -14,8 +14,7 @@ const VideoDetails = () => import('../views/VideoDetails/VideoDetails.vue')
 const SongDetails = () => import('../views/SongDetails/SongDetails.vue')
 const SingerDetails = () => import('../views/SingerDetails/SingerDetails.vue')
 const SearchList = () => import('../views/SearchList/SearchList.vue')
-
-
+const Login = () => import('../views/Login/Login.vue')
 export default new Router({
   routes: [
     {
@@ -25,6 +24,9 @@ export default new Router({
     {
       path: '/home',
       component: Home,
+      // meta: {
+      //   isLogin: true
+      // },
       children: [
         {
           path: '/',
@@ -40,7 +42,16 @@ export default new Router({
             },
             {
               path: '/recommend',
-              component: Recommend
+              component: Recommend,
+              children: [
+                {
+                  path: '/login',
+                  component: Login,
+                  // meta: {
+                  //   isLogin: false
+                  // },
+                },
+              ]
             },
             {
               path: '/rank',
@@ -60,8 +71,7 @@ export default new Router({
             {
               path: '/singerdetails',
               component: SingerDetails
-            }
-
+            },
           ]
         },
         {
@@ -89,7 +99,8 @@ export default new Router({
         {
           path: '/search',
           component: SearchList
-        }
+        },
+
       ]
     }
   ]

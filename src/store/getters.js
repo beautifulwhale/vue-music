@@ -4,5 +4,5 @@ export default {
         if (state.songList != null) {
             return state.songList.length
         }
-    }
+    },
 }

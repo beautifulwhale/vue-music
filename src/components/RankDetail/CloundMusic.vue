@@ -20,11 +20,7 @@ export default {
       type: Array
     }
   },
-  methods: {
-    getCloudPlay(id) {
-      this.$router.push({ path: "/songdetails", query: { id: id } });
-    }
-  },
+  methods: {},
   components: {
     RecomTitle,
     CloudMusicItem
@@ -34,15 +30,14 @@ export default {
 <style lang="less" scoped>
 .cloudmusic {
   width: 1200px;
-  height: 900px;
+  height: 1400px;
   margin-top: 70px;
   margin-left: 50px;
   .cloud-music-item {
     width: 1200px;
-    height: 250px;
-    margin-bottom: 30px;
+    height: 320px;
+    // margin-bottom: 30px;
     margin-left: 20px;
- 
   }
 }
 </style>

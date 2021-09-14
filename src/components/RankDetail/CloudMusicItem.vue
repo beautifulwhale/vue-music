@@ -1,7 +1,7 @@
 <template>
   <div class="cloud-item">
-    <img :src="cloudItem.coverImgUrl" />
-    <el-table :data="cloudSongs" stripe style="width: 800px">
+    <img :src="cloudItem.coverImgUrl" @click="getCloudPlay(cloudItem.id)" />
+    <el-table :data="cloudSongs" stripe style="width: 800px" @row-click="getMusic" class="customer-table">
       <el-table-column width="20px">
         <template slot-scope="scope">
           {{ scope.$index + 1 }}
@@ -32,7 +32,12 @@ export default {
     async getPlayListDetails(id) {
       const res = await getPlayListDetails(id);
       this.cloudSongs = res.playlist.tracks.splice(0, 5);
-      console.log(this.cloudSongs);
+    },
+    getCloudPlay(id) {
+      this.$router.push({ path: "/songdetails", query: { id: id } });
+    },
+    getMusic(row){
+      this.$bus.$emit('getMusic', row.id);
     }
   },
   created() {
@@ -41,24 +46,18 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-.cloud-item{
-     width: 1200px;
+.cloud-item {
+  width: 1200px;
+  height: 320px;
+  display: flex;
+  justify-content: space-between;
+  img {
+    width: 250px;
     height: 250px;
-    display: flex;
-    justify-content: space-between;
-    img {
-       width: 200px;
-       height: 200px;
-       border-radius: 10px;
-       margin-right: 30px;
-     }
-     .el-table{
-         padding-top: -80px;
-     }
-     .el-table__header-wrapper{
-        //  display: none;
-        height: 0;
-     }
+    border-radius: 10px;
+    margin-right: 30px;
+    margin-top: 40px;
+  }
 }
 
 </style>

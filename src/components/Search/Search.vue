@@ -60,7 +60,11 @@ export default {
     },
     focusEvent() {
       this.isShowHotSearch = true;
+      // this.searchHot(this.keywords)
     },
+    // blurEvent(){
+    //   this.isShowHotSearch = false;
+    // },
     searchHot(keywords) {
       this.keywords = keywords;
       this.$router.push({

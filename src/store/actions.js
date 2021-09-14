@@ -4,5 +4,8 @@ export default {
     },
     getCloudPlayList({ commit }, payload) {
         commit('getCloudPlayList', payload);
+    },
+    updataLogin({commit},flag){
+        commit('LoginStatus',flag)
     }
 }

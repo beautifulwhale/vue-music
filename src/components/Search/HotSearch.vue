@@ -26,7 +26,6 @@ export default {
   },
   methods: {
     searchHot(keywords) {
-      console.log('ABCD')
       this.$emit('searchHot',keywords);
 
     }
