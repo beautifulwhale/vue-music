@@ -6,7 +6,10 @@
       :key="index"
       class="recomsongitem"
     >
-      <recom-song-item :song-item="item"></recom-song-item>
+      <recom-song-item
+        :song-item="item"
+        @click.native="getMusic(item.id)"
+      ></recom-song-item>
     </div>
   </div>
 </template>
@@ -30,6 +33,12 @@ export default {
   components: {
     RecomSongItem,
     RecomTitle
+  },
+  methods: {
+    getMusic(id) {
+      this.$bus.$emit("getMusic", id);
+      this.$store.commit("getSongList", this.recomSongList);
+    }
   }
 };
 </script>

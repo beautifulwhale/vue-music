@@ -21,13 +21,17 @@ export default {
       default: () => []
     }
   },
+  data() {
+    return {
+      
+    }
+  },
   components: {
     HotSearchItem
   },
   methods: {
     searchHot(keywords) {
       this.$emit('searchHot',keywords);
-
     }
   }
 };

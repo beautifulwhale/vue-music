@@ -5,8 +5,8 @@
       v-model="keywords"
       class="input-with-select"
       @focus="focusEvent"
+      @blur.prevent="blurEvent"
     >
-      <!-- @blur="blurEvent" -->
       <el-button
         slot="append"
         icon="el-icon-search"
@@ -17,6 +17,7 @@
       :hot-search="hotSearch"
       v-show="isShowHotSearch"
       @searchHot="searchHot"
+      ref="hotRef"
     ></hot-search>
   </div>
 </template>
@@ -37,6 +38,7 @@ export default {
       isShowHotSearch: false,
       searchList: [],
       searchTotal: 0
+      // hotSearchKeywords:[]
     };
   },
   methods: {
@@ -62,9 +64,11 @@ export default {
       this.isShowHotSearch = true;
       // this.searchHot(this.keywords)
     },
-    // blurEvent(){
-    //   this.isShowHotSearch = false;
-    // },
+    blurEvent() {
+      setTimeout(() => {
+        this.isShowHotSearch = false;
+      }, 200);
+    },
     searchHot(keywords) {
       this.keywords = keywords;
       this.$router.push({

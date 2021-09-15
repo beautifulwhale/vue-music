@@ -43,15 +43,10 @@ export default new Router({
             {
               path: '/recommend',
               component: Recommend,
-              children: [
-                {
-                  path: '/login',
-                  component: Login,
-                  // meta: {
-                  //   isLogin: false
-                  // },
-                },
-              ]
+              children: [{
+                path: '/login',
+                component: Login,
+              },]
             },
             {
               path: '/rank',

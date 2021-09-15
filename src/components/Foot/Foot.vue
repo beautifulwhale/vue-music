@@ -128,6 +128,7 @@ export default {
     async getMusicUrl(id) {
       const res = await getMusicUrl(id);
       this.musicUrl = res.data[0].url;
+      this.$store.commit("isPlay", true);
     },
     //秒数转化为mm:ss形式
     toTime(sec) {
@@ -167,6 +168,7 @@ export default {
       let ct = (this.progress * this.duration) / 100;
       if (!isNaN(ct)) {
         this.$refs.audioRef.currentTime = ct;
+         this.$store.commit("isPlay", true);
         this.$refs.audioRef.play();
       }
     },
@@ -191,6 +193,7 @@ export default {
         }
       }
       var index = 0;
+      //顺序播放
       if (this.playMode === 0) {
         if (type === "up") {
           if (this.currentIndex === 0) {
@@ -205,6 +208,7 @@ export default {
         }
         this.getSongDetails(this.songList[index].id);
         this.getMusicUrl(this.songList[index].id);
+        //随机播放
       } else if (this.playMode === 1) {
         this.currentIndex = Math.floor(Math.random() * this.songList.length);
         this.getSongDetails(this.songList[this.currentIndex].id);
@@ -212,6 +216,7 @@ export default {
       } else if (this.playMode === 2) {
         this.$refs.audioRef.load();
       }
+      this.$store.commit("isPlay", true);
     },
     //清空列表
     clearPlay() {

@@ -4,7 +4,6 @@
     @mouseenter="enter"
     @mouseleave="leave"
     :class="{ active: isShow }"
-    @click="getMusic(songItem.id)"
   >
     <img :src="songItem.picUrl" />
     <div class="name">{{ songItem.name }}</div>
@@ -33,9 +32,6 @@ export default {
     },
     leave() {
       this.isShow = false;
-    },
-    getMusic(id) {
-      this.$bus.$emit("getMusic", id);
     }
   }
 };
