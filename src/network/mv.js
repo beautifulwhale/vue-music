@@ -1,5 +1,5 @@
 import { request } from './request'
-//获取歌手分类
+//获取全部视频
 export function getMvCat(limit,
     order,
     offset,

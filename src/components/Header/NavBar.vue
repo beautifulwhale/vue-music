@@ -49,7 +49,7 @@ export default {
         avatarUrl: "",
         nickname: ""
       },
-      isLoginStatus: false,
+      // isLoginStatus: false,
       loginKey: "",
       qrCode: "",
       sellectPhone: true,
@@ -74,21 +74,17 @@ export default {
       this.isLoginStatus = true;
       this.$router.push("/recommend");
     },
+    //手机号登陆
     async phoneLogin(LoginPhone) {
       const res = await phoneLogin(LoginPhone.phone, LoginPhone.password);
       this.userInfo.avatarUrl = res.profile.avatarUrl;
       this.userInfo.nickname = res.profile.nickname;
       //将登陆状态保存到vuex,在路由导航时判断是否已经登录
-      this.$store.dispatch("updataLogin", true);
-      //在localStorage设置一个Flag关键字,作用是如果Flag有值且为isLogin的时候，证明用户已经登录了
-      localStorage.setItem("Flag", "isLogin");
-      
+      // this.$store.dispatch("updataLogin", true);
+      //在localStorage存储token
       localStorage.setItem("token", res.token);
       localStorage.setItem("avatarUrl", res.profile.avatarUrl);
       localStorage.setItem("nickname", res.profile.nickname);
-      // this.$store.commit("setToken", res.token);
-      // this.$store.commit("setUserImg", res.profile.avatarUrl);
-      // this.$store.commit("setNickName", res.profile.avatarUrl);
     },
     async getLoginKey() {
       const res = await getLoginKey();
@@ -115,6 +111,11 @@ export default {
     this.getLoginKey();
     this.userInfo.avatarUrl = window.localStorage.getItem("avatarUrl");
     this.userInfo.nickname = window.localStorage.getItem("nickname");
+  },
+  computed:{
+    isLoginStatus(){
+      return window.localStorage.getItem('token') === null ? false : true
+    }
   }
 };
 </script>

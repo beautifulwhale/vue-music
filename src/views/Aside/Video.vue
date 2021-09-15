@@ -1,13 +1,17 @@
 <template>
   <div class="video">
     <div class="videoclass">
-      <!-- 全部视频 -->
-      <router-link class="routers" active-class="activeClass" to="/mv"
+      <!-- 视频分类 -->
+      <router-link class="routers" active-class="activeClass" to="/videoinfo"
         >视频</router-link
       >
       <!-- 分类MV -->
-      <router-link class="routers" active-class="activeClass" to="/detailmv"
+      <router-link class="routers" active-class="activeClass" to="/mvcategory"
         >MV</router-link
+      >
+      <!-- 全部视频 -->
+      <router-link class="routers" active-class="activeClass" to="/mv"
+        >全部视频</router-link
       >
     </div>
     <div class="content">
@@ -20,7 +24,7 @@ export default {};
 </script>
 <style lang="less" scoped>
 .video {
-  width: 1140px;
+  width: 1100px;
   position: relative;
   overflow: hidden;
   .videoclass {
@@ -50,7 +54,7 @@ export default {};
     }
   }
   .content{
-    width: 1300px;
+    width: 1200px;
   }
 }
 </style>

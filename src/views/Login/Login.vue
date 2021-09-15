@@ -122,7 +122,6 @@ export default {
     },
     qrCodeLogin() {
       this.$emit("changeQrCodeLogin");
-      //   this.closeLogin();
     }
   },
   components: {
