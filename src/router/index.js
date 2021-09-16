@@ -9,6 +9,7 @@ const Rank = () => import('../views/Rank/Rank.vue')
 const Singer = () => import('../views/Singer/Singer.vue')
 const Song = () => import('../views/Song/Song.vue')
 const VideoInfo = () => import('../views/Video/VideoInfo.vue')
+// const VideoPlay = () => import('../views/Video/VideoPlay.vue')
 const MvCategory = () => import('../views/MvCategory/MvCategory.vue')
 const MvRankDetail = () => import('../views/MvCategory/MvRankDetail.vue')
 const Mv = () => import('../views/Mv/Mv.vue')
@@ -107,7 +108,11 @@ const router = new Router({
             {
               path: '/videodetails',
               component: VideoDetails
-            }
+            },
+            // {
+            //   path:'/videoplay',
+            //   component:VideoPlay
+            // }
           ]
         },
         {

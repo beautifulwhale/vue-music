@@ -1,4 +1,5 @@
 <template>
+  <!-- 此组件是MV的播放,并不能一开始就播放视频 -->
   <div>
     <div class="video-content">
       <div class="video-info">

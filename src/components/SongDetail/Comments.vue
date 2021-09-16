@@ -22,7 +22,6 @@
       v-for="item in hotCommentList"
       :key="item.commentId"
       :comment-item="item"
-      :isLiked='isLiked'
       @zanComment="zanComment"
     ></comment-item>
     <div class="title">
@@ -71,7 +70,7 @@ export default {
       tSend: 1,
       playListType: 2,
       mvType: 1,
-      tLike: 1,
+      tLike: 1
     };
   },
   methods: {
@@ -108,8 +107,6 @@ export default {
         commentId
       );
       this.likeComment(this.tLike, this.mvType, this.mvId, commentId);
-
-      
     }
   },
   components: {
