@@ -5,17 +5,32 @@
     </div>
     <div class="info">
       <div class="say">
-      <div class="name">{{ commentItem.user.nickname }}:</div>
-      <div class="content">{{ commentItem.content }}</div>
+        <div class="name">{{ commentItem.user.nickname }}:</div>
+        <div class="content">{{ commentItem.content }}</div>
       </div>
       <div class="time">
-        {{commentTime}}
+        {{ commentTime }}
+      </div>
+      <div class="opertion">
+        <span
+          class="iconfont icon-zan"
+          @click="zanComment(commentItem.commentId)"
+          :style="
+            isLiked && currentId === commentItem.commentId ? 'color:red' : ''
+          "
+        >
+          <span class="zanCount" v-if="commentItem.likedCount !== 0">{{
+            commentItem.likedCount
+          }}</span>
+        </span>
+        <span class="iconfont icon-forward1"></span>
+        <span class="iconfont icon-huifu"></span>
       </div>
     </div>
   </div>
 </template>
 <script>
-import {dateFormat} from '../../utils/utils'
+import { dateFormat } from "../../utils/utils";
 export default {
   props: {
     commentItem: {
@@ -24,10 +39,36 @@ export default {
         return {};
       }
     }
+    // isLiked: {
+    //   type: Boolean,
+    //   default: false
+    // }
   },
-  computed:{
-    commentTime(){
-      return dateFormat(this.commentItem.time)
+  data() {
+    return {
+      currentId: 0,
+      isLiked: false
+    };
+  },
+  computed: {
+    commentTime() {
+      return dateFormat(this.commentItem.time);
+    }
+  },
+  methods: {
+    zanComment(commentId) {
+      this.$emit("zanComment", commentId);
+      this.currentId = commentId;
+      if (!this.isLiked) {
+        this.commentItem.likedCount += 1;
+        this.isLiked = true;
+      } else {
+        if (this.commentItem.likedCount !== 0) {
+          this.commentItem.likedCount -= 1;
+          this.isLiked = false;
+          this.currentId = 0;
+        }
+      }
     }
   }
 };
@@ -35,7 +76,7 @@ export default {
 <style lang="less" scoped>
 .comment-item {
   width: 1200px;
-  height: 70px;
+  height: 60px;
   border-bottom: 1px solid gainsboro;
   display: flex;
   flex: 1;
@@ -50,7 +91,7 @@ export default {
   .info {
     width: 1100px;
     height: 50px;
-    .say{
+    .say {
       width: 1100px;
       .name {
         font-size: 12px;
@@ -63,10 +104,30 @@ export default {
         font-size: 12px;
       }
     }
-    .time{
+    .time {
       margin-top: 10px;
       color: gray;
       font-size: 12px;
+      float: left;
+      margin-right: 740px;
+    }
+    .opertion {
+      width: 160px;
+      height: 25px;
+      padding: 0 5px;
+      display: flex;
+      justify-content: space-between;
+      margin-top: 10px;
+      .iconfont {
+        width: 50px;
+        height: 25px;
+        margin-right: 10px;
+        font-size: 14px;
+        color: gray;
+        .zanCount {
+          margin-left: 3px;
+        }
+      }
     }
   }
 }

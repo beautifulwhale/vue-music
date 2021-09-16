@@ -22,6 +22,8 @@
       v-for="item in hotCommentList"
       :key="item.commentId"
       :comment-item="item"
+      :isLiked='isLiked'
+      @zanComment="zanComment"
     ></comment-item>
     <div class="title">
       <span>最新评论({{ commentTotal }})</span>
@@ -31,12 +33,13 @@
       v-for="(item, index) in commentList"
       :key="index"
       :comment-item="item"
+      @zanComment="zanComment"
     ></comment-item>
   </div>
 </template>
 <script>
 import CommentItem from "@/components/SongDetail/CommentItem";
-import { sendComment } from "../../network/comment";
+import { sendComment, likeComment } from "../../network/comment";
 export default {
   props: {
     commentList: {
@@ -51,7 +54,7 @@ export default {
       type: Number,
       default: 0
     },
-    //评论歌单的ID
+    //歌单的ID
     playListId: {
       type: Number,
       default: 0
@@ -66,16 +69,21 @@ export default {
     return {
       commentContent: "",
       tSend: 1,
-      tDelete: 0,
-      playListTye: 2,
-      mvType: 1
+      playListType: 2,
+      mvType: 1,
+      tLike: 1,
     };
   },
   methods: {
+    //发送(删除)评论
     async sendComment(t, type, id, content) {
       const res = await sendComment(t, type, id, content);
-      console.log(res);
     },
+    //点赞评论
+    async likeComment(t, type, id, cid) {
+      const res = await likeComment(t, type, id, cid);
+    },
+    //发送评论
     submitComment() {
       this.sendComment(
         this.tSend,
@@ -83,19 +91,25 @@ export default {
         this.playListId,
         this.commentContent
       );
-      this.sendComment(
-        this.tSend,
-        this.mvType,
-        this.mvId,
-        this.commentContent
-      );
-
+      this.sendComment(this.tSend, this.mvType, this.mvId, this.commentContent);
       this.commentContent = "";
       this.$message({
         message: "恭喜你评论成功！",
         type: "success"
       });
       this.$router.go(0);
+    },
+    //点赞评论
+    zanComment(commentId) {
+      this.likeComment(
+        this.tLike,
+        this.playListType,
+        this.playListId,
+        commentId
+      );
+      this.likeComment(this.tLike, this.mvType, this.mvId, commentId);
+
+      
     }
   },
   components: {
@@ -138,7 +152,7 @@ export default {
   }
   .comment-item {
     width: 1200px;
-    height: 70px;
+    height: 60px;
     margin: 15px 10px;
     display: flex;
     justify-content: flex-start;

@@ -16,4 +16,21 @@ export function sendComment(t, type, id, content) {
         }
     })
 }
+//给评论点赞
+export function likeComment(t, type, id, cid) {
+    return request({
+        url: "/comment/like",
+        method: 'post',
+        data: {
+            t,
+            type,   
+            id,
+            cid,
+            cookie
+        }
+    })
+}
+
+
+
 
