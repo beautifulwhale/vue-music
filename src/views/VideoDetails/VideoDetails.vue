@@ -18,6 +18,7 @@
     <video-comment
       :mv-comment="mvComment"
       :mv-hot-comment="mvHotComment"
+      :mvId="Number(mvId)"
     ></video-comment>
   </div>
 </template>

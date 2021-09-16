@@ -11,9 +11,11 @@
   },
   "dependencies": {
     "element-ui": "^2.15.5",
+    "js-cookie": "^3.0.1",
     "less": "^4.1.1",
     "less-loader": "^5.0.0",
     "mitt": "^3.0.0",
+    "qs": "^6.10.1",
     "swiper": "^4.5.1",
     "vue": "^2.5.2",
     "vue-awesome-swiper": "^4.1.1",

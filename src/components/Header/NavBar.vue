@@ -41,6 +41,7 @@ import {
   CheckQrCode
 } from "../../network/login";
 import { mapState } from "vuex";
+import Cookies from 'js-cookie'
 export default {
   data() {
     return {
@@ -49,7 +50,6 @@ export default {
         avatarUrl: "",
         nickname: ""
       },
-      // isLoginStatus: false,
       loginKey: "",
       qrCode: "",
       sellectPhone: true,
@@ -79,8 +79,7 @@ export default {
       const res = await phoneLogin(LoginPhone.phone, LoginPhone.password);
       this.userInfo.avatarUrl = res.profile.avatarUrl;
       this.userInfo.nickname = res.profile.nickname;
-      //将登陆状态保存到vuex,在路由导航时判断是否已经登录
-      // this.$store.dispatch("updataLogin", true);
+      Cookies.set('userCookie',res.cookie,{expires:7})
       //在localStorage存储token
       localStorage.setItem("token", res.token);
       localStorage.setItem("avatarUrl", res.profile.avatarUrl);
@@ -105,14 +104,14 @@ export default {
       this.CheckQrCode(this.loginKey);
       this.isLoginStatus = true;
       this.$router.push("/recommend");
-    }
+    },
   },
   created() {
     this.getLoginKey();
     this.userInfo.avatarUrl = window.localStorage.getItem("avatarUrl");
     this.userInfo.nickname = window.localStorage.getItem("nickname");
   },
-  computed:{
+  computed: {
     isLoginStatus(){
       return window.localStorage.getItem('token') === null ? false : true
     }

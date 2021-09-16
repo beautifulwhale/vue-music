@@ -25,6 +25,7 @@
           :comment-list="commentList"
           :hot-comment-list="hotCommentList"
           :comment-total='commentTotal'
+          :play-list-id='Number(id)'
         ></comments>
         <!-- 分页 -->
         <div class="pagination">
@@ -151,24 +152,7 @@ export default {
     this.getRelated(this.id);
     this.getComment(this.commentInfo);
   },
-  mounted() {},
-  // watch: {
-  //   $route: {
-  //     handler(to) {
-  //       //to: 目标路由对象
-  //       //刷新歌单
-  //       this.getPlayListDetails(to.query.id);
-  //       this.getPlayListCollect(to.query.id);
-  //       this.getRelated(to.query.id);
-  //       this.getComment(to.query.id);
-  //     }
-  //   }
-  // },
-
   beforeRouteUpdate(to, from, next) {
-    // to：目标路由对象
-    // from：原路由对象
-    // next：可指定路由进行跳转
     next();
     this.getPlayListDetails(to.query.id);
     this.getPlayListCollect(to.query.id);

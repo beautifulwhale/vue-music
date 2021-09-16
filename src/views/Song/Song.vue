@@ -92,7 +92,6 @@ export default {
   ::v-deep {
   .el-pagination.is-background .el-pager li:not(.disabled) {
     background-color: #fff; // 进行修改未选中背景和字体
-    // color: #fff;
   }
   .el-pagination.is-background .el-pager li:not(.disabled).active {
     background-color: red; // 进行修改选中项背景和字体

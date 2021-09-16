@@ -1,11 +1,17 @@
 <template>
   <div class="comment-list">
     <div class="write-comment">
-      <textarea placeholder="请说点什么吧..." class="textarea"></textarea>
+      <textarea
+        placeholder="请说点什么吧..."
+        class="textarea"
+        v-model="commentContent"
+      ></textarea>
       <div class="comment-button">
         <span class="iconfont icon-aite"></span>
         <span class="iconfont icon-huati"></span>
-        <el-button type="danger" round size="mini">评论</el-button>
+        <el-button type="danger" round size="mini" @click="submitComment"
+          >评论</el-button
+        >
       </div>
     </div>
     <div class="title" v-if="hotCommentList.length">
@@ -16,7 +22,7 @@
       v-for="item in hotCommentList"
       :key="item.commentId"
       :comment-item="item"
-    ></comment-item> 
+    ></comment-item>
     <div class="title">
       <span>最新评论({{ commentTotal }})</span>
     </div>
@@ -30,6 +36,7 @@
 </template>
 <script>
 import CommentItem from "@/components/SongDetail/CommentItem";
+import { sendComment } from "../../network/comment";
 export default {
   props: {
     commentList: {
@@ -40,9 +47,55 @@ export default {
       type: Array,
       default: () => []
     },
-    commentTotal:{
-      type:Number,
-      default:0
+    commentTotal: {
+      type: Number,
+      default: 0
+    },
+    //评论歌单的ID
+    playListId: {
+      type: Number,
+      default: 0
+    },
+    mvId: {
+      type: Number,
+      default: 0
+    }
+  },
+  inject: ["reload"],
+  data() {
+    return {
+      commentContent: "",
+      tSend: 1,
+      tDelete: 0,
+      playListTye: 2,
+      mvType: 1
+    };
+  },
+  methods: {
+    async sendComment(t, type, id, content) {
+      const res = await sendComment(t, type, id, content);
+      console.log(res);
+    },
+    submitComment() {
+      this.sendComment(
+        this.tSend,
+        this.playListType,
+        this.playListId,
+        this.commentContent
+      );
+      this.sendComment(
+        this.tSend,
+        this.mvType,
+        this.mvId,
+        this.commentContent
+      );
+
+      this.commentContent = "";
+      this.$message({
+        message: "恭喜你评论成功！",
+        type: "success"
+      });
+      this.$router.go(0);
     }
   },
   components: {
@@ -91,5 +144,4 @@ export default {
     justify-content: flex-start;
   }
 }
-
 </style>

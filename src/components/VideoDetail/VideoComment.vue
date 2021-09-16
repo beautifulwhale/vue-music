@@ -3,6 +3,7 @@
     class="comment"
     :comment-list="mvComment"
     :hot-comment-list="mvHotComment"
+    :mvId="Number(mvId)"
   ></comments>
 </template>
 <script>
@@ -16,6 +17,10 @@ export default {
     mvHotComment: {
       type: Array,
       default: () => []
+    },
+    mvId: {
+      type: Number,
+      default: 0
     }
   },
   components: {

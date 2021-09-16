@@ -75,7 +75,6 @@ export default {
     async getMvRank(params) {
       const res = await getMvRank(params.limit, params.area);
       this.mvRankList = res.data;
-      console.log(res);
     },
   },
   created() {

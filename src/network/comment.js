@@ -1,0 +1,19 @@
+import { request } from './request'
+import Cookies from 'js-cookie'
+const cookie = Cookies.get('userCookie');
+
+//发送评论
+export function sendComment(t, type, id, content) {
+    return request({
+        url: "/comment",
+        method: 'post',
+        data: {
+            t,
+            type,
+            id,
+            content,
+            cookie
+        }
+    })
+}
+
