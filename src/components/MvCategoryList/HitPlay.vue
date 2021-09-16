@@ -1,6 +1,6 @@
 <template>
   <div class="hitplay">
-    <div class="title">
+    <div class="title" @click='getAllMv'>
       <h3>热播MV</h3>
       <span class="el-icon-arrow-right"></span>
     </div>
@@ -22,7 +22,12 @@ export default {
   },
   components: {
     MvItem
-  }
+  },
+    methods: {
+    getAllMv(){
+      this.$router.push('/mv')
+    }
+  },
 };
 </script>
 <style lang="less" scoped>
@@ -31,6 +36,7 @@ export default {
   height: 280px;
   .title {
     color: black;
+    cursor: pointer;
     h3 {
       float: left;
       margin-right: 5px;

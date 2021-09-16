@@ -21,7 +21,23 @@
         <detail-list :song-list="songList"></detail-list>
       </el-tab-pane>
       <el-tab-pane label="评论" name="second">
-        <comments :comment-list="commentList" :hot-comment-list='hotCommentList'></comments>
+        <comments
+          :comment-list="commentList"
+          :hot-comment-list="hotCommentList"
+          :comment-total='commentTotal'
+        ></comments>
+        <!-- 分页 -->
+        <div class="pagination">
+          <el-pagination
+            @current-change="handleCurrentChange"
+            :current-page="currentPage"
+            :page-size="pageSize"
+            layout="prev, pager, next"
+            :total="commentTotal"
+            background
+          >
+          </el-pagination>
+        </div>
       </el-tab-pane>
       <el-tab-pane label="收藏者" name="third">
         <collect-list :like-list="likeList"></collect-list>
@@ -45,6 +61,7 @@ import {
   getRelated,
   getComment
 } from "../../network/songdetails";
+import { getMvCat } from "../../network/mv";
 export default {
   data() {
     return {
@@ -57,10 +74,19 @@ export default {
       relatedPlayList: [],
       commentList: [],
       //精彩评论
-      hotCommentList:[],
+      hotCommentList: [],
       contentToggle: "全部",
       isShowDesc: false,
-      activeName: "first"
+      activeName: "first",
+      //分页
+      currentPage: 1,
+      pageSize: 50,
+      commentTotal: 0,
+      commentInfo: {
+        limit: 50,
+        offset: 0,
+        commentId: 0
+      }
     };
   },
   methods: {
@@ -80,20 +106,28 @@ export default {
     async getSongDetails(id) {
       const result = await getSongDetails(id);
       this.songList = result.songs;
-      this.$store.commit('getSongList',this.songList)
+      this.$store.commit("getSongList", this.songList);
     },
+    //获取收藏者
     async getPlayListCollect(id) {
       const res = await getPlayListCollect(id);
       this.likeList = res.subscribers;
     },
+    //获取相关视频
     async getRelated(id) {
       const res = await getRelated(id);
       this.relatedPlayList = res.playlists;
     },
-    async getComment(id) {
-      const res = await getComment(id);
+    //获取评论
+    async getComment(params) {
+      const res = await getComment(
+        params.commentId,
+        params.offset,
+        params.limit
+      );
       this.commentList = res.comments;
-      this.hotCommentList = res.hotComments
+      this.hotCommentList = res.hotComments;
+      this.commentTotal = res.total;
     },
     toggleDescClick() {
       this.isShowDesc = !this.isShowDesc;
@@ -102,15 +136,20 @@ export default {
         this.contentToggle = "全部";
       }
     },
-    handleClick(tab, event) {
+    handleClick(tab, event) {},
+    handleCurrentChange(newPage) {
+      this.currentPage = newPage;
+      this.commentInfo.offset = (this.currentPage - 1) * this.commentInfo.limit;
+      this.getComment(this.commentInfo);
     }
   },
   created() {
     this.id = this.$route.query.id;
+    this.commentInfo.commentId = this.$route.query.id;
     this.getPlayListDetails(this.id);
     this.getPlayListCollect(this.id);
     this.getRelated(this.id);
-    this.getComment(this.id);
+    this.getComment(this.commentInfo);
   },
   mounted() {},
   // watch: {
@@ -147,7 +186,7 @@ export default {
 </script>
 <style lang="less" scoped>
 .playlist-info {
-  width: 1200px;
+  width: 1160px;
   margin-top: 90px;
   position: relative;
   .smoke-mark {
@@ -155,30 +194,11 @@ export default {
     width: 683px;
     padding: 10px;
     background-color: #fff;
-    top: 140px;
+    top: 160px;
     left: 270px;
     box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
   }
 }
-
-// .like-card {
-//   width: 380px;
-//   border-radius: 10px;
-//   box-shadow: 0 0 5px gray;
-// }
-// .related-card {
-//   width: 380px;
-//   border-radius: 10px;
-//   box-shadow: 0 0 5px gray;
-//   margin-top: 20px;
-// }
-// .comment-card {
-//   margin-top: 20px;
-//   border-radius: 10px;
-//   box-shadow: 0 0 5px gray;
-//   margin-top: 20px;
-// }
-
 .v-enter,
 .v-leave-to {
   opacity: 0; /*透明度*/
@@ -198,5 +218,11 @@ export default {
 .my-enter-active,
 .my-leave-active {
   transition: all 0.8s ease;
+}
+.pagination {
+  width: 554px;
+  height: 32px;
+  margin: 20px auto;
+  text-align: center;
 }
 </style>

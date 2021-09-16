@@ -26,3 +26,15 @@ export function getCloudMv(limit) {
         }
     })
 }
+
+//获取mv排行榜
+export function getMvRank(limit,
+    area) {
+    return request({
+        url: "/top/mv",
+        params: {
+            limit,
+            area
+        }
+    })
+}

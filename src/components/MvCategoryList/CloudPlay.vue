@@ -1,6 +1,6 @@
 <template>
   <div class="cloudplay">
-    <div class="title">
+    <div class="title" @click='getAllMv'>
       <h3>网易出品</h3>
       <span class="el-icon-arrow-right"></span>
     </div>
@@ -20,6 +20,11 @@ export default {
       default: () => []
     }
   },
+  methods: {
+    getAllMv(){
+      this.$router.push('/mv')
+    }
+  },
   components:{
       MvItem
   }
@@ -31,6 +36,7 @@ export default {
   height: 500px;
   .title {
     color: black;
+    cursor: pointer;
     h3{
         float: left;
         margin-right: 5px;

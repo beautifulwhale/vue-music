@@ -1,7 +1,7 @@
 <template>
   <div class="latest">
     <div class="filter">
-      <div class="title">
+      <div class="title" @click="getAllMv">
         <h3>最新MV</h3>
         <span class="el-icon-arrow-right"></span>
       </div>
@@ -44,6 +44,9 @@ export default {
   methods: {
     changeArea(area) {
       this.$emit("changeArea", area);
+    },
+    getAllMv() {
+      this.$router.push("/mv");
     }
   },
   components: {
@@ -62,6 +65,7 @@ export default {
     justify-content: space-between;
     .title {
       color: black;
+      cursor: pointer;
       h3 {
         float: left;
         margin-right: 5px;

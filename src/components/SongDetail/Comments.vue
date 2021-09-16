@@ -16,9 +16,9 @@
       v-for="item in hotCommentList"
       :key="item.commentId"
       :comment-item="item"
-    ></comment-item>
+    ></comment-item> 
     <div class="title">
-      <span>最新评论({{ commentList.length }})</span>
+      <span>最新评论({{ commentTotal }})</span>
     </div>
     <comment-item
       class="comment-item"
@@ -39,6 +39,10 @@ export default {
     hotCommentList: {
       type: Array,
       default: () => []
+    },
+    commentTotal:{
+      type:Number,
+      default:0
     }
   },
   components: {
@@ -48,7 +52,7 @@ export default {
 </script>
 <style lang="less" scoped>
 .comment-list {
-  width: 1200px;
+  width: 1160px;
   margin-top: 10px;
   .write-comment {
     width: 1100px;

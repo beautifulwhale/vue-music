@@ -1,9 +1,8 @@
 <template>
   <div class="mvrank">
     <div class="filter">
-      <div class="title" @click='getMoreRank'>
+      <div class="title">
         <h3>MV排行榜</h3>
-        <span class="el-icon-arrow-right"></span>
       </div>
       <div class="area">
         <div
@@ -30,28 +29,34 @@
 </template>
 <script>
 import MvRankItem from "@/components/MvCategoryList/MvRankItem";
+import { getMvRank } from "../../network/mvcategory";
 export default {
-  props: {
-    mvRankList: {
-      type: Array,
-      default: () => []
-    },
-    area: {
-      type: Array,
-      default: () => []
-    },
-    sellectArea: {
-      type: String,
-      default: ""
-    }
+  data() {
+    return {
+      queryInfo: {
+        limit: 50,
+        area: "内地"
+      },
+      area: ["内地", "港台", "欧美", "日本", "韩国"],
+      sellectArea: "内地",
+      mvRankList: []
+    };
   },
   methods: {
     changeArea(area) {
-      this.$emit("changeArea", area);
+      this.queryInfo.area = area;
+      this.sellectArea = area;
+      this.getMvRank(this.queryInfo);
     },
-    getMoreRank(){
-      this.$router.push('/mvrankdetail');
+    //mv排行榜
+    async getMvRank(params) {
+      const res = await getMvRank(params.limit, params.area);
+      this.mvRankList = res.data;
+      console.log(res);
     }
+  },
+  created() {
+    this.getMvRank(this.queryInfo);
   },
   components: {
     MvRankItem
@@ -60,8 +65,10 @@ export default {
 </script>
 <style lang="less" scoped>
 .mvrank {
+  margin-top: 80px;
   width: 1160px;
-  height: 600px;
+  height: 3300px;
+  margin-left: 30px;
   .filter {
     width: 1160px;
     height: 20px;
@@ -69,15 +76,6 @@ export default {
     justify-content: space-between;
     .title {
       color: black;
-      cursor: pointer;
-      h3 {
-        float: left;
-        margin-right: 5px;
-      }
-      span {
-        font-weight: bolder;
-        font-size: 20px;
-      }
       margin-right: 760px;
     }
     .area {

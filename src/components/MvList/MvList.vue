@@ -1,15 +1,14 @@
 <template>
   <div class="mvlist">
-    <mv-list-item
-      class="mv-list-item"
-      v-for="(item, index) in mvList"
-      :key="index"
-      :mv-list-item="item"
-    ></mv-list-item>
+    <div class="latestitem">
+      <div class="lateitem" v-for="item in mvList" :key="item.id">
+        <mv-item :mv-item="item"></mv-item>
+      </div>
+    </div>
   </div>
 </template>
 <script>
-import MvListItem from "@/components/MvList/MvListItem";
+import MvItem from "@/components/MvCategoryList/MvItem";
 export default {
   props: {
     mvList: {
@@ -18,18 +17,28 @@ export default {
     }
   },
   components: {
-    MvListItem
+    MvItem
   }
 };
 </script>
 <style lang="less" scoped>
-.mvlist{
+.mvlist {
+  width: 1200px;
+  height: 5320px;
+  margin-top: 30px;
+  margin-left: 20px;
+  .latestitem {
     width: 1200px;
-    // height: 1200px;
-    margin-top: 30px;
-    margin-left: 50px;
+    height: 300px;
     display: flex;
     flex: 1;
     flex-wrap: wrap;
+    .lateitem {
+      width: 250px;
+      height: 200px;
+      margin-right: 20px;
+      margin-top: 20px;
+    }
+  }
 }
 </style>

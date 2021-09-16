@@ -12,14 +12,16 @@
     <!-- mv列表 -->
     <mv-list :mv-list="mvList"></mv-list>
     <!-- 分页 -->
-    <!-- 分页 -->
-    <div class="paging">
-      <el-button type="info" plain :disabled="pageUp" @click="pagePre"
-        >上一页</el-button
+    <div class="page">
+      <el-pagination
+        @current-change="handleCurrentChange"
+        :current-page="currentPage"
+        :page-size="pageSize"
+        layout="prev, pager, next"
+        :total="total"
+        background
       >
-      <el-button type="info" plain :disabled="pageDown" @click="pageNext"
-        >下一页</el-button
-      >
+      </el-pagination>
     </div>
   </div>
 </template>
@@ -31,7 +33,7 @@ export default {
   data() {
     return {
       queryInfo: {
-        limit: 16,
+        limit: 96,
         offset: 0,
         type: "全部",
         area: "全部",
@@ -43,16 +45,11 @@ export default {
       regionActive: "全部",
       typeActive: "全部",
       orderActive: "上升最快",
-      mvList: []
+      mvList: [],
+      currentPage: 1,
+      pageSize: 96,
+      total: 0
     };
-  },
-  computed: {
-    pageUp() {
-      return this.queryInfo.offset === 0 ? true : false;
-    },
-    pageDown() {
-      return this.mvList.length < 16 ? true : false;
-    }
   },
   methods: {
     async getMvCat(params) {
@@ -64,6 +61,12 @@ export default {
         params.area
       );
       this.mvList = res.data;
+      this.total = res.count;
+    },
+    handleCurrentChange(newPage) {
+      this.currentPage = newPage;
+      this.queryInfo.offset = (this.currentPage - 1) * this.queryInfo.limit;
+      this.getMvCat(this.queryInfo);
     },
     changeMv(obj) {
       if (obj.type === "region") {
@@ -99,13 +102,14 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-.paging {
-  width: 500px;
-  height: 80px;
-  margin: 80px auto;
-  background-color: #fff;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
+.page{
+  width: 554px;
+  height: 32px;
+  margin: 20px auto;
+
 }
+
+
+
+
 </style>

@@ -36,11 +36,13 @@ export function getRelated(id) {
     })
 }
 //获取歌单评论
-export function getComment(id) {
+export function getComment(id, offset, limit) {
     return request({
         url: "/comment/playlist",
         params: {
-            id
+            id,
+            offset,
+            limit
         }
     })
 }
