@@ -4,6 +4,7 @@ Vue.use(Router)
 import Home from '@/views/Home/Home'
 const FindMusic = () => import('../views/Aside/FindMusic.vue')
 const Video = () => import('../views/Aside/Video.vue')
+const Friends = () => import('../views/Aside/Friends.vue')
 const Recommend = () => import('../views/Recommend/Recommend.vue')
 const Rank = () => import('../views/Rank/Rank.vue')
 const Singer = () => import('../views/Singer/Singer.vue')
@@ -18,6 +19,9 @@ const SongDetails = () => import('../views/SongDetails/SongDetails.vue')
 const SingerDetails = () => import('../views/SingerDetails/SingerDetails.vue')
 const SearchList = () => import('../views/SearchList/SearchList.vue')
 const Login = () => import('../views/Login/Login.vue')
+const Dynamic = () => import('../views/Dynamic/Dynamic.vue')
+const TopicRank = () => import('../views/Topic/TopicRank.vue')
+const TopicDetails = () => import('../views/Topic/TopicDetails.vue')
 const router = new Router({
   routes: [
     {
@@ -27,7 +31,6 @@ const router = new Router({
     {
       path: '/home',
       component: Home,
-      name: 'home',
       children: [
         {
           path: '/',
@@ -36,7 +39,6 @@ const router = new Router({
         {
           path: '/findmusic',
           component: FindMusic,
-          name: 'findmusic',
           children: [
             {
               path: '/',
@@ -98,8 +100,8 @@ const router = new Router({
               component: MvCategory
             },
             {
-              path:'/mvrankdetail',
-              component:MvRankDetail
+              path: '/mvrankdetail',
+              component: MvRankDetail
             },
             {
               path: '/mv',
@@ -110,16 +112,38 @@ const router = new Router({
               component: VideoDetails
             },
             {
-              path:'/videoplay',
-              component:VideoPlay
+              path: '/videoplay',
+              component: VideoPlay
             }
           ]
         },
         {
           path: '/search',
-          name:'search',
+          name: 'search',
           component: SearchList
         },
+        {
+          path: '/friends',
+          component: Friends,
+          children: [
+            {
+              path: '',
+              redirect: '/dynamic'
+            },
+            {
+              path: '/dynamic',
+              component: Dynamic
+            },
+            {
+              path: '/topicrank',
+              component: TopicRank
+            },
+            {
+              path: '/topicdetails',
+              component: TopicDetails
+            }
+          ]
+        }
 
       ]
     }
@@ -128,7 +152,7 @@ const router = new Router({
 export default router
 
 //设置路由白名单
-const allowList = ['home', 'findmusic', 'recommend', 'login', 'rank', 'singer', 'song', 'songdetails', 'singerdetails','search']
+const allowList = ['home', 'findmusic', 'recommend', 'login', 'rank', 'singer', 'song', 'songdetails', 'singerdetails', 'search']
 // 设置路由导航守卫
 router.beforeEach((to, from, next) => {
   //有token

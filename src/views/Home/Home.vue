@@ -27,6 +27,16 @@
               >
             </template>
           </el-submenu>
+          <el-submenu index="3">
+            <template slot="title">
+              <router-link
+                class="routers"
+                active-class="activeClass"
+                to="/friends"
+                >朋友</router-link
+              >
+            </template>
+          </el-submenu>
         </el-menu>
       </el-aside>
       <el-main>
@@ -51,7 +61,7 @@ export default {
 </script>
 <style lang='less' scoped>
 .el-container {
-  width: 1365px;
+  width: 1510px;
   position: relative;
   .el-aside {
     width: 200px;
