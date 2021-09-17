@@ -20,7 +20,20 @@
       :mv-comment="mvComment"
       :mv-hot-comment="mvHotComment"
       :mvId="Number(mvId)"
+      :mv-total='total'
     ></video-comment>
+    <!-- 分页 -->
+    <div class="pagination">
+      <el-pagination
+        @current-change="handleCurrentChange"
+        :current-page="currentPage"
+        :page-size="pageSize"
+        layout="prev, pager, next"
+        :total="total"
+        background
+      >
+      </el-pagination>
+    </div>
   </div>
 </template>
 <script>
@@ -47,7 +60,12 @@ export default {
       recomVideo: [],
       likeCount: {},
       mvComment: [],
-      mvHotComment: []
+      mvHotComment: [],
+      limit: 50,
+      offset: 0,
+      currentPage: 1,
+      pageSize: 50,
+      total: 0
     };
   },
   methods: {
@@ -72,10 +90,11 @@ export default {
       this.likeCount = res;
     },
     //获取mv评论
-    async getMvComment(id) {
-      const res = await getMvComment(id);
+    async getMvComment(id, limit, offset) {
+      const res = await getMvComment(id, limit, offset);
       this.mvComment = res.comments;
       this.mvHotComment = res.hotComments;
+      this.total = res.total;
     },
     //获取推荐视频的播放地址
     async getVideoPlay(id) {
@@ -100,6 +119,12 @@ export default {
       this.getRecomMv(vid);
       this.getMvLiked(vid);
       this.getVideoComment(vid);
+    },
+    //分页
+    handleCurrentChange(newPage) {
+      this.currentPage = newPage;
+      this.offset = (this.currentPage - 1) * this.limit;
+      this.getMvComment(this.mvId, this.limit, this.offset);
     }
   },
   components: {
@@ -110,11 +135,12 @@ export default {
   },
   mounted() {
     this.mvId = this.$route.query.id;
+    // this.commnetInfo.commentId = this.$router.query.id;
     this.getMvPlay(this.mvId);
     this.getMvData(this.mvId);
     this.getRecomMv(this.mvId);
     this.getMvLiked(this.mvId);
-    this.getMvComment(this.mvId);
+    this.getMvComment(this.mvId, this.limit, this.offset);
   }
 };
 </script>
@@ -123,5 +149,10 @@ export default {
   width: 1200px;
   display: flex;
   justify-content: space-around;
+  .pagination {
+    width: 554px;
+    height: 32px;
+    margin: 50px auto;
+  }
 }
 </style>

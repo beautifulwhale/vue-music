@@ -25,7 +25,7 @@
       @zanComment="zanComment"
     ></comment-item>
     <div class="title">
-      <span>最新评论({{ commentTotal }})</span>
+      <span>最新评论({{ commentTotal || mvTotal || videoTotal }})</span>
     </div>
     <comment-item
       class="comment-item"
@@ -50,6 +50,16 @@ export default {
       default: () => []
     },
     commentTotal: {
+      type: Number,
+      default: 0
+    },
+    //mv评论的总数量
+    mvTotal: {
+      type: Number,
+      default: 0
+    },
+    //视频评论总数
+    videoTotal: {
       type: Number,
       default: 0
     },

@@ -4,7 +4,9 @@
     :comment-list="mvComment"
     :hot-comment-list="mvHotComment"
     :mvId="Number(mvId)"
-    :videoId='videoId'
+    :videoId="videoId"
+    :mv-total="mvTotal"
+    :video-total="videoTotal"
   ></comments>
 </template>
 <script>
@@ -19,13 +21,23 @@ export default {
       type: Array,
       default: () => []
     },
+    //mv评论的总数
+    mvTotal: {
+      type: Number,
+      default: 0
+    },
+    //视频评论总数
+    videoTotal: {
+      type: Number,
+      default: 0
+    },
     mvId: {
       type: Number,
       default: 0
     },
-    videoId:{
-      type:String,
-      default:''
+    videoId: {
+      type: String,
+      default: ""
     }
   },
   components: {

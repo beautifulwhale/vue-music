@@ -20,7 +20,21 @@
       :mv-comment="mvComment"
       :mv-hot-comment="mvHotComment"
       :video-id="String(videoId)"
+      :video-total="total"
     ></video-comment>
+
+    <!-- 分页 -->
+    <div class="pagination">
+      <el-pagination
+        @current-change="handleCurrentChange"
+        :current-page="currentPage"
+        :page-size="pageSize"
+        layout="prev, pager, next"
+        :total="total"
+        background
+      >
+      </el-pagination>
+    </div>
   </div>
 </template>
 <script>
@@ -47,7 +61,12 @@ export default {
       recomVideo: [],
       likeCount: {},
       mvComment: [],
-      mvHotComment: []
+      mvHotComment: [],
+      limit: 50,
+      offset: 0,
+      currentPage: 1,
+      pageSize: 50,
+      total: 0
     };
   },
   methods: {
@@ -82,10 +101,11 @@ export default {
       this.mvData = res.data;
     },
     //获取推荐视频评论
-    async getVideoComment(id) {
-      const res = await getVideoComment(id);
+    async getVideoComment(id, limit, offset) {
+      const res = await getVideoComment(id, limit, offset);
       this.mvComment = res.comments;
       this.mvHotComment = res.hotComments;
+      this.total = res.total;
     },
     //播放推荐视频更新数据
     playVideo(vid) {
@@ -94,6 +114,12 @@ export default {
       this.getRecomMv(vid);
       this.getVideoLiked(vid);
       this.getVideoComment(vid);
+    },
+    //分页
+    handleCurrentChange(newPage) {
+      this.currentPage = newPage;
+      this.offset = (this.currentPage - 1) * this.limit;
+      this.getVideoComment(this.videoId, this.limit, this.offset);
     }
   },
   components: {
@@ -108,7 +134,7 @@ export default {
     this.getVideoData(this.videoId);
     this.getRecomMv(this.videoId);
     this.getVideoLiked(this.videoId);
-    this.getVideoComment(this.videoId);
+    this.getVideoComment(this.videoId, this.limit, this.offset);
   }
 };
 </script>

@@ -36,11 +36,13 @@ export function getMvLiked(vid) {
     })
 }
 //获取mv评论
-export function getMvComment(id) {
+export function getMvComment(id, limit, offset) {
     return request({
         url: "/comment/mv",
         params: {
-            id
+            id,
+            limit,
+            offset
         }
     })
 }
@@ -63,11 +65,13 @@ export function getVideoDetails(id) {
     })
 }
 //获取视频评论
-export function getVideoComment(id) {
+export function getVideoComment(id, limit, offset) {
     return request({
         url: "/comment/video",
         params: {
-            id
+            id,
+            limit,
+            offset
         }
     })
 }
