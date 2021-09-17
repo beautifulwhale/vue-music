@@ -31,7 +31,7 @@ export default {
   methods: {
     VideoPlay(id) {
       this.$router.push({
-        path: "/videodetails",
+        path: "/videoplay",
         query: { id: id }
       });
     }

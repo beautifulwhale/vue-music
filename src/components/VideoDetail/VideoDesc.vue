@@ -40,15 +40,15 @@
     <div class="operation">
       <el-button round size="medium ">
         <span class="iconfont icon-zan1"></span>
-        赞({{ mvData.subCount }})
+        赞({{ likeCount.likedCount }})
       </el-button>
       <el-button round size="medium ">
         <span class="iconfont icon-a-shoucang"></span>
-        收藏({{ mvData.commentCount }})
+        收藏({{ likeCount.commentCount }})
       </el-button>
       <el-button round size="medium ">
         <span class="iconfont icon-fenxiang2"></span>
-        分享({{ mvData.shareCount }})
+        分享({{ likeCount.shareCount }})
       </el-button>
     </div>
   </div>

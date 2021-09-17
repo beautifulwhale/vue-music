@@ -4,6 +4,7 @@
     :comment-list="mvComment"
     :hot-comment-list="mvHotComment"
     :mvId="Number(mvId)"
+    :videoId='videoId'
   ></comments>
 </template>
 <script>
@@ -21,6 +22,10 @@ export default {
     mvId: {
       type: Number,
       default: 0
+    },
+    videoId:{
+      type:String,
+      default:''
     }
   },
   components: {

@@ -58,9 +58,15 @@ export default {
       type: Number,
       default: 0
     },
+    //MV的ID
     mvId: {
       type: Number,
       default: 0
+    },
+    //视频的ID
+    videoId: {
+      type: String,
+      default: ""
     }
   },
   inject: ["reload"],
@@ -70,6 +76,7 @@ export default {
       tSend: 1,
       playListType: 2,
       mvType: 1,
+      videoType: 5,
       tLike: 1
     };
   },
@@ -91,6 +98,13 @@ export default {
         this.commentContent
       );
       this.sendComment(this.tSend, this.mvType, this.mvId, this.commentContent);
+      this.sendComment(
+        this.tSend,
+        this.videoType,
+        this.videoId,
+        this.commentContent
+      );
+      console.log(this.videoId);
       this.commentContent = "";
       this.$message({
         message: "恭喜你评论成功！",

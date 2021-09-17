@@ -38,3 +38,33 @@ export function getVideo(id, offset) {
         }
     })
 }
+
+//获取视频播放地址
+export function VideoPlayUrl(id) {
+    return request({
+        url: "/video/url",
+        params: {
+            cookie,
+            id
+        }
+    })
+}
+//获取视频详情
+export function getVideoData(id) {
+    return request({
+        url: "/video/detail",
+        params: {
+            cookie,
+            id
+        }
+    })
+}
+//获取视频点赞转发评论数数据
+export function getVideoLiked(vid) {
+    return request({
+        url: "/video/detail/info",
+        params: {
+            vid
+        }
+    })
+}
