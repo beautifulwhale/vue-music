@@ -4,20 +4,32 @@
     <div class="recom">
       <recom-topic></recom-topic>
     </div>
-    <topic-event></topic-event>
+    <hot-topic-event :topic-event-list="topicEventList"></hot-topic-event>
+    <all-topic-event :all-event-list="allEventList"></all-topic-event>
   </div>
 </template>
 <script>
 import TopicDesc from "@/views/Topic/TopicDesc";
 import RecomTopic from "@/views/Topic/RecomTopic";
-import TopicEvent from "@/views/Topic/TopicEvent";
-import { getTopicDetail, getTopicEvent } from "../../network/topic";
+import HotTopicEvent from "@/views/Topic/HotTopicEvent";
+import AllTopicEvent from "@/views/Topic/AllTopicEvent";
+import {
+  getTopicDetail,
+  getTopicEvent,
+  getAllEvent
+} from "../../network/topic";
 export default {
   data() {
     return {
       actId: 0,
       topicDesc: {},
-      topicDynamic: []
+      topicDynamic: [],
+      topicEventList: [],
+      eventInfo: {
+        pagesize: 50,
+        lasttime: -1
+      },
+      allEventList: []
     };
   },
   methods: {
@@ -27,21 +39,29 @@ export default {
     },
     async getTopicEvent(id) {
       const res = await getTopicEvent(id);
-      console.log(res);
+      this.topicEventList = res.events;
+    },
+    async getAllEvent(params) {
+      const res = await getAllEvent(params.pagesize, params.lasttime);
+      this.allEventList = res.event;
     }
   },
   mounted() {
     this.actId = this.$route.query.id;
     this.getTopicDetail(this.actId);
     this.getTopicEvent(this.actId);
+    this.getAllEvent(this.eventInfo);
     this.$bus.$on("changeTopic", id => {
       this.getTopicDetail(id);
+      this.getTopicEvent(id);
+      this.getAllEvent(id);
     });
   },
   components: {
     TopicDesc,
     RecomTopic,
-    TopicEvent
+    HotTopicEvent,
+    AllTopicEvent
   }
 };
 </script>

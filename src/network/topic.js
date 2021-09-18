@@ -32,3 +32,14 @@ export function getTopicEvent(actid) {
         }
     })
 }
+//获取动态消息
+export function getAllEvent(pagesize, lasttime) {
+    return request({
+        url: "/event",
+        params: {
+            pagesize,
+            lasttime,
+            cookie
+        }
+    })
+}
