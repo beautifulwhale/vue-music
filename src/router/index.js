@@ -23,6 +23,8 @@ const Dynamic = () => import('../views/Dynamic/Dynamic.vue')
 const TopicRank = () => import('../views/Topic/TopicRank.vue')
 const TopicDetails = () => import('../views/Topic/TopicDetails.vue')
 const EveryTopic = () => import('../views/Topic/EveryTopic.vue')
+const User = () => import('../views/User/User.vue')
+const UserFoucs = () => import('../views/User/UserFoucs.vue')
 const router = new Router({
   routes: [
     {
@@ -146,6 +148,14 @@ const router = new Router({
             {
               path: '/everytopic',
               component: EveryTopic
+            },
+            {
+              path: '/user',
+              component: User
+            },
+            {
+              path:'/userfoucs',
+              component:UserFoucs
             }
           ]
         }

@@ -12,3 +12,15 @@ export function getUserDetail(uid) {
         }
     })
 }
+//获取用户关注列表
+export function getUserFoucs(uid,limit,offset) {
+    return request({
+        url: "/user/follows",
+        params: {
+            uid,
+            limit,
+            offset,
+            cookie
+        }
+    })
+}

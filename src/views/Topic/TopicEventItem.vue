@@ -2,18 +2,23 @@
   <div class="eventitem">
     <div class="user-info">
       <div class="img">
-        <img :src="eventItem.user.avatarUrl" />
+        <img
+          :src="eventItem.user.avatarUrl"
+          @click="getUser(eventItem.user.userId)"
+        />
       </div>
       <div class="name">
-        <div class="nickname">{{ eventItem.user.nickname }}</div>
-        <div class="time" @click="getEveryTopic()">{{ eventTime }}</div>
+        <div class="nickname" @click="getUser(eventItem.user.userId)">
+          {{ eventItem.user.nickname }}
+        </div>
+        <div class="time">{{ eventTime }}</div>
       </div>
     </div>
     <div class="event-desc">
       <div class="title">{{ eventMsg }}</div>
       <div
         class="songs"
-        v-if="Object.keys(eventDesc).length !== 0"
+        v-if="eventDesc.song && Object.keys(eventDesc.song).length !== 0"
         @click="getMusicPlay(eventDesc.song.id)"
       >
         <div class="img">
@@ -65,6 +70,9 @@ export default {
   methods: {
     getMusicPlay(id) {
       this.$bus.$emit("getMusic", id);
+    },
+    getUser(id) {
+      this.$router.push({ path: "/user", query: { id: id } });
     }
   },
   computed: {

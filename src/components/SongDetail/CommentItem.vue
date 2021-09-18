@@ -1,11 +1,16 @@
 <template>
   <div class="comment-item">
     <div class="avatar">
-      <img :src="commentItem.user.avatarUrl" />
+      <img
+        :src="commentItem.user.avatarUrl"
+        @click="getUser(commentItem.user.userId)"
+      />
     </div>
     <div class="info">
       <div class="say">
-        <div class="name">{{ commentItem.user.nickname }}:</div>
+        <div class="name" @click="getUser(commentItem.user.userId)">
+          {{ commentItem.user.nickname }}:
+        </div>
         <div class="content">{{ commentItem.content }}</div>
       </div>
       <div class="time">
@@ -69,6 +74,9 @@ export default {
           this.currentId = 0;
         }
       }
+    },
+    getUser(id) {
+      this.$router.push({ path: "/user", query: { id: id } });
     }
   }
 };
@@ -82,6 +90,7 @@ export default {
   flex: 1;
   .avatar {
     margin-right: 15px;
+    cursor: pointer;
     img {
       width: 50px;
       height: 50px;
@@ -98,6 +107,7 @@ export default {
         color: tomato;
         float: left;
         margin-right: 5px;
+        cursor: pointer;
       }
       .content {
         width: 1100px;
