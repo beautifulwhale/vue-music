@@ -68,8 +68,13 @@
       </div>
     </div>
     <div class="opertion">
-      <span class="iconfont icon-zan">({{ eventItem.info.likedCount }})</span>
-      <span class="iconfont icon-forward1"
+      <span
+        class="iconfont icon-zan"
+        @click="zanDynamic"
+        :style="isLiked ? 'color:red' : ''"
+        >({{ eventItem.info.likedCount }})</span
+      >
+      <span class="iconfont icon-forward1" @click="showDynamic"
         >({{ eventItem.info.shareCount }})</span
       >
       <span
@@ -78,10 +83,22 @@
         >({{ eventItem.info.commentCount }})</span
       >
     </div>
+    <!-- 转发对话框 -->
+    <el-dialog title="转发" :visible.sync="dialogVisible" width="30%">
+      <textarea
+        name="textarea"
+        v-model="forwards"
+        class="text"
+        cols="55"
+        rows="8"
+      ></textarea>
+      <el-button type="danger" round @click="forwardDynamic">转发</el-button>
+    </el-dialog>
   </div>
 </template>
 <script>
 import { dateFormat } from "../../utils/utils";
+import { userDynamicForward, likeDynamic } from "../../network/dynamic";
 export default {
   props: {
     eventItem: {
@@ -94,19 +111,64 @@ export default {
   data() {
     return {
       eventDesc: {},
-      eventMsg: ""
+      eventMsg: "",
+      dialogVisible: false,
+      forwards: "",
+      uid: 0,
+      evId: 0,
+      zanQueryInfo: {
+        type: 6,
+        t: 1,
+        threadId: ""
+      },
+      isLiked: false
     };
   },
   methods: {
+    //播放歌曲
     getMusicPlay(id) {
       this.$bus.$emit("getMusic", id);
     },
+    //获取用户信息
     getUser(id) {
       this.$router.push({ path: "/user", query: { id: id } });
     },
     //获取动态评论
     getDynamicComment(id) {
       this.$router.push({ path: "/dynamiccomment", query: { id: id } });
+    },
+    //转发动态
+    async DynamicForward(uid, evId, forwards) {
+      const res = await userDynamicForward(uid, evId, forwards);
+      console.log(res);
+    },
+    //点赞动态
+    async getLikeDynamic(params) {
+      const res = await likeDynamic(params.type, params.t, params.threadId);
+    },
+    showDynamic() {
+      this.dialogVisible = true;
+    },
+    //转发用户动态
+    forwardDynamic() {
+      this.uid = this.eventItem.user.userId;
+      this.evId = this.eventItem.id;
+      this.DynamicForward(this.uid, this.evId, this.forwards);
+      this.dialogVisible = false;
+    },
+    //点赞动态
+    zanDynamic() {
+      this.zanQueryInfo.threadId = this.eventItem.info.threadId;
+      if (!this.isLiked) {
+        this.eventItem.info.likedCount += 1;
+        this.isLiked = true;
+        this.getLikeDynamic(this.zanQueryInfo);
+      } else {
+        if (this.eventItem.info.likedCount !== 0) {
+          this.eventItem.info.likedCount -= 1;
+          this.isLiked = false;
+        }
+      }
     }
   },
   computed: {
@@ -245,6 +307,14 @@ export default {
       font-size: 12px;
       color: gainsboro;
     }
+  }
+  .el-button {
+    margin-left: 340px;
+    margin-top: 20px;
+  }
+  .el-button--danger {
+    background-color: red;
+    border-color: red;
   }
 }
 </style>

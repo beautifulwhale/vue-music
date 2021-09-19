@@ -1,6 +1,5 @@
 <template>
   <div class="event">
-    <div class="title">所有动态</div>
     <div class="event-items">
       <div class="event-item" v-for="item in allEventList" :key="item.id">
         <topic-event-item :event-item="item"></topic-event-item>
@@ -28,9 +27,7 @@ export default {
 .event {
   width: 1060px;
   padding: 10px 0;
-  .title {
-    margin-bottom: 20px;
-  }
+  margin-top: 20px;
   .event-items {
     width: 1040px;
     .event-item {

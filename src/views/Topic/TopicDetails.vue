@@ -5,18 +5,15 @@
       <recom-topic></recom-topic>
     </div>
     <hot-topic-event :topic-event-list="topicEventList"></hot-topic-event>
-    <all-topic-event :all-event-list="allEventList"></all-topic-event>
   </div>
 </template>
 <script>
 import TopicDesc from "@/views/Topic/TopicDesc";
 import RecomTopic from "@/views/Topic/RecomTopic";
 import HotTopicEvent from "@/views/Topic/HotTopicEvent";
-import AllTopicEvent from "@/views/Topic/AllTopicEvent";
 import {
   getTopicDetail,
   getTopicEvent,
-  getAllEvent
 } from "../../network/topic";
 export default {
   data() {
@@ -25,11 +22,6 @@ export default {
       topicDesc: {},
       topicDynamic: [],
       topicEventList: [],
-      eventInfo: {
-        pagesize: 50,
-        lasttime: -1
-      },
-      allEventList: []
     };
   },
   methods: {
@@ -37,32 +29,26 @@ export default {
       const res = await getTopicDetail(id);
       this.topicDesc = res.act;
     },
+    //获取话题动态
     async getTopicEvent(id) {
       const res = await getTopicEvent(id);
       this.topicEventList = res.events;
       // console.log(res)
     },
-    async getAllEvent(params) {
-      const res = await getAllEvent(params.pagesize, params.lasttime);
-      this.allEventList = res.event;
-    }
   },
   mounted() {
     this.actId = this.$route.query.id;
     this.getTopicDetail(this.actId);
     this.getTopicEvent(this.actId);
-    this.getAllEvent(this.eventInfo);
     this.$bus.$on("changeTopic", id => {
       this.getTopicDetail(id);
       this.getTopicEvent(id);
-      this.getAllEvent(id);
     });
   },
   components: {
     TopicDesc,
     RecomTopic,
     HotTopicEvent,
-    AllTopicEvent
   }
 };
 </script>

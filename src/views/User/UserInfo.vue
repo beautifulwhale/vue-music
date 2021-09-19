@@ -123,7 +123,6 @@ export default {
   methods: {
     async followUser(id, t) {
       const res = await followUser(id, t);
-      console.log(res);
     },
     followUsers() {
       if (!this.isShowFollow) {

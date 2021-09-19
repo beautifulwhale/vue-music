@@ -1,7 +1,6 @@
 import { request } from './request'
 import Cookies from 'js-cookie'
 const cookie = Cookies.get('userCookie');
-
 //获取用户详细信息
 export function getUserDetail(uid) {
     return request({
@@ -55,6 +54,18 @@ export function followUser(id, t) {
         params: {
             id,
             t,
+            cookie
+        }
+    })
+}
+//获取用户歌单
+export function getUserPlayList(uid, limit, offset) {
+    return request({
+        url: "/user/playlist",
+        params: {
+            uid,
+            limit,
+            offset,
             cookie
         }
     })

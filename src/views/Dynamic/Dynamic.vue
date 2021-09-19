@@ -6,6 +6,10 @@
         ><i class="el-icon-plus"></i>写动态</el-button
       >
     </div>
+    <div class="container">
+    <all-topic-event :all-event-list="allEventList"></all-topic-event>
+
+    </div>
     <div class="rightmessage">
       <div class="userinfo">
         <div class="usertitle" @click="getUser">
@@ -67,8 +71,10 @@
 </template>
 <script>
 import HotTopic from "@/views/Topic/HotTopic";
+import AllTopicEvent from '@/views/Topic/AllTopicEvent'
 import { getUserDetail } from "../../network/user";
-import { getHotTopic } from "../../network/topic";
+
+import { getHotTopic, getAllEvent } from "../../network/topic";
 import { getUserFoucs } from "../../network/user";
 export default {
   data() {
@@ -84,7 +90,13 @@ export default {
       userInfo: {},
       limit: 30,
       offset: 0,
-      myFollow: []
+      myFollow: [],
+
+      allEventList: [],
+      eventInfo: {
+        pagesize: 50,
+        lasttime: -1
+      }
     };
   },
   methods: {
@@ -96,7 +108,7 @@ export default {
     async getUserDetail(id) {
       const res = await getUserDetail(id);
       this.userInfo = res;
-      this.limit = this.userInfo.profile.follows
+      this.limit = this.userInfo.profile.follows;
     },
     //获取我的关注
     async getMyFoucs(userId, limit, offset) {
@@ -104,7 +116,11 @@ export default {
       this.myFollow = res.follow;
       let myFoucsArray = [];
       this.myFollow.forEach(item => myFoucsArray.push(item.userId));
-      this.$store.commit('getMyFousc',myFoucsArray)
+      this.$store.commit("getMyFousc", myFoucsArray);
+    },
+    async getAllEvent(params) {
+      const res = await getAllEvent(params.pagesize, params.lasttime);
+      this.allEventList = res.event;
     },
     getUser() {
       this.$router.push({ path: "/user", query: { id: this.userId } });
@@ -137,9 +153,11 @@ export default {
     this.getHotTopic(this.hotTopicInfo);
     this.getUserDetail(this.userId);
     this.getMyFoucs(this.userId, this.limit, this.offset);
+    this.getAllEvent(this.eventInfo);
   },
   components: {
-    HotTopic
+    HotTopic,
+    AllTopicEvent
   }
 };
 </script>

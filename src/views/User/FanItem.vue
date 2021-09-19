@@ -24,13 +24,16 @@
     </div>
     <div class="foucsbutton">
       <el-button round size="mini"
-        ><span v-if="isMyFoucs"><i class="el-icon-plus"></i>关注</span>
+        ><span v-if="isMyFoucs" @click="followUsers"
+          ><i class="el-icon-plus"></i>关注</span
+        >
         <span v-else>已关注</span>
       </el-button>
     </div>
   </div>
 </template>
 <script>
+import { followUser } from "../../network/user";
 export default {
   props: {
     fanItem: {
@@ -42,12 +45,23 @@ export default {
   },
   data() {
     return {
+      t: 1,
       isMyFoucs: true
     };
   },
   methods: {
     getUser(id) {
       this.$router.push({ path: "/user", query: { id: id } });
+    },
+    async followUser(id, t) {
+      const res = await followUser(id, t);
+      console.log(res);
+    },
+    followUsers() {
+      this.followUser(this.fanItem.userId, this.t);
+      this.isMyFoucs = false;
+      this.$message({ message: "恭喜您成功的关注了~", type: "success" });
+      localStorage.setItem("hasFollow", this.fanItem.userId);
     }
   },
   created() {

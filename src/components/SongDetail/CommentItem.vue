@@ -44,10 +44,6 @@ export default {
         return {};
       }
     }
-    // isLiked: {
-    //   type: Boolean,
-    //   default: false
-    // }
   },
   data() {
     return {
