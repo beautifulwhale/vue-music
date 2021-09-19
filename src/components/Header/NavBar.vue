@@ -84,6 +84,7 @@ export default {
       localStorage.setItem("token", res.token);
       localStorage.setItem("avatarUrl", res.profile.avatarUrl);
       localStorage.setItem("nickname", res.profile.nickname);
+      console.log(res)
     },
     async getLoginKey() {
       const res = await getLoginKey();

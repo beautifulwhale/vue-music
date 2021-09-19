@@ -9,7 +9,7 @@
       </div>
     </div>
     <!-- 分页 -->
-    <div class="pagination">
+    <div class="pagination" v-if="dynamicList.length > 50">
       <el-pagination
         @current-change="handleCurrentChange"
         :current-page="currentPage"

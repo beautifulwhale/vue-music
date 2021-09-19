@@ -27,6 +27,7 @@ const User = () => import('../views/User/User.vue')
 const UserFoucs = () => import('../views/User/UserFoucs.vue')
 const UserFans = () => import('../views/User/UserFans.vue')
 const UserDynamic = () => import('../views/User/UserDynamic.vue')
+const DynamicComment = () => import('../views/User/DynamicComment.vue')
 const router = new Router({
   routes: [
     {
@@ -165,7 +166,11 @@ const router = new Router({
             },
             {
               path: '/userdynamic',
-              component: UserDynamic
+              component: UserDynamic,
+            },
+            {
+              path: '/dynamiccomment',
+              component: DynamicComment
             }
           ]
         }

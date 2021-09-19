@@ -16,6 +16,20 @@ export function sendComment(t, type, id, content) {
         }
     })
 }
+//动态发送评论
+export function sendDyComment(t, type, threadId, content) {
+    return request({
+        url: "/comment",
+        method: 'post',
+        data: {
+            t,
+            type,
+            threadId,
+            content,
+            cookie
+        }
+    })
+}
 //给评论点赞
 export function likeComment(t, type, id, cid) {
     return request({

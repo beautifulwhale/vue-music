@@ -8,61 +8,121 @@
     </div>
     <div class="rightmessage">
       <div class="userinfo">
-        <div class="usertitle">
+        <div class="usertitle" @click="getUser">
           <img :src="avatarUrl" />
           <span>{{ nickname }}</span>
         </div>
         <div class="userlike">
-          <div class="dynamicnumber">
-            <div class="number">1</div>
+          <div
+            class="dynamicnumber"
+            @click="
+              getUserDynamic(
+                userInfo.profile.userId,
+                userInfo.profile.nickname,
+                userInfo.profile.eventCount
+              )
+            "
+          >
+            <div class="number">{{ userInfo.profile.eventCount }}</div>
             <div class="dyma">动态</div>
           </div>
           <el-divider direction="vertical"></el-divider>
-          <div class="guanzhu">
-            <div class="number">1</div>
+          <div
+            class="guanzhu"
+            @click="
+              getUserFoucs(
+                userInfo.profile.userId,
+                userInfo.profile.nickname,
+                userInfo.profile.follows
+              )
+            "
+          >
+            <div class="number">{{ userInfo.profile.follows }}</div>
             <div class="guan">关注</div>
           </div>
           <el-divider direction="vertical"></el-divider>
-          <div class="fans">
-            <div class="number">1</div>
+          <div
+            class="fans"
+            @click="
+              getUserFans(
+                userInfo.profile.userId,
+                userInfo.profile.nickname,
+                userInfo.profile.followeds
+              )
+            "
+          >
+            <div class="number">{{ userInfo.profile.followeds }}</div>
             <div class="fan">粉丝</div>
           </div>
         </div>
       </div>
       <div class="hottopic">
-          <hot-topic :hot-topic='hotTopicList'></hot-topic>
+        <hot-topic :hot-topic="hotTopicList"></hot-topic>
       </div>
     </div>
   </div>
 </template>
 <script>
-import HotTopic from '@/views/Topic/HotTopic'
+import HotTopic from "@/views/Topic/HotTopic";
+import { getUserDetail } from "../../network/user";
 import { getHotTopic } from "../../network/topic";
 export default {
   data() {
     return {
       avatarUrl: "",
       nickname: "",
+      userId: 3243961585,
       hotTopicInfo: {
         limit: 5,
         offset: 0
       },
-      hotTopicList: []
+      hotTopicList: [],
+      userInfo: {}
     };
   },
   methods: {
     async getHotTopic(params) {
       const res = await getHotTopic(params.limit, params.offset);
       this.hotTopicList = res.hot;
+    },
+    //获取用户详细信息
+    async getUserDetail(id) {
+      const res = await getUserDetail(id);
+      this.userInfo = res;
+    },
+    getUser() {
+      this.$router.push({ path: "/user", query: { id: this.userId } });
+    },
+    //获取用户动态列表
+    getUserDynamic(id, nickname, eventCount) {
+      this.$router.push({
+        path: "/userdynamic",
+        query: { id: id, nickname: nickname, eventCount: eventCount }
+      });
+    },
+    //获取用户关注列表
+    getUserFoucs(id, nickname, follows) {
+      this.$router.push({
+        path: "/userfoucs",
+        query: { id: id, nickname: nickname, follows: follows }
+      });
+    },
+    //获取用户粉丝列表
+    getUserFans(id, nickname, followeds) {
+      this.$router.push({
+        path: "/userfans",
+        query: { id: id, nickname: nickname, followeds: followeds }
+      });
     }
   },
   created() {
     this.avatarUrl = window.localStorage.getItem("avatarUrl");
     this.nickname = window.localStorage.getItem("nickname");
     this.getHotTopic(this.hotTopicInfo);
+    this.getUserDetail(this.userId);
   },
-  components:{
-      HotTopic
+  components: {
+    HotTopic
   }
 };
 </script>
@@ -136,9 +196,9 @@ export default {
         }
       }
     }
-    .hottopic{
-        width: 250px;
-        height: 500px;
+    .hottopic {
+      width: 250px;
+      height: 500px;
     }
   }
 }

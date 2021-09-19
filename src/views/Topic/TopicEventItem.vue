@@ -1,7 +1,13 @@
 <template>
   <div class="eventitem">
     <div class="user-info">
-      <div class="img">
+      <div
+        class="img"
+        v-if="
+          eventItem.user.avatarUrl &&
+            Object.keys(eventItem.user.avatarUrl).length !== 0
+        "
+      >
         <img
           :src="eventItem.user.avatarUrl"
           @click="getUser(eventItem.user.userId)"
@@ -25,7 +31,9 @@
             >分享视频</span
           >
         </div>
-        <div class="time">{{ eventTime }}</div>
+        <div class="time" @click="getDynamicComment(eventItem.info.threadId)">
+          {{ eventTime }}
+        </div>
       </div>
     </div>
     <div class="event-desc">
@@ -64,7 +72,9 @@
       <span class="iconfont icon-forward1"
         >({{ eventItem.info.shareCount }})</span
       >
-      <span class="iconfont icon-huifu"
+      <span
+        class="iconfont icon-huifu"
+        @click="getDynamicComment(eventItem.info.threadId)"
         >({{ eventItem.info.commentCount }})</span
       >
     </div>
@@ -93,6 +103,10 @@ export default {
     },
     getUser(id) {
       this.$router.push({ path: "/user", query: { id: id } });
+    },
+    //获取动态评论
+    getDynamicComment(id) {
+      this.$router.push({ path: "/dynamiccomment", query: { id: id } });
     }
   },
   computed: {

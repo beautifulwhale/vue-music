@@ -129,7 +129,6 @@ export default {
       this.commentList = res.comments;
       this.hotCommentList = res.hotComments;
       this.commentTotal = res.total;
-      console.log(res)
     },
     toggleDescClick() {
       this.isShowDesc = !this.isShowDesc;

@@ -40,6 +40,7 @@ export default {
     async getTopicEvent(id) {
       const res = await getTopicEvent(id);
       this.topicEventList = res.events;
+      // console.log(res)
     },
     async getAllEvent(params) {
       const res = await getAllEvent(params.pagesize, params.lasttime);

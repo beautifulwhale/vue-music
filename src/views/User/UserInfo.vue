@@ -105,7 +105,7 @@ export default {
     }
   },
   methods: {
-        //获取用户动态列表
+    //获取用户动态列表
     getUserDynamic(id, nickname, eventCount) {
       this.$router.push({
         path: "/userdynamic",

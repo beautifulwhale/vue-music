@@ -38,7 +38,7 @@
 </template>
 <script>
 import CommentItem from "@/components/SongDetail/CommentItem";
-import { sendComment, likeComment } from "../../network/comment";
+import { sendComment, sendDyComment, likeComment } from "../../network/comment";
 export default {
   props: {
     commentList: {
@@ -77,6 +77,11 @@ export default {
     videoId: {
       type: String,
       default: ""
+    },
+    //动态ID
+    threadId: {
+      type: String,
+      default: ""
     }
   },
   inject: ["reload"],
@@ -87,6 +92,7 @@ export default {
       playListType: 2,
       mvType: 1,
       videoType: 5,
+      dynamicType: 6,
       tLike: 1
     };
   },
@@ -94,6 +100,9 @@ export default {
     //发送(删除)评论
     async sendComment(t, type, id, content) {
       const res = await sendComment(t, type, id, content);
+    },
+    async sendDyComment(t, type, id, content) {
+      const res = await sendDyComment(t, type, id, content);
     },
     //点赞评论
     async likeComment(t, type, id, cid) {
@@ -114,7 +123,13 @@ export default {
         this.videoId,
         this.commentContent
       );
-      console.log(this.videoId);
+      this.sendDyComment(
+        this.tSend,
+        this.dynamicType,
+        this.threadId,
+        this.commentContent
+      );
+      console.log(this.threadId);
       this.commentContent = "";
       this.$message({
         message: "恭喜你评论成功！",
