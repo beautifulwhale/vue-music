@@ -12,7 +12,10 @@
           <img :src="avatarUrl" />
           <span>{{ nickname }}</span>
         </div>
-        <div class="userlike">
+        <div
+          class="userlike"
+          v-if="userInfo.profile && Object.keys(userInfo.profile).length !== 0"
+        >
           <div
             class="dynamicnumber"
             @click="
@@ -66,6 +69,7 @@
 import HotTopic from "@/views/Topic/HotTopic";
 import { getUserDetail } from "../../network/user";
 import { getHotTopic } from "../../network/topic";
+import { getUserFoucs } from "../../network/user";
 export default {
   data() {
     return {
@@ -77,7 +81,10 @@ export default {
         offset: 0
       },
       hotTopicList: [],
-      userInfo: {}
+      userInfo: {},
+      limit: 30,
+      offset: 0,
+      myFollow: []
     };
   },
   methods: {
@@ -85,10 +92,19 @@ export default {
       const res = await getHotTopic(params.limit, params.offset);
       this.hotTopicList = res.hot;
     },
-    //获取用户详细信息
+    //获取我的详细信息
     async getUserDetail(id) {
       const res = await getUserDetail(id);
       this.userInfo = res;
+      this.limit = this.userInfo.profile.follows
+    },
+    //获取我的关注
+    async getMyFoucs(userId, limit, offset) {
+      const res = await getUserFoucs(userId, limit, offset);
+      this.myFollow = res.follow;
+      let myFoucsArray = [];
+      this.myFollow.forEach(item => myFoucsArray.push(item.userId));
+      this.$store.commit('getMyFousc',myFoucsArray)
     },
     getUser() {
       this.$router.push({ path: "/user", query: { id: this.userId } });
@@ -120,6 +136,7 @@ export default {
     this.nickname = window.localStorage.getItem("nickname");
     this.getHotTopic(this.hotTopicInfo);
     this.getUserDetail(this.userId);
+    this.getMyFoucs(this.userId, this.limit, this.offset);
   },
   components: {
     HotTopic

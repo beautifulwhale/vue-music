@@ -6,8 +6,7 @@ export default {
     isPlay: true,
     isLogin: false,
 
-    token:'',
-    avatarUrl: '',
-    nickname:''
+    //我的关注
+    myFoucs:[]
 
 }

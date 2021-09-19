@@ -4,7 +4,8 @@
       <h3>{{ username }}的关注</h3>
     </div>
     <div class="foucs-item" v-for="item in userFoucsList" :key="item.userId">
-      <fan-item :fan-item="item"></fan-item>
+      <follow-item :fan-item="item"></follow-item>
+      <!-- <fan-item :fan-item="item"></fan-item> -->
     </div>
     <!-- 分页 -->
     <div class="pagination" v-if="total > 48">
@@ -21,7 +22,7 @@
   </div>
 </template>
 <script>
-import FanItem from "@/views/User/FanItem";
+import FollowItem from '@/views/User/FollowItem'
 import { getUserFoucs } from "../../network/user";
 export default {
   data() {
@@ -61,7 +62,7 @@ export default {
     this.getUserFoucs(this.queryInfo);
   },
   components: {
-    FanItem
+    FollowItem
   }
 };
 </script>

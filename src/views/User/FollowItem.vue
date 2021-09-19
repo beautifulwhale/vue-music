@@ -23,9 +23,8 @@
       </div>
     </div>
     <div class="foucsbutton">
-      <el-button round size="mini"
-        ><span v-if="isMyFoucs"><i class="el-icon-plus"></i>关注</span>
-        <span v-else>已关注</span>
+      <el-button round size="mini">
+        <span><i class="iconfont icon-youjian"></i>私信</span>
       </el-button>
     </div>
   </div>
@@ -40,23 +39,11 @@ export default {
       }
     }
   },
-  data() {
-    return {
-      isMyFoucs: true
-    };
-  },
   methods: {
     getUser(id) {
       this.$router.push({ path: "/user", query: { id: id } });
     }
   },
-  created() {
-    this.$store.state.myFoucs.forEach(item => {
-      if (item === this.fanItem.userId) {
-        this.isMyFoucs = false;
-      }
-    });
-  }
 };
 </script>
 <style lang="less" scoped>
@@ -89,7 +76,7 @@ export default {
     }
   }
   .user-info {
-    width: 200px;
+    width: 150px;
     height: 200px;
     .name {
       margin-top: 20px;
@@ -97,7 +84,7 @@ export default {
       margin-bottom: 20px;
     }
     .desc {
-      width: 200px;
+      width: 150px;
       font-size: 12px;
       text-overflow: ellipsis;
       overflow: hidden;
@@ -117,7 +104,6 @@ export default {
   .foucsbutton {
     line-height: 100px;
     i {
-      color: red;
       margin-right: 5px;
     }
   }

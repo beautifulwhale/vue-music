@@ -48,3 +48,14 @@ export function getUserFans(uid, limit, offset) {
         }
     })
 }
+//关注并取关用户
+export function followUser(id, t) {
+    return request({
+        url: "/follow",
+        params: {
+            id,
+            t,
+            cookie
+        }
+    })
+}

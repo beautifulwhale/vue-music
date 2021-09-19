@@ -15,18 +15,8 @@ export default {
     LoginStatus(state, flag) {
         state.isLogin = flag
     },
-
-
-    setToken(state, data) {
-        state.token = data
-        window.sessionStorage.setItem("token", data);
-    },
-    setUserImg(state, data) {
-        state.avatarUrl = data
-        window.sessionStorage.setItem("avatarUrl", data);
-    },
-    setNickName(state, data) {
-        state.nickname = data
-        window.sessionStorage.setItem("nickname", data);
+    //获取自己的关注的人
+    getMyFousc(state, follows) {
+        state.myFoucs = follows
     }
 }

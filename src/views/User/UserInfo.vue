@@ -33,9 +33,17 @@
             <el-button round size="mini"
               ><i class="iconfont icon-youjian"></i>发邮件</el-button
             >
-            <el-button round size="mini" class="foucsbutton"
-              ><i class="el-icon-plus"></i>关注</el-button
+            <el-button
+              round
+              size="mini"
+              class="foucsbutton"
+              @click="followUsers"
             >
+              <span v-if="isShowFollow"
+                ><i class="el-icon-check"></i>已关注</span
+              >
+              <span v-else><i class="el-icon-plus"></i>关注</span>
+            </el-button>
           </div>
         </div>
       </div>
@@ -95,6 +103,7 @@
   </div>
 </template>
 <script>
+import { followUser } from "../../network/user";
 export default {
   props: {
     userInfo: {
@@ -104,7 +113,36 @@ export default {
       }
     }
   },
+  data() {
+    return {
+      //是否关注  1为关注
+      t: 1,
+      isShowFollow: false
+    };
+  },
   methods: {
+    async followUser(id, t) {
+      const res = await followUser(id, t);
+      console.log(res);
+    },
+    followUsers() {
+      if (!this.isShowFollow) {
+        this.t = 1;
+        this.followUser(this.userInfo.profile.userId, this.t);
+        this.isShowFollow = true;
+        this.$message({ message: "恭喜您成功的关注了~", type: "success" });
+        localStorage.setItem("hasFollow", this.userInfo.profile.userId);
+      } else {
+        this.t = 0;
+        this.followUser(this.userInfo.profile.userId, this.t);
+        this.isShowFollow = false;
+        this.$message({
+          message: "期待您的下次关注",
+          type: "warning"
+        });
+        localStorage.removeItem("hasFollow");
+      }
+    },
     //获取用户动态列表
     getUserDynamic(id, nickname, eventCount) {
       this.$router.push({
@@ -125,6 +163,13 @@ export default {
         path: "/userfans",
         query: { id: id, nickname: nickname, followeds: followeds }
       });
+    }
+  },
+  created() {
+    if (localStorage.getItem("hasFollow") === this.$route.query.id) {
+      this.isShowFollow = true;
+    } else {
+      this.isShowFollow = false;
     }
   }
 };
