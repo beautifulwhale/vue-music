@@ -25,6 +25,8 @@ const TopicDetails = () => import('../views/Topic/TopicDetails.vue')
 const EveryTopic = () => import('../views/Topic/EveryTopic.vue')
 const User = () => import('../views/User/User.vue')
 const UserFoucs = () => import('../views/User/UserFoucs.vue')
+const UserFans = () => import('../views/User/UserFans.vue')
+const UserDynamic = () => import('../views/User/UserDynamic.vue')
 const router = new Router({
   routes: [
     {
@@ -154,8 +156,16 @@ const router = new Router({
               component: User
             },
             {
-              path:'/userfoucs',
-              component:UserFoucs
+              path: '/userfoucs',
+              component: UserFoucs
+            },
+            {
+              path: '/userfans',
+              component: UserFans
+            },
+            {
+              path: '/userdynamic',
+              component: UserDynamic
             }
           ]
         }

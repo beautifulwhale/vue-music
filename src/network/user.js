@@ -12,10 +12,34 @@ export function getUserDetail(uid) {
         }
     })
 }
+//获取用户动态列表
+export function getUserDynamic(uid, limit, lasttime) {
+    return request({
+        url: "/user/event",
+        params: {
+            uid,
+            limit,
+            lasttime,
+            cookie
+        }
+    })
+}
 //获取用户关注列表
-export function getUserFoucs(uid,limit,offset) {
+export function getUserFoucs(uid, limit, offset) {
     return request({
         url: "/user/follows",
+        params: {
+            uid,
+            limit,
+            offset,
+            cookie
+        }
+    })
+}
+//获取用户粉丝列表
+export function getUserFans(uid, limit, offset) {
+    return request({
+        url: "/user/followeds",
         params: {
             uid,
             limit,

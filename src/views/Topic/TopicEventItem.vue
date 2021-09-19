@@ -9,7 +9,21 @@
       </div>
       <div class="name">
         <div class="nickname" @click="getUser(eventItem.user.userId)">
-          {{ eventItem.user.nickname }}
+          <span class="nick">{{ eventItem.user.nickname }}</span>
+          <span v-if="eventItem.type === 18">分享单曲</span>
+          <span v-if="eventItem.type === 19">分享专辑</span>
+          <span v-if="eventItem.type === 17 || eventItem.type === 28"
+            >分享电台节目</span
+          >
+          <span v-if="eventItem.type === 22">转发</span>
+          <span v-if="eventItem.type === 33">发布视频</span>
+          <span v-if="eventItem.type === 35 || eventItem.type === 13"
+            >分享歌单</span
+          >
+          <span v-if="eventItem.type === 24">分享专栏文章</span>
+          <span v-if="eventItem.type === 41 || eventItem.type === 21"
+            >分享视频</span
+          >
         </div>
         <div class="time">{{ eventTime }}</div>
       </div>
@@ -36,7 +50,13 @@
         v-for="(item, index) in eventItem.pics"
         :key="index"
       >
-        <img :src="item.originUrl" />
+        <img
+          :src="item.originUrl"
+          :class="{
+            active: eventItem.pics.length === 1,
+            active1: eventItem.pics.length === 2
+          }"
+        />
       </div>
     </div>
     <div class="opertion">
@@ -112,9 +132,12 @@ export default {
     .name {
       height: 40px;
       .nickname {
-        color: rgb(177, 177, 248);
         font-size: 13px;
         margin-bottom: 10px;
+        .nick {
+          color: rgb(177, 177, 248);
+          margin-right: 5px;
+        }
       }
       .time {
         color: gainsboro;
@@ -171,6 +194,22 @@ export default {
     flex-wrap: wrap;
     .origin-img {
       margin-right: 5px;
+      .active {
+        width: 200px;
+        height: 300px;
+        img {
+          width: 100%;
+          height: 300px;
+        }
+      }
+      .active1 {
+        width: 200px;
+        height: 200px;
+        img {
+          width: 100%;
+          height: 200px;
+        }
+      }
       img {
         width: 100px;
         height: 100px;

@@ -41,18 +41,45 @@
       </div>
       <div class="user-opertion">
         <div class="userlike">
-          <div class="dynamicnumber">
-            <div class="number">1</div>
+          <div
+            class="dynamicnumber"
+            @click="
+              getUserDynamic(
+                userInfo.profile.userId,
+                userInfo.profile.nickname,
+                userInfo.profile.eventCount
+              )
+            "
+          >
+            <div class="number">{{ userInfo.profile.eventCount }}</div>
             <div class="dyma">动态</div>
           </div>
           <el-divider direction="vertical"></el-divider>
-          <div class="guanzhu" @click="getUserFoucs(userInfo.profile.userId)">
-            <div class="number">1</div>
+          <div
+            class="guanzhu"
+            @click="
+              getUserFoucs(
+                userInfo.profile.userId,
+                userInfo.profile.nickname,
+                userInfo.profile.follows
+              )
+            "
+          >
+            <div class="number">{{ userInfo.profile.follows }}</div>
             <div class="guan">关注</div>
           </div>
           <el-divider direction="vertical"></el-divider>
-          <div class="fans">
-            <div class="number">1</div>
+          <div
+            class="fans"
+            @click="
+              getUserFans(
+                userInfo.profile.userId,
+                userInfo.profile.nickname,
+                userInfo.profile.followeds
+              )
+            "
+          >
+            <div class="number">{{ userInfo.profile.followeds }}</div>
             <div class="fan">粉丝</div>
           </div>
         </div>
@@ -78,8 +105,26 @@ export default {
     }
   },
   methods: {
-    getUserFoucs(id) {
-      this.$router.push({ path: "/userfoucs", query: { id: id } });
+        //获取用户动态列表
+    getUserDynamic(id, nickname, eventCount) {
+      this.$router.push({
+        path: "/userdynamic",
+        query: { id: id, nickname: nickname, eventCount: eventCount }
+      });
+    },
+    //获取用户关注列表
+    getUserFoucs(id, nickname, follows) {
+      this.$router.push({
+        path: "/userfoucs",
+        query: { id: id, nickname: nickname, follows: follows }
+      });
+    },
+    //获取用户粉丝列表
+    getUserFans(id, nickname, followeds) {
+      this.$router.push({
+        path: "/userfans",
+        query: { id: id, nickname: nickname, followeds: followeds }
+      });
     }
   }
 };
