@@ -125,8 +125,8 @@ export default {
   background-color: #fff;
   border-radius: 10px;
   position: fixed;
-  left: 300px;
-  top: 180px;
+  left: 230px;
+  top: 220px;
   padding: 15px;
   overflow: hidden;
   overflow-y: scroll;

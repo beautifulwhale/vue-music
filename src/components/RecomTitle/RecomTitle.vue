@@ -1,6 +1,5 @@
 <template>
   <div class="title">
-    <i class="iconfont icon-fenge"></i>
     <h2>{{ titleName }}</h2>
   </div>
 </template>
@@ -21,11 +20,7 @@ export default {
   align-items: center;
   color: black;
   cursor: pointer;
-  i {
-    font-size: 30px;
-    font-weight: bolder;
-    color: turquoise;
-  }
+  margin-left: 20px;
   h2 {
     padding: 5px;
   }

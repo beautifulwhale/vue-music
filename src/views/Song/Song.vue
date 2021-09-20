@@ -33,12 +33,12 @@ export default {
       songCategories: {},
       hotSongCategories: [],
       currentPage: 1,
-      pageSize: 35,
+      pageSize: 100,
       total: 0,
       queryInfo: {
         order: "hot",
         cat: "全部",
-        limit: 30,
+        limit: 100,
         offset: 0
       }
     };

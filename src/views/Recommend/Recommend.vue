@@ -36,7 +36,6 @@ export default {
     async getRecomPlayList(){
       const res = await getRecomPlayList()
       this.recomPlayList = res.result
-      // console.log(res)
     },
      async getRecomSongList(){
       const res = await getRecomSongList()

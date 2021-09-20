@@ -7,13 +7,13 @@
         :key="index"
         class="recomsong"
       >
-        <play-list-item :recom-song-item="item"></play-list-item>
+        <play-list-item :play-item="item"></play-list-item>
       </div>
     </div>
   </div>
 </template>
 <script>
-import PlayListItem from "@/components/RecommendPlaylist/PlayListItem";
+import PlayListItem from '@/components/PlayListItem/PlayListItem'
 import RecomTitle from "@/components/RecomTitle/RecomTitle";
 export default {
   data() {
@@ -43,10 +43,10 @@ export default {
 <style lang="less" scoped>
 .recom-song {
   width: 1200px;
-  height: 650px;
+  height: 750px;
   .recomsongul {
     width: 1200px;
-    height: 650px;
+    height: 750px;
     padding-left: 20px;
     display: flex;
     flex-wrap: wrap;

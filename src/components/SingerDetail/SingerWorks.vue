@@ -17,7 +17,7 @@
     <div class="album" v-show="isShowAlbum">
       <div class="album-item" v-for="(item, index) in singerAlbum" :key="index">
         <play-list-item
-          :recom-song-item="item"
+          :play-item="item"
           @click.native="getPlayList(item.id)"
         ></play-list-item>
       </div>
@@ -58,7 +58,7 @@
 </template>
 <script>
 import DetailList from "@/components/SongDetail/DetailList";
-import PlayListItem from "@/components/RecommendPlaylist/PlayListItem";
+import PlayListItem from '@/components/PlayListItem/PlayListItem'
 import MvListItem from "@/components/MvList/MvListItem";
 export default {
   props: {

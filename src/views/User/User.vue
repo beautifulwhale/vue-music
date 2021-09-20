@@ -4,14 +4,14 @@
     <div class="title"><h4>歌单</h4></div>
     <div class="playlist">
       <div class="playlist-item" v-for="item in playList" :key="item.id">
-        <play-item :play-item="item"></play-item>
+        <user-play-item :play-item="item"></user-play-item>
       </div>
     </div>
   </div>
 </template>
 <script>
 import UserInfo from "@/views/User/UserInfo";
-import PlayItem from "@/components/PlayListItem/PlayItem";
+import userPlayItem from '@/components/PlayListItem/userPlayItem'
 import { getUserDetail, getUserPlayList } from "../../network/user";
 export default {
   data() {
@@ -43,7 +43,7 @@ export default {
   },
   components: {
     UserInfo,
-    PlayItem
+    userPlayItem
   }
 };
 </script>

@@ -9,7 +9,7 @@ export function getBanner(type) {
 //推荐歌单
 export function getRecomPlayList() {
     return request({
-        url: "/personalized?limit=18",
+        url: "/personalized?limit=15",
     })
 }
 //推荐歌曲
