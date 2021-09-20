@@ -102,7 +102,7 @@ export default {
         params.offset,
         params.type
       );
-      // console.log(res);
+      console.log(res);
       const data = res.result;
       this.songs = data.songs;
       this.songCount = data.songCount;

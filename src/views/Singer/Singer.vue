@@ -31,7 +31,7 @@ export default {
   data() {
     return {
       queryInfo: {
-        limit: 35,
+        limit: 96,
         initial: "",
         offset: 0,
         type: -1,

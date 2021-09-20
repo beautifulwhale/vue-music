@@ -74,7 +74,7 @@ export default {
     ...mapState(["songList"]),
     createTime() {
       return dateFormat(this.songDetailsTop.createTime, "YYYY-MM-DD");
-    }
+    },
   },
   methods: {
     toggleDescClick() {

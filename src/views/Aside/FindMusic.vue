@@ -26,7 +26,7 @@ export default {};
   width: 1300px;
   position: relative;
   .detailrouter {
-    width: 1200px;
+    width: 1300px;
     height: 70px;
     display: flex;
     flex: 1;

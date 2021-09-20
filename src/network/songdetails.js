@@ -1,10 +1,13 @@
 import { request } from './request'
+import Cookies from 'js-cookie'
+const cookie = Cookies.get('userCookie');
 //获取歌单详情
 export function getPlayListDetails(id) {
     return request({
         url: "/playlist/detail",
         params: {
-            id
+            id,
+            cookie
         }
     })
 }
@@ -13,7 +16,8 @@ export function getSongDetails(ids) {
     return request({
         url: "/song/detail",
         params: {
-            ids
+            ids,
+            cookie
         }
     })
 }
@@ -22,7 +26,8 @@ export function getPlayListCollect(id) {
     return request({
         url: "/playlist/subscribers?limit=28",
         params: {
-            id
+            id,
+            cookie
         }
     })
 }
@@ -31,7 +36,8 @@ export function getRelated(id) {
     return request({
         url: "/related/playlist",
         params: {
-            id
+            id,
+            cookie
         }
     })
 }
@@ -42,17 +48,18 @@ export function getComment(id, offset, limit) {
         params: {
             id,
             offset,
-            limit
+            limit,
+            cookie
         }
     })
 }
-
 //获取歌曲的url
 export function getMusicUrl(id) {
     return request({
         url: "/song/url",
         params: {
-            id
+            id,
+            cookie
         }
     })
 }

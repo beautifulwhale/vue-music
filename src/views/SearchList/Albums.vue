@@ -1,10 +1,19 @@
 <template>
-  <div>
-    <play-list :recom-song-list="albums"></play-list>
-  </div>
+  <el-table :data="albums" stripe style="width: 100%" @row-click="getPlayList">
+    <el-table-column prop="picUrl" width="120">
+      <template slot-scope="scope">
+        <el-image style="width: 50px; height: 50px" :src="scope.row.picUrl">
+          <div slot="error" class="image-slot">
+            <i class="el-icon-picture-outline"></i>
+          </div>
+        </el-image>
+      </template>
+    </el-table-column>
+    <el-table-column prop="name" width="500"> </el-table-column>
+    <el-table-column prop="artist.name"></el-table-column>
+  </el-table>
 </template>
 <script>
-import PlayList from "@/components/RecommendPlaylist/PlayList";
 export default {
   props: {
     albums: {
@@ -12,8 +21,10 @@ export default {
       default: () => []
     }
   },
-  components: {
-    PlayList
+  methods: {
+    getPlayList(row) {
+      this.$router.push({ path: "/songdetails", query: { id: row.id } });
+    }
   }
 };
 </script>

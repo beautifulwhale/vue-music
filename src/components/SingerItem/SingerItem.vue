@@ -2,9 +2,8 @@
   <div class="singeritem" @click="singerDetails(singerItem.id)">
     <div class="avator">
       <img :src="singerItem.picUrl" />
+      <div class="name">{{ singerItem.name }}</div>
     </div>
-    <div class="name">{{ singerItem.name }}</div>
-    <div class="music-size" v-if="singerItem.musicSize">单曲:{{ singerItem.musicSize }}</div>
   </div>
 </template>
 <script>
@@ -26,28 +25,23 @@ export default {
 </script>
 <style lang="less" scoped>
 .singeritem {
+  width: 170px;
+  height: 190px;
   display: flex;
-  flex-flow: column;
-  justify-content: space-around;
-  align-items: center;
+  flex: 1;
   cursor: pointer;
   .avator {
-    width: 100px;
-    height: 100px;
+    width: 170px;
+    height: 190px;
+    margin-bottom: 10px;
     img {
-      border-radius: 50%;
-      box-shadow: 0 0 6px #000;
-      width: 100px;
-      height: 100px;
+      width: 170px;
+      height: 170px;
+      border-radius: 10px;
     }
-  }
   .name {
-    color: gray;
+    color: black;
   }
-  .music-size {
-    color: rgb(240, 96, 96);
-    font-size: 13px;
-    font-weight: bolder;
   }
 }
 </style>

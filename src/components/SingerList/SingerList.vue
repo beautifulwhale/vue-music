@@ -1,15 +1,15 @@
 <template>
   <div class="singer-list">
-    <recom-singer-item
+    <singer-item
       :singer-item="item"
       v-for="(item, index) in singerList"
       :key="index"
       class="singeritem"
-    ></recom-singer-item>
+    ></singer-item>
   </div>
 </template>
 <script>
-import RecomSingerItem from "@/components/RecomSinger/RecomSingerItem";
+import SingerItem from "@/components/SingerItem/SingerItem";
 export default {
   props: {
     singerList: {
@@ -20,23 +20,25 @@ export default {
     }
   },
   components: {
-    RecomSingerItem
+    SingerItem
   }
 };
 </script>
 <style lang="less" scoped>
 .singer-list {
-  height: 1000px;
+  height: 3500px;
   width: 1200px;
   margin-top: 20px;
   cursor: pointer;
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  margin-left: 30px;
   .singeritem {
-    display: flex;
-    justify-content: space-around;
-    float: left;
-    width: 188px;
-    height: 188px;
-    padding: 15px;
+    width: 170px;
+    height: 190px;
+    margin-right: 20px;
+    margin-bottom: 20px;
   }
 }
 </style>

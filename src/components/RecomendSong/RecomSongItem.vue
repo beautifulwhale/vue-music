@@ -71,7 +71,7 @@ export default {
   }
 }
 .active {
-  background-color: gainsboro;
+  background-color: whitesmoke;
   color: white;
 }
 </style>
