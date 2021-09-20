@@ -1,6 +1,8 @@
 <template>
   <div class="singerInfo">
-    <recom-title :title-name="title" @click.native="goToSinger"></recom-title>
+    <div class="title">
+      <h3>推荐歌手<i class="el-icon-arrow-right"></i></h3>
+    </div>
     <div class="singer">
       <singer-item
         v-for="(item, index) in recomSinger"
@@ -13,13 +15,7 @@
 </template>
 <script>
 import SingerItem from "@/components/SingerItem/SingerItem";
-import RecomTitle from "@/components/RecomTitle/RecomTitle";
 export default {
-  data() {
-    return {
-      title: "推荐歌手"
-    };
-  },
   props: {
     recomSinger: {
       type: Array,
@@ -29,8 +25,7 @@ export default {
     }
   },
   components: {
-    SingerItem,
-    RecomTitle
+    SingerItem
   },
   methods: {
     goToSinger() {
@@ -43,7 +38,12 @@ export default {
 .singerInfo {
   width: 1300px;
   height: 600px;
-  margin-top: 30px;
+  margin-top: 20px;
+  .title {
+    margin-bottom: 20px;
+    color: black;
+    margin-left: 20px;
+  }
   .singer {
     width: 1300px;
     height: 600px;

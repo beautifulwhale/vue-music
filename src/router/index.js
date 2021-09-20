@@ -29,6 +29,8 @@ const UserFans = () => import('../views/User/UserFans.vue')
 const UserDynamic = () => import('../views/User/UserDynamic.vue')
 const DynamicComment = () => import('../views/User/DynamicComment.vue')
 const AblumDetails = () => import('../views/AlbumDetails/AlbumDetails.vue')
+const Exclusive = () => import('../views/Exclusive/Exclusive.vue')
+const MyCustom = () => import('../views/MyCustom/MyCustom.vue')
 const router = new Router({
   routes: [
     {
@@ -78,6 +80,10 @@ const router = new Router({
 
             },
             {
+              path: '/mycustom',
+              component: MyCustom
+            },
+            {
               path: '/songdetails',
               component: SongDetails,
               name: 'songdetails'
@@ -93,6 +99,10 @@ const router = new Router({
               component: AblumDetails
             }
           ]
+        },
+        {
+          path: '/exclusive',
+          component: Exclusive
         },
         {
           path: '/video',

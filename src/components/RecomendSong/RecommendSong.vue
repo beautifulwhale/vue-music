@@ -1,6 +1,8 @@
 <template>
   <div class="recomsong">
-    <recom-title :title-name="title"></recom-title>
+    <div class="title">
+      <h3>最新音乐<i class="el-icon-arrow-right"></i></h3>
+    </div>
     <div
       v-for="(item, index) in recomSongList"
       :key="index"
@@ -15,13 +17,7 @@
 </template>
 <script>
 import RecomSongItem from "@/components/RecomendSong/RecomSongItem";
-import RecomTitle from "@/components/RecomTitle/RecomTitle";
 export default {
-  data() {
-    return {
-      title: "推荐歌曲"
-    };
-  },
   props: {
     recomSongList: {
       type: Array,
@@ -32,7 +28,6 @@ export default {
   },
   components: {
     RecomSongItem,
-    RecomTitle
   },
   methods: {
     getMusic(id) {
@@ -48,6 +43,10 @@ export default {
   margin-top: 40px;
   width: 1200px;
   height: 500px;
+  .title {
+    color: black;
+    margin-left: 20px;
+  }
   .recomsongitem {
     width: 500px;
     height: 50px;

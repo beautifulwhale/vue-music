@@ -1,6 +1,8 @@
 <template>
   <div class="recom-song">
-    <recom-title :title-name="title" @click.native='goToPlayList'></recom-title>
+    <div class="title" @click="goToPlayList">
+      <h3>推荐歌单<i class="el-icon-arrow-right"></i></h3>
+    </div>
     <div class="recomsongul">
       <div
         v-for="(item, index) in recomSongList"
@@ -13,14 +15,8 @@
   </div>
 </template>
 <script>
-import PlayListItem from '@/components/PlayListItem/PlayListItem'
-import RecomTitle from "@/components/RecomTitle/RecomTitle";
+import PlayListItem from "@/components/PlayListItem/PlayListItem";
 export default {
-  data() {
-    return {
-      title: "推荐歌单"
-    };
-  },
   props: {
     recomSongList: {
       type: Array,
@@ -30,13 +26,12 @@ export default {
     }
   },
   methods: {
-    goToPlayList(){
-      this.$router.push('/song')
+    goToPlayList() {
+      this.$router.push("/song");
     }
   },
   components: {
-    PlayListItem,
-    RecomTitle
+    PlayListItem
   }
 };
 </script>
@@ -44,6 +39,11 @@ export default {
 .recom-song {
   width: 1200px;
   height: 750px;
+  .title {
+    margin-bottom: 20px;
+    color: black;
+    margin-left: 20px;
+  }
   .recomsongul {
     width: 1200px;
     height: 750px;

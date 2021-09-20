@@ -5,11 +5,14 @@
       <router-link class="routers" active-class="activeClass" to="/recommend"
         >个性推荐</router-link
       >
-      <router-link class="routers" active-class="activeClass" to="/rank"
-        >排行榜</router-link
+      <router-link class="routers" active-class="activeClass" to="/mycustom"
+        >专属定制</router-link
       >
       <router-link class="routers" active-class="activeClass" to="/song"
         >歌单</router-link
+      >
+      <router-link class="routers" active-class="activeClass" to="/rank"
+        >排行榜</router-link
       >
       <router-link class="routers" active-class="activeClass" to="/singer"
         >歌手</router-link
@@ -53,7 +56,7 @@ export default {};
   }
   .content {
     width: 1200px;
-    height: 3000px;
+    // height: 3000px;
   }
 }
 </style>
