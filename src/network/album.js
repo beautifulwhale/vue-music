@@ -12,3 +12,17 @@ export function getAlbumContent(id) {
         }
     })
 }
+
+
+//获得专辑评论
+export function getAlbumComment(id, limit, offset) {
+    return request({
+        url: "/comment/album",
+        params: {
+            id,
+            limit,
+            offset,
+            cookie
+        }
+    })
+}

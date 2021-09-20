@@ -28,6 +28,7 @@ const UserFoucs = () => import('../views/User/UserFoucs.vue')
 const UserFans = () => import('../views/User/UserFans.vue')
 const UserDynamic = () => import('../views/User/UserDynamic.vue')
 const DynamicComment = () => import('../views/User/DynamicComment.vue')
+const AblumDetails = () => import('../views/AlbumDetails/AlbumDetails.vue')
 const router = new Router({
   routes: [
     {
@@ -87,6 +88,10 @@ const router = new Router({
               component: SingerDetails,
               name: 'singerdetails'
             },
+            {
+              path: '/ablumdetails',
+              component: AblumDetails
+            }
           ]
         },
         {

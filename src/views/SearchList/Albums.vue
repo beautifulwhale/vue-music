@@ -1,5 +1,5 @@
 <template>
-  <el-table :data="albums" stripe style="width: 100%" @row-click="getPlayList">
+  <el-table :data="albums" stripe style="width: 100%" @row-click="getAlbum">
     <el-table-column prop="picUrl" width="120">
       <template slot-scope="scope">
         <el-image style="width: 50px; height: 50px" :src="scope.row.picUrl">
@@ -22,8 +22,8 @@ export default {
     }
   },
   methods: {
-    getPlayList(row) {
-      this.$router.push({ path: "/songdetails", query: { id: row.id } });
+    getAlbum(row) {
+      this.$router.push({ path: "/ablumdetails", query: { id: row.id } });
     }
   }
 };

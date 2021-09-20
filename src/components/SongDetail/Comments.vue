@@ -82,6 +82,11 @@ export default {
     threadId: {
       type: String,
       default: ""
+    },
+    //专辑ID
+    albumId: {
+      type: Number,
+      default: 0
     }
   },
   inject: ["reload"],
@@ -93,6 +98,7 @@ export default {
       mvType: 1,
       videoType: 5,
       dynamicType: 6,
+      albumType: 3,
       tLike: 1
     };
   },
@@ -101,6 +107,7 @@ export default {
     async sendComment(t, type, id, content) {
       const res = await sendComment(t, type, id, content);
     },
+    //发送动态评论
     async sendDyComment(t, type, id, content) {
       const res = await sendDyComment(t, type, id, content);
     },
@@ -129,7 +136,12 @@ export default {
         this.threadId,
         this.commentContent
       );
-      console.log(this.threadId);
+      this.sendComment(
+        this.tSend,
+        this.albumType,
+        this.albumId,
+        this.commentContent
+      );
       this.commentContent = "";
       this.$message({
         message: "恭喜你评论成功！",
