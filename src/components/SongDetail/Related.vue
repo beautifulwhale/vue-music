@@ -1,19 +1,16 @@
 <template>
   <div class="related-list">
-    <div class="recom-song">
-      <i class="iconfont icon-jian"></i>
-      <span>推荐歌单</span>
-    </div>
-    <related-item
+    <div
+      class="play-list"
       v-for="(item, index) in relatedPlayList"
       :key="index"
-      :related-item="item"
-      class="related-item"
-    ></related-item>
+    >
+      <play-list-item :play-item="item"></play-list-item>
+    </div>
   </div>
 </template>
 <script>
-import RelatedItem from "@/components/SongDetail/RelatedItem";
+import PlayListItem from "@/components/PlayListItem/PlayListItem";
 export default {
   props: {
     relatedPlayList: {
@@ -22,28 +19,21 @@ export default {
     }
   },
   components: {
-    RelatedItem
+    PlayListItem
   }
 };
 </script>
 <style lang="less" scoped>
 .related-list {
-  width: 1000px;
-  .recom-song {
-    .iconfont{
-      font-size: 25px;
-      color: black;
-    }
-    span {
-      margin-left: 3px;
-      color: black;
-      font-size: 18px;
-    }
-  }
-  .related-item {
-    width: 400px;
-    height: 200px;
-   
+  width: 1200px;
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  .play-list{
+    width: 200px;
+    height: 250px;
+    margin-right: 20px;
+    margin-bottom: 20px;
   }
 }
 </style>

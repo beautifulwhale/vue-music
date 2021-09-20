@@ -10,9 +10,11 @@
       <!-- 作者 -->
       <div class="creator">
         <div class="imghead">
-          <img :src="creator.avatarUrl" />
+          <img :src="creator.avatarUrl" @click="getUser(creator.userId)" />
         </div>
-        <div class="nickname">{{ creator.nickname }}</div>
+        <div class="nickname" @click="getUser(creator.userId)">
+          {{ creator.nickname }}
+        </div>
         <div class="create-time">{{ createTime }} 创建</div>
       </div>
       <!-- 播放/收藏/分享 -->
@@ -74,7 +76,7 @@ export default {
     ...mapState(["songList"]),
     createTime() {
       return dateFormat(this.songDetailsTop.createTime, "YYYY-MM-DD");
-    },
+    }
   },
   methods: {
     toggleDescClick() {
@@ -82,7 +84,11 @@ export default {
     },
     playAll(id) {
       this.$bus.$emit("getMusic", id);
+    },
+    getUser(id) {
+      this.$router.push({ path: "/user", query: { id: id } });
     }
+    
   }
 };
 </script>
@@ -117,9 +123,11 @@ export default {
       .nickname {
         font-size: 13px;
         color: rgb(82, 82, 253);
+        cursor: pointer;
       }
       .imghead {
         margin-right: 10px;
+        cursor: pointer;
         img {
           width: 26px;
           height: 26px;

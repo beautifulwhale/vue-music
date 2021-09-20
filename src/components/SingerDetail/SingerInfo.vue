@@ -12,7 +12,7 @@
           <el-button round size="mini">
             <span class="iconfont icon-a-shoucang"></span> 收藏</el-button
           >
-          <el-button round size="mini" @click="getUser"
+          <el-button round size="mini" @click="getUser" v-if="singerId !== 0"
             ><span class="iconfont icon-weidenglu1-copy"></span
             >个人主页</el-button
           >

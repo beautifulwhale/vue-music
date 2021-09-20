@@ -19,6 +19,7 @@ export default {
   methods: {
     singerDetails(id) {
       this.$router.push({ path: "/singerdetails", query: { id: id } });
+      this.$bus.$emit('changeSinger',id)
     }
   }
 };

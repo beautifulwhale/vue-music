@@ -2,8 +2,10 @@
   <div class="avatar">
     <div class="avatarlist">
       <div class="avatar-item" v-for="(item, index) in likeList" :key="index">
-        <img :src="item.avatarUrl" />
-        <div class="nickname">{{ item.nickname }}</div>
+        <img :src="item.avatarUrl" @click="getUser(item.userId)" />
+        <div class="nickname" @click="getUser(item.userId)">
+          {{ item.nickname }}
+        </div>
       </div>
     </div>
   </div>
@@ -14,6 +16,11 @@ export default {
     likeList: {
       type: Array,
       default: () => []
+    }
+  },
+  methods: {
+    getUser(id) {
+      this.$router.push({ path: "/user", query: { id: id } });
     }
   }
 };
@@ -43,11 +50,11 @@ export default {
       margin-right: 30px;
       border-radius: 50%;
     }
-    .nickname{
+    .nickname {
       width: 100px;
       height: 120px;
       font-size: 13px;
-      line-height: 120px ;
+      line-height: 120px;
     }
   }
 }

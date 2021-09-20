@@ -6,7 +6,7 @@
   >
     <div class="img" @mouseenter="mouseEnter" @mouseleave="mouseLeave">
       <img :src="imageUrl" />
-      <div class="playcount">
+      <div class="playcount" v-if="playItem.playCount">
         <i class="iconfont icon-bofangliang"></i>{{ playCount }}
       </div>
       <transition name="fade">
@@ -49,7 +49,7 @@ export default {
   },
   computed: {
     playCount() {
-      return tranNumber(this.playItem.playCount, 0);
+      return tranNumber(this.playItem.playCount);
     },
     imageUrl() {
       return this.playItem.picUrl || this.playItem.coverImgUrl;

@@ -6,12 +6,24 @@
       <div class="playlist-item" v-for="item in playList" :key="item.id">
         <user-play-item :play-item="item"></user-play-item>
       </div>
+      <!-- 分页 -->
+      <div class="pagination">
+        <el-pagination
+          @current-change="handleCurrentChange"
+          :current-page="currentPage"
+          :page-size="pageSize"
+          layout="prev, pager, next"
+          :total="total"
+          background
+        >
+        </el-pagination>
+      </div>
     </div>
   </div>
 </template>
 <script>
 import UserInfo from "@/views/User/UserInfo";
-import UserPlayItem from '@/components/PlayListItem/UserPlayItem'
+import UserPlayItem from "@/components/PlayListItem/UserPlayItem";
 import { getUserDetail, getUserPlayList } from "../../network/user";
 export default {
   data() {
@@ -20,7 +32,11 @@ export default {
       userInfo: {},
       limit: 29,
       offset: 0,
-      playList: []
+      playList: [],
+      playListCount: 0,
+      total: 0,
+      currentPage: 1,
+      pageSize: 30
     };
   },
   methods: {
@@ -28,11 +44,20 @@ export default {
     async getUserDetail(id) {
       const res = await getUserDetail(id);
       this.userInfo = res;
+      this.total = res.profile.playlistCount;
+      console.log(res);
     },
     //获取用户的歌单
     async UserPlayList(id, limit, offset) {
       const res = await getUserPlayList(id, limit, offset);
       this.playList = res.playlist;
+      console.log(res);
+    },
+    handleCurrentChange(newPage) {
+      this.currentPage = newPage;
+      this.limit = 30;
+      this.offset = (this.currentPage - 1) * this.limit;
+      this.UserPlayList(this.userId, this.limit, this.offset);
     }
   },
   created() {
@@ -66,6 +91,11 @@ export default {
       height: 230px;
       margin-right: 20px;
       margin-bottom: 30px;
+    }
+    .pagination {
+      width: 554px;
+      height: 32px;
+      margin: 20px auto;
     }
   }
 }

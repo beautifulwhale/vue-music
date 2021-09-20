@@ -226,6 +226,7 @@ export default {
     margin-left: 40px;
     margin-bottom: 20px;
     .title {
+      width: 950px;
       color: black;
       font-size: 16px;
     }

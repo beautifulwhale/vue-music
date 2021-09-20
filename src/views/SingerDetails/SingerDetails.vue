@@ -62,7 +62,6 @@ import MvItem from "@/components/MvCategoryList/MvItem";
 import SingerItem from "@/components/SingerItem/SingerItem";
 import {
   getSingerDetails,
-  getSingerMusic,
   getSingerAlbum,
   getSingerMv,
   getSingerDesc,
@@ -75,7 +74,6 @@ export default {
       activeName: "first",
       tagsList: ["单曲", "专辑", "MV", "介绍"],
       singerInfo: {},
-      singerMusic: [],
       albumInfo: {
         albumId: 0,
         offset: 0,
@@ -98,13 +96,9 @@ export default {
     async getSingerDetails(id) {
       const res = await getSingerDetails(id);
       this.singerInfo = res.data.artist;
-      this.singerId = res.data.user.userId;
-    },
-    //歌手的歌曲
-    async getSingerMusic(id) {
-      const res = await getSingerMusic(id);
-      this.singerMusic = res.songs;
-      this.songsTotal = res.total;
+      if(res.data.user){
+        this.singerId = res.data.user.userId;
+      }
     },
     //歌手专辑
     async getSingerAlbum(params) {
@@ -137,11 +131,21 @@ export default {
     this.id = this.$route.query.id;
     this.albumInfo.albumId = this.$route.query.id;
     this.getSingerDetails(this.id);
-    this.getSingerMusic(this.id);
     this.getSingerAlbum(this.albumInfo);
     this.getSingerMv(this.id);
     this.getSingerDesc(this.id);
     this.getSimiSinger(this.id);
+  },
+  mounted() {
+    this.$bus.$on("changeSinger", newSingerId => {
+      this.id = newSingerId;
+      this.albumInfo.albumId = newSingerId;
+      this.getSingerDetails(this.id);
+      this.getSingerAlbum(this.albumInfo);
+      this.getSingerMv(this.id);
+      this.getSingerDesc(this.id);
+      this.getSimiSinger(this.id);
+    });
   },
   components: {
     SingerInfo,
