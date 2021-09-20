@@ -25,8 +25,8 @@ export default {
     playCount() {
       return tranNumber(this.mvItem.playCount, 0);
     },
-    imgUrl(){
-      return this.mvItem.picUrl || this.mvItem.cover
+    imgUrl() {
+      return this.mvItem.picUrl || this.mvItem.cover || this.mvItem.imgurl;
     }
   },
   methods: {

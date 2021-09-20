@@ -1,6 +1,5 @@
 <template>
   <div>
-    <!-- <topic-event-item></topic-event-item> -->
     <comments
       :comment-list="dynamicComment"
       :hot-comment-list="hotComment"

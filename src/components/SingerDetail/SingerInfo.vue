@@ -8,19 +8,17 @@
         <div class="name">
           <h2>{{ singerInfo.name }}</h2>
         </div>
-        <div class="products">
-          <div>
-            <i class="iconfont icon-gequxinshang"></i>
-            <div class="size">{{ singerInfo.musicSize }}</div>
-          </div>
-          <div>
-            <i class="iconfont icon-zhuanji"></i>
-            <div class="size">{{ singerInfo.albumSize }}</div>
-          </div>
-          <div>
-            <i class="iconfont icon-shexiangji"></i>
-            <div class="size">{{ singerInfo.mvSize }}</div>
-          </div>
+        <div class="opertion">
+          <el-button round size="mini">
+            <span class="iconfont icon-a-shoucang"></span> 收藏</el-button
+          >
+          <el-button round size="mini" @click="getUser"
+            ><span class="iconfont icon-weidenglu1-copy"></span
+            >个人主页</el-button
+          >
+        </div>
+        <div class="works">
+          <span class="songs">单曲数:{{ songsTotal }}</span>
         </div>
       </div>
     </div>
@@ -34,6 +32,19 @@ export default {
       default() {
         return {};
       }
+    },
+    songsTotal: {
+      type: Number,
+      default: 0
+    },
+    singerId: {
+      type: Number,
+      default: 0
+    }
+  },
+  methods: {
+    getUser() {
+      this.$router.push({ path: "/user", query: { id: this.singerId } });
     }
   }
 };
@@ -41,40 +52,39 @@ export default {
 <style lang="less" scoped>
 .singer-desc {
   width: 1200px;
-  height: 367px;
-  margin: 90px auto 0;
+  height: 200px;
+  margin-top: 80px;
+  margin-bottom: 20px;
   display: flex;
-  flex-flow: column;
-  justify-content: space-around;
+  flex: 1;
   .img {
-    margin: 0 auto ;
-    width: 250px;
-    height: 250px;
+    width: 200px;
+    height: 200px;
+    margin-right: 20px;
     img {
-      width: 250px;
-      height: 250px;
-      border-radius: 50%;
+      width: 200px;
+      height: 200px;
+      border-radius: 10px;
     }
   }
-  .info{
-      width: 390px;
-      height: 97px;
-      margin: 0 auto;
-    text-align: center;
-    .products{
-        width: 390px;
-        height: 56px;
-        margin-top: 5px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        i{
-            font-size: 30px;
-            color: gainsboro;
-        }
-        .size{
-            margin-top: 5px;
-        }
+  .info {
+    width: 1000px;
+    height: 200px;
+    .name {
+      margin-bottom: 15px;
+      color: black;
+    }
+    .operation {
+      width: 1000px;
+    }
+    .works {
+      margin-top: 20px;
+      width: 1000px;
+      height: 20px;
+      .songs {
+        font-size: 12px;
+        margin-right: 20px;
+      }
     }
   }
 }

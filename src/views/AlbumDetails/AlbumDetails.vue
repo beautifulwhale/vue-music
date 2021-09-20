@@ -59,14 +59,12 @@ export default {
       this.albumTop = res.album;
       this.albumSongs = res.songs;
       this.$store.commit("getSongList", this.albumSongs);
-      console.log(res);
     },
     async AlbumComment(id, limit, offset) {
       const res = await getAlbumComment(id, limit, offset);
       this.commentList = res.comments;
       this.hotCommentList = res.hotComments;
       this.commentTotal = res.total;
-      console.log(res);
     },
     handleClick() {},
     handleCurrentChange(newPage) {

@@ -1,5 +1,9 @@
 <template>
-  <div class="play" @click="playListClick(playItem.id)">
+  <div
+    class="play"
+    @click="playListClick(playItem.id)"
+    v-if="playItem && Object.keys(playItem).length !== 0"
+  >
     <div class="img" @mouseenter="mouseEnter" @mouseleave="mouseLeave">
       <img :src="imageUrl" />
       <div class="playcount">

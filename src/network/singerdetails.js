@@ -18,7 +18,7 @@ export function getSingerMusic(id) {
     })
 }
 //获取歌手全部专辑
-export function getSingerAlbum(id,limit,offset) {
+export function getSingerAlbum(id, limit, offset) {
     return request({
         url: "/artist/album",
         params: {
@@ -41,6 +41,15 @@ export function getSingerMv(id) {
 export function getSingerDesc(id) {
     return request({
         url: "/artist/desc",
+        params: {
+            id
+        }
+    })
+}
+//获取相似歌手
+export function getSimiSinger(id) {
+    return request({
+        url: "/simi/artist",
         params: {
             id
         }

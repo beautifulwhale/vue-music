@@ -1,5 +1,5 @@
 <template>
-  <div class="play">
+  <div class="play" @click="getPlayList(playItem.id)">
     <div class="img" @mouseenter="mouseEnter" @mouseleave="mouseLeave">
       <img :src="playItem.coverImgUrl" />
       <div class="playcount">
@@ -39,6 +39,9 @@ export default {
     },
     mouseLeave() {
       this.isShowPlay = false;
+    },
+    getPlayList(id) {
+      this.$router.push({ path: "/songdetails", query: { id: id } });
     }
   },
   computed: {

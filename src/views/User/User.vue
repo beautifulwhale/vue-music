@@ -11,7 +11,7 @@
 </template>
 <script>
 import UserInfo from "@/views/User/UserInfo";
-import userPlayItem from '@/components/PlayListItem/userPlayItem'
+import UserPlayItem from '@/components/PlayListItem/UserPlayItem'
 import { getUserDetail, getUserPlayList } from "../../network/user";
 export default {
   data() {
@@ -33,7 +33,6 @@ export default {
     async UserPlayList(id, limit, offset) {
       const res = await getUserPlayList(id, limit, offset);
       this.playList = res.playlist;
-      console.log(res);
     }
   },
   created() {
@@ -43,7 +42,7 @@ export default {
   },
   components: {
     UserInfo,
-    userPlayItem
+    UserPlayItem
   }
 };
 </script>
