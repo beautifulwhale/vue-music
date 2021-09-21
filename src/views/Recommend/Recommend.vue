@@ -25,7 +25,6 @@ import {
   getRecomSongList,
   getRecomSingerList,
   getExclusive,
-  getEverySongs,
   getCalendar
 } from "../../network/recommed";
 export default {
@@ -34,8 +33,7 @@ export default {
       recomPlayList: [],
       recomSongList: [],
       recomSingerList: [],
-      exclusiveList: [],
-      everySongs: []
+      exclusiveList: []
     };
   },
   created() {
@@ -43,7 +41,6 @@ export default {
     this.getRecomSongList();
     this.getRecomSingerList();
     this.getExclusive();
-    this.getEverySongs();
     this.getCalendar();
   },
   methods: {
@@ -62,10 +59,6 @@ export default {
     async getRecomSingerList() {
       const res = await getRecomSingerList();
       this.recomSingerList = res.artists;
-    },
-    async getEverySongs() {
-      const res = await getEverySongs();
-      this.everySongs = res.data.dailySongs;
     },
     async getCalendar() {
       const res = await getCalendar();

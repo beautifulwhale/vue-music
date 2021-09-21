@@ -32,6 +32,10 @@ const AblumDetails = () => import('../views/AlbumDetails/AlbumDetails.vue')
 const Exclusive = () => import('../views/Exclusive/Exclusive.vue')
 const MyCustom = () => import('../views/MyCustom/MyCustom.vue')
 const NewMusic = () => import('../views/NewMusic/NewMusic.vue')
+const RecentPlay = () => import('../views/RecentPlay/RecentPlay.vue')
+const MusicCloudDisk = () => import('../views/MusicCloudDisk/MusicCloudDisk.vue')
+const MyPodcast = () => import('../views/MyPodcast/MyPodcast.vue')
+const MyCollect = () => import('../views/MyCollect/MyCollect.vue')
 const router = new Router({
   routes: [
     {
@@ -193,6 +197,22 @@ const router = new Router({
               component: DynamicComment
             }
           ]
+        },
+        {
+          path: '/recentplay',
+          component: RecentPlay
+        },
+        {
+          path: '/cloudDisk',
+          component: MusicCloudDisk
+        },
+        {
+          path: '/mypodcast',
+          component: MyPodcast
+        },
+        {
+          path: '/mycollect',
+          component: MyCollect
         }
 
       ]

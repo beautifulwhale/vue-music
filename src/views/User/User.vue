@@ -1,7 +1,7 @@
 <template>
   <div class="user">
     <user-info :user-info="userInfo"></user-info>
-    <div class="title"><h4>歌单</h4></div>
+    <div class="title"><h4>歌单({{playList.length}})</h4></div>
     <div class="playlist">
       <div class="playlist-item" v-for="item in playList" :key="item.id">
         <user-play-item :play-item="item"></user-play-item>
@@ -9,6 +9,7 @@
       <!-- 分页 -->
       <div class="pagination">
         <el-pagination
+          v-if="playList.length >= 30"
           @current-change="handleCurrentChange"
           :current-page="currentPage"
           :page-size="pageSize"
@@ -24,7 +25,11 @@
 <script>
 import UserInfo from "@/views/User/UserInfo";
 import UserPlayItem from "@/components/PlayListItem/UserPlayItem";
-import { getUserDetail, getUserPlayList } from "../../network/user";
+import {
+  getUserDetail,
+  getUserPlayList,
+  getUserSubcount
+} from "../../network/user";
 export default {
   data() {
     return {
@@ -45,13 +50,15 @@ export default {
       const res = await getUserDetail(id);
       this.userInfo = res;
       this.total = res.profile.playlistCount;
-      console.log(res);
     },
     //获取用户的歌单
     async UserPlayList(id, limit, offset) {
       const res = await getUserPlayList(id, limit, offset);
       this.playList = res.playlist;
-      console.log(res);
+    },
+    async getUserSubcount() {
+      const res = await getUserSubcount();
+      // console.log(res);
     },
     handleCurrentChange(newPage) {
       this.currentPage = newPage;
@@ -64,6 +71,7 @@ export default {
     this.userId = this.$route.query.id;
     this.getUserDetail(this.userId);
     this.UserPlayList(this.userId, this.limit, this.offset);
+    this.getUserSubcount();
   },
   components: {
     UserInfo,

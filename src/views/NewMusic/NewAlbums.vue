@@ -12,7 +12,12 @@
       </div>
     </div>
     <div class="albums">
-      <div class="album-item" v-for="item in albumList" :key="item.id">
+      <div
+        class="album-item"
+        v-for="item in albumList"
+        :key="item.id"
+        @click="getAlbums(item.id)"
+      >
         <div class="img">
           <img :src="item.picUrl" alt="" />
           <transition name="fade">
@@ -64,6 +69,9 @@ export default {
         this.area = 7;
         this.getNewAlbums(this.limit, this.offset, this.area);
       }
+    },
+    getAlbums(id) {
+      this.$router.push({ path: "/ablumdetails", query: { id: id } });
     }
   },
   created() {

@@ -58,7 +58,6 @@ export default {
     async getGoodTags() {
       const res = await getGoodTags();
       this.fineFilter = res.tags;
-      console.log(res);
     },
     async getGoodPlayList(cat, limit) {
       const res = await getGoodPlayList(cat, limit);

@@ -7,6 +7,6 @@ export default {
     isLogin: false,
 
     //我的关注
-    myFoucs:[]
+    myFoucs:[],
 
 }

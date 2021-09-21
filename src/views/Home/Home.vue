@@ -7,7 +7,7 @@
       <el-aside style="width: 200px;">
         <!-- 侧边栏菜单区域 -->
         <el-menu unique-opened router>
-          <el-submenu index="1">
+          <el-menu-item>
             <template slot="title">
               <router-link
                 class="routers"
@@ -16,8 +16,8 @@
                 >发现音乐</router-link
               >
             </template>
-          </el-submenu>
-          <el-submenu index="2">
+          </el-menu-item>
+          <el-menu-item>
             <template slot="title">
               <router-link
                 class="routers"
@@ -26,8 +26,8 @@
                 >视频</router-link
               >
             </template>
-          </el-submenu>
-          <el-submenu index="3">
+          </el-menu-item>
+          <el-menu-item>
             <template slot="title">
               <router-link
                 class="routers"
@@ -36,7 +36,48 @@
                 >朋友</router-link
               >
             </template>
-          </el-submenu>
+          </el-menu-item>
+          <el-menu-item-group>
+            <template slot="title">我的音乐</template>
+            <el-menu-item>
+              <template slot="title">
+                <router-link class="routers" to="/recentplay"
+                  ><i
+                    class="iconfont icon-zuijinbofang"
+                    style="margin-right:10px"
+                  ></i
+                  >最近播放</router-link
+                >
+              </template></el-menu-item
+            >
+            <el-menu-item>
+              <template slot="title">
+                <router-link class="routers" to="/cloudDisk"
+                  ><i class="iconfont icon-yunpan" style="margin-right:10px"></i
+                  >我的音乐云盘</router-link
+                >
+              </template>
+            </el-menu-item>
+            <el-menu-item>
+              <template slot="title">
+                <router-link class="routers" to="/mypodcast"
+                  ><i class="iconfont icon-boke" style="margin-right:10px"></i
+                  >我的播客</router-link
+                >
+              </template>
+            </el-menu-item>
+            <el-menu-item>
+              <template slot="title">
+                <router-link class="routers" to="/mycollect"
+                  ><i
+                    class="iconfont icon-shoucang"
+                    style="margin-right:10px"
+                  ></i
+                  >我的收藏</router-link
+                >
+              </template>
+            </el-menu-item>
+          </el-menu-item-group>
         </el-menu>
       </el-aside>
       <el-main>
@@ -75,14 +116,14 @@ export default {
       height: 680px;
       border-right: 1px solid gainsboro;
     }
-    .el-submenu {
+    .el-menu-item {
       width: 200px;
-      .routers {
-        font-size: 18px;
-      }
       .activeClass {
         font-weight: bold;
-        font-size: 20px;
+        font-size: 17px;
+      }
+      .routers {
+        font-size: 15px;
       }
     }
   }

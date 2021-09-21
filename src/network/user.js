@@ -70,3 +70,12 @@ export function getUserPlayList(uid, limit, offset) {
         }
     })
 }
+//获取用户信息 , 歌单，收藏，mv, dj 数量
+export function getUserSubcount() {
+    return request({
+        url: "/user/subcount",
+        params: {
+            cookie
+        }
+    })
+}

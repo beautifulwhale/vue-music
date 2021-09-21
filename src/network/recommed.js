@@ -42,15 +42,7 @@ export function getExclusiveList(limit, offset) {
         }
     })
 }
-//每日推荐歌曲
-export function getEverySongs() {
-    return request({
-        url: "/recommend/songs",
-        params: {
-            cookie
-        }
-    })
-}
+
 //每日推荐歌单
 export function getEveryPlayList() {
     return request({
@@ -61,7 +53,7 @@ export function getEveryPlayList() {
     })
 }
 
-//每日推荐歌单
+//音乐日历
 export function getCalendar() {
     return request({
         url: "/calendar",
