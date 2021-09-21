@@ -118,10 +118,7 @@ export default {
     }
     .el-menu-item {
       width: 200px;
-      .activeClass {
-        font-weight: bold;
-        font-size: 17px;
-      }
+
       .routers {
         font-size: 15px;
       }

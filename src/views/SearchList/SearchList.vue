@@ -127,11 +127,19 @@ export default {
     Mvs
   },
   mounted() {
+    console.log("mounted");
     this.queryInfo.keywords = this.$route.query.keywords;
     this.$bus.$on("changeSearch", keywords => {
       this.queryInfo.keywords = keywords;
     });
     this.getSearchCotent(this.queryInfo);
+    //写动态时的搜索
+    this.$bus.$on("getSearchData", keywords => {
+      this.queryInfo.keywords = keywords;
+      console.log(this.queryInfo.keywords);
+      this.getSearchCotent(this.queryInfo);
+      this.$bus.$emit("giveSearchData", this.songs);
+    });
   }
 };
 </script>

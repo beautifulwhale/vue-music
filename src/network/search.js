@@ -23,3 +23,15 @@ export function getSearchCotent(keywords, limit, offset, type) {
         }
     })
 }
+
+
+
+//推荐歌曲
+export function getRecomSongs(limit) {
+    return request({
+        url: "/personalized/newsong",
+        params: {
+            limit
+        }
+    })
+}

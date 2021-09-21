@@ -2,13 +2,18 @@
   <div class="dynamic">
     <div class="title">
       <h3>动态</h3>
-      <el-button type="danger" size="mini"
+      <el-button type="danger" size="mini" @click="writeDynamic"
         ><i class="el-icon-plus"></i>写动态</el-button
       >
     </div>
     <div class="container">
-    <all-topic-event :all-event-list="allEventList"></all-topic-event>
-
+      <all-topic-event :all-event-list="allEventList"></all-topic-event>
+      <write-dynamic
+        v-show="isWrite"
+        class="write-content"
+        :is-show="isWrite"
+        @closeCard="closeCard"
+      ></write-dynamic>
     </div>
     <div class="rightmessage">
       <div class="userinfo">
@@ -71,9 +76,9 @@
 </template>
 <script>
 import HotTopic from "@/views/Topic/HotTopic";
-import AllTopicEvent from '@/views/Topic/AllTopicEvent'
+import AllTopicEvent from "@/views/Topic/AllTopicEvent";
+import WriteDynamic from "@/components/WriteDynamic/WriteDynamic";
 import { getUserDetail } from "../../network/user";
-
 import { getHotTopic, getAllEvent } from "../../network/topic";
 import { getUserFoucs } from "../../network/user";
 export default {
@@ -96,7 +101,8 @@ export default {
       eventInfo: {
         pagesize: 50,
         lasttime: -1
-      }
+      },
+      isWrite: false
     };
   },
   methods: {
@@ -145,6 +151,12 @@ export default {
         path: "/userfans",
         query: { id: id, nickname: nickname, followeds: followeds }
       });
+    },
+    writeDynamic() {
+      this.isWrite = true;
+    },
+    closeCard() {
+      this.isWrite = false;
     }
   },
   created() {
@@ -157,7 +169,8 @@ export default {
   },
   components: {
     HotTopic,
-    AllTopicEvent
+    AllTopicEvent,
+    WriteDynamic
   }
 };
 </script>
@@ -183,6 +196,16 @@ export default {
     .el-button--danger {
       background-color: red;
       border-color: red;
+    }
+  }
+  .container {
+    width: 1050px;
+    position: relative;
+    .write-content {
+      position: absolute;
+      top: 70px;
+      left: 250px;
+      z-index: 9;
     }
   }
   .rightmessage {
