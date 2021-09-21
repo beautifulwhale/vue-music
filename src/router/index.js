@@ -31,6 +31,7 @@ const DynamicComment = () => import('../views/User/DynamicComment.vue')
 const AblumDetails = () => import('../views/AlbumDetails/AlbumDetails.vue')
 const Exclusive = () => import('../views/Exclusive/Exclusive.vue')
 const MyCustom = () => import('../views/MyCustom/MyCustom.vue')
+const NewMusic = () => import('../views/NewMusic/NewMusic.vue')
 const router = new Router({
   routes: [
     {
@@ -97,6 +98,10 @@ const router = new Router({
             {
               path: '/ablumdetails',
               component: AblumDetails
+            },
+            {
+              path: '/newmusic',
+              component: NewMusic
             }
           ]
         },

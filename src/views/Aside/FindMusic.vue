@@ -17,6 +17,9 @@
       <router-link class="routers" active-class="activeClass" to="/singer"
         >歌手</router-link
       >
+      <router-link class="routers" active-class="activeClass" to="/newmusic"
+        >最新音乐</router-link
+      >
     </div>
     <div class="content"><router-view></router-view></div>
   </div>

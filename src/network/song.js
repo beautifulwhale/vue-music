@@ -39,3 +39,21 @@ export function getGoodPlayList(cat, limit) {
         }
     })
 }
+//获取新歌速递
+export function getNewSongs(type) {
+    return request({
+        url: "/top/song",
+        params: {
+            type
+        }
+    })
+}
+//获取新碟上架
+export function getNewAlbums(limit, offset, area) {
+    return request({
+        url: "/top/album",
+        params: {
+            limit, offset, area
+        }
+    })
+}

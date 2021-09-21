@@ -66,11 +66,9 @@ export default {
     async getEverySongs() {
       const res = await getEverySongs();
       this.everySongs = res.data.dailySongs;
-      console.log(res);
     },
     async getCalendar() {
       const res = await getCalendar();
-      console.log(res);
     }
   },
   components: {
