@@ -47,7 +47,6 @@ export default {
         params.offset
       );
       this.userFansList = res.followeds;
-      console.log(res)
     },
     handleCurrentChange(newPage) {
       this.currentPage = newPage;

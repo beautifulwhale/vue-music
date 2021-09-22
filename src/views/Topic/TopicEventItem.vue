@@ -45,12 +45,34 @@
       >
         <div class="img">
           <img :src="eventDesc.song.album.picUrl" />
+          <div class="icon"><i class="iconfont icon-bofang1"></i></div>
         </div>
         <div class="info">
           <div class="songname">{{ eventDesc.song.name }}</div>
           <div class="artist">{{ eventDesc.song.artists[0].name }}</div>
         </div>
       </div>
+      <div
+        class="songs"
+        v-if="
+          eventDesc.playlist && Object.keys(eventDesc.playlist).length !== 0
+        "
+        @click="getPlayList(eventDesc.playlist.id)"
+      >
+        <div class="img">
+          <img :src="eventDesc.playlist.coverImgUrl" />
+        </div>
+        <div class="info">
+          <div class="songname">
+            <span style="color:red">歌单</span> {{ eventDesc.playlist.name }}
+          </div>
+          <div class="artist">{{ eventDesc.playlist.creator.nickname }}</div>
+        </div>
+      </div>
+      <forword-dynamic
+        v-if="hasFoworder && Object.keys(hasFoworder).length !== 0"
+        :has-foworder="hasFoworder"
+      ></forword-dynamic>
     </div>
     <div class="dynamicImg">
       <div
@@ -97,9 +119,11 @@
   </div>
 </template>
 <script>
+import ForwordDynamic from "@/views/Topic/ForwordDynamic";
 import { dateFormat } from "../../utils/utils";
 import { userDynamicForward, likeDynamic } from "../../network/dynamic";
 export default {
+  name: "TopicEventItem",
   props: {
     eventItem: {
       type: Object,
@@ -121,7 +145,8 @@ export default {
         t: 1,
         threadId: ""
       },
-      isLiked: false
+      isLiked: false,
+      hasFoworder: {}
     };
   },
   methods: {
@@ -140,7 +165,8 @@ export default {
     //转发动态
     async DynamicForward(uid, evId, forwards) {
       const res = await userDynamicForward(uid, evId, forwards);
-      console.log(res);
+      this.hasFoworder = res.event;
+      // console.log(res);
     },
     //点赞动态
     async getLikeDynamic(params) {
@@ -169,6 +195,10 @@ export default {
           this.isLiked = false;
         }
       }
+    },
+    //展开歌单
+    getPlayList(id) {
+      this.$router.push({ path: "/songdetails", query: { id: id } });
     }
   },
   computed: {
@@ -178,7 +208,11 @@ export default {
   },
   created() {
     this.eventDesc = JSON.parse(this.eventItem.json);
+    // console.log(this.eventDesc);
     this.eventMsg = this.eventDesc.msg;
+  },
+  components: {
+    ForwordDynamic
   }
 };
 </script>
@@ -243,10 +277,25 @@ export default {
         height: 40px;
         margin-right: 10px;
         float: left;
+        position: relative;
         img {
           width: 40px;
           height: 40px;
           border-radius: 5px;
+        }
+        .icon {
+          width: 20px;
+          height: 20px;
+          border-radius: 50%;
+          background-color: whitesmoke;
+          position: absolute;
+          left: 10px;
+          top: 10px;
+          i {
+            color: red;
+            margin-left: 5px;
+            font-size: 12px;
+          }
         }
       }
       .info {

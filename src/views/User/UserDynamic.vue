@@ -48,6 +48,7 @@ export default {
       );
       this.dynamicList = res.events;
       this.queryInfo.lasttime = res.lasttime;
+      // console.log(res);
     },
     handleCurrentChange(newPage) {
       this.currentPage = newPage;

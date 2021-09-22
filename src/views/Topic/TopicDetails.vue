@@ -1,6 +1,12 @@
 <template>
   <div class="topdetails">
-    <topic-desc :topic-desc="topicDesc"></topic-desc>
+    <topic-desc :topic-desc="topicDesc" @partTopic="partTopic"></topic-desc>
+    <write-dynamic
+      v-show="isWrite"
+      class="write-content"
+      :is-show="isWrite"
+      @closeCard="closeCard"
+    ></write-dynamic>
     <div class="recom">
       <recom-topic></recom-topic>
     </div>
@@ -11,10 +17,8 @@
 import TopicDesc from "@/views/Topic/TopicDesc";
 import RecomTopic from "@/views/Topic/RecomTopic";
 import HotTopicEvent from "@/views/Topic/HotTopicEvent";
-import {
-  getTopicDetail,
-  getTopicEvent,
-} from "../../network/topic";
+import WriteDynamic from "@/components/WriteDynamic/WriteDynamic";
+import { getTopicDetail, getTopicEvent } from "../../network/topic";
 export default {
   data() {
     return {
@@ -22,6 +26,7 @@ export default {
       topicDesc: {},
       topicDynamic: [],
       topicEventList: [],
+      isWrite: false
     };
   },
   methods: {
@@ -35,6 +40,12 @@ export default {
       this.topicEventList = res.events;
       // console.log(res)
     },
+    closeCard() {
+      this.isWrite = false;
+    },
+    partTopic() {
+      this.isWrite = true;
+    }
   },
   mounted() {
     this.actId = this.$route.query.id;
@@ -49,6 +60,7 @@ export default {
     TopicDesc,
     RecomTopic,
     HotTopicEvent,
+    WriteDynamic
   }
 };
 </script>
@@ -59,6 +71,12 @@ export default {
   border-right: 1px solid gainsboro;
   padding: 15px 0px;
   position: relative;
+  .write-content {
+    position: absolute;
+    top: 70px;
+    left: 250px;
+    z-index: 9;
+  }
   .recom {
     position: absolute;
     right: -200px;

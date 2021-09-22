@@ -5,8 +5,7 @@
       <div class="info">
         <div class="title">#{{ topicDesc.title }}#</div>
         <div class="person">{{ topicDesc.participateCount }}人参加</div>
-        <!-- <el-divider>{{ topicDesc.participateCount }}人参加</el-divider> -->
-        <el-button
+        <el-button @click="partInIt"
           ><span><i class="el-icon-edit"></i>立即参与</span></el-button
         >
       </div>
@@ -25,7 +24,12 @@ export default {
         return {};
       }
     }
-  }
+  },
+  methods: {
+    partInIt(){
+      this.$emit('partTopic');
+    }
+  },
 };
 </script>
 <style lang="less" scoped>

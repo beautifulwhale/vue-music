@@ -127,7 +127,6 @@ export default {
     Mvs
   },
   mounted() {
-    console.log("mounted");
     this.queryInfo.keywords = this.$route.query.keywords;
     this.$bus.$on("changeSearch", keywords => {
       this.queryInfo.keywords = keywords;
