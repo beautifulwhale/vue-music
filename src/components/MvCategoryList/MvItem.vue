@@ -8,7 +8,7 @@
     </div>
     <div class="info">
       <div class="name">{{ mvItem.name }}</div>
-      <div class="artistName">{{ mvItem.artistName }}</div>
+      <div class="artistName">by{{ mvItem.artistName }}</div>
     </div>
   </div>
 </template>

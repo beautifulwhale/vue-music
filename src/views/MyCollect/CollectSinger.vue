@@ -47,7 +47,6 @@ export default {
       const res = await myCollectSinger();
       this.myCollectList = res.data;
       this.total = res.count;
-      console.log(res);
     },
     getSinger(row) {
       this.$router.push({ path: "/singerdetails", query: { id: row.id } });

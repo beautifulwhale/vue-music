@@ -1,10 +1,14 @@
 <template>
   <div class="user">
     <user-info :user-info="userInfo"></user-info>
-    <div class="title"><h4>歌单({{playList.length}})</h4></div>
+    <div class="title">
+      <h4>歌单({{ playList.length }})</h4>
+    </div>
     <div class="playlist">
       <div class="playlist-item" v-for="item in playList" :key="item.id">
-        <user-play-item :play-item="item"></user-play-item>
+        <user-play-item
+          :play-item="item"
+        ></user-play-item>
       </div>
       <!-- 分页 -->
       <div class="pagination">
@@ -55,6 +59,7 @@ export default {
     async UserPlayList(id, limit, offset) {
       const res = await getUserPlayList(id, limit, offset);
       this.playList = res.playlist;
+      console.log(res);
     },
     async getUserSubcount() {
       const res = await getUserSubcount();

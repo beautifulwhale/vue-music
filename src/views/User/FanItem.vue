@@ -55,7 +55,6 @@ export default {
     },
     async followUser(id, t) {
       const res = await followUser(id, t);
-      console.log(res);
     },
     followUsers() {
       this.followUser(this.fanItem.userId, this.t);

@@ -30,7 +30,9 @@
       </div>
     </div>
     <!-- 描述 -->
-    <div class="desc" v-show="isShowDesc">{{ mvData.desc }}</div>
+    <div class="desc" v-show="isShowDesc">
+      {{ mvData.desc || mvData.description }}
+    </div>
     <!-- 标签 -->
     <div class="tags" v-if="mvData.videoGroup.length">
       <div class="tagsitem" v-for="item in mvData.videoGroup" :key="item.id">
@@ -38,29 +40,66 @@
       </div>
     </div>
     <div class="operation">
-      <el-button round size="medium ">
+      <el-button round size="mini">
         <span class="iconfont icon-zan1"></span>
-        赞({{ likeCount.likedCount }})
+        赞({{ mvData.praisedCount || mvData.commentCount }})
       </el-button>
-      <el-button round size="medium ">
-        <span class="iconfont icon-a-shoucang"></span>
-        收藏({{ likeCount.commentCount }})
-      </el-button>
-      <el-button round size="medium ">
+
+      <span v-if="mvData.subCount">
+        <el-button
+          round
+          size="mini"
+          @click="collectClick(mvData.id, t)"
+          v-if="isCollect"
+        >
+          <span class="el-icon-folder-checked"></span>
+          已收藏({{ mvData.subCount }})
+        </el-button>
+        <el-button round size="mini" @click="collectClick(mvData.id, t)" v-else>
+          <span class="el-icon-folder-add"></span>
+          收藏({{ mvData.subCount }})
+        </el-button>
+      </span>
+
+      <span v-if="mvData.subscribeCount">
+        <el-button
+          round
+          size="mini"
+          @click="collectClickVideo(mvData.vid, t)"
+          v-if="isCollectVideo"
+        >
+          <span class="el-icon-folder-checked"></span>
+          已收藏({{ mvData.subscribeCount }})
+        </el-button>
+        <el-button
+          round
+          size="mini"
+          @click="collectClickVideo(mvData.vid, t)"
+          v-else
+        >
+          <span class="el-icon-folder-add"></span>
+          收藏({{ mvData.subscribeCount }})
+        </el-button>
+      </span>
+
+      <el-button round size="mini">
         <span class="iconfont icon-fenxiang2"></span>
-        分享({{ likeCount.shareCount }})
+        分享({{ mvData.shareCount }})
       </el-button>
     </div>
   </div>
 </template>
 <script>
 import { dateFormat } from "../../utils/utils";
+import { collectMv } from "../../network/mvdetails";
+import { collectVideo } from "../../network/video";
 export default {
   data() {
     return {
       isShowDesc: false,
       isShowBottom: true,
-      isShowTop: false
+      isShowTop: false,
+      t: 1
     };
   },
   props: {
@@ -82,6 +121,97 @@ export default {
       this.isShowTop = !this.isShowTop;
       this.isShowBottom = !this.isShowBottom;
       this.isShowDesc = !this.isShowDesc;
+    },
+    async getCollectMv(id, t) {
+      const res = await collectMv(id, t);
+    },
+    async getCollectVideo(id, t) {
+      const res = await collectVideo(id, t);
+      console.log(res);
+    },
+    //收藏mv
+    collectClick(id, t) {
+      if (!this.isCollect) {
+        this.t = 1;
+        this.getCollectMv(id, t);
+        this.$message({ message: "恭喜您收藏成功", type: "success" });
+        this.$router.go(0);
+        let newlist = JSON.parse(localStorage.getItem("collectMv")) || [];
+        newlist.push(id);
+        localStorage.setItem("collectMv", JSON.stringify(newlist));
+      } else {
+        this.$confirm("确认不在收藏此专辑?", "提示", {
+          confirmButtonText: "确定",
+          cancelButtonText: "取消",
+          type: "warning"
+        })
+          .then(() => {
+            this.t = 0;
+            this.getCollectMv(id, t);
+            this.$router.go(0);
+            let arr = JSON.parse(localStorage.getItem("collectMv"));
+            var len = arr.length;
+            for (let i = 0; i < len; i++) {
+              if (arr[i] == id) {
+                arr.splice(i, 1);
+              }
+            }
+            localStorage.setItem("collectMv", JSON.stringify(arr));
+            this.$message({
+              type: "success",
+              message: "删除收藏成功!"
+            });
+          })
+          .catch(() => {
+            this.$message({
+              type: "info",
+              message: "已取消删除收藏"
+            });
+          });
+      }
+    },
+    //收藏视频
+    collectClickVideo(id, t) {
+      if (!this.isCollectVideo  ) {
+        this.t = 1;
+        this.getCollectVideo(id, t);
+        this.mvData.subscribeCount += 1;
+        this.$message({ message: "恭喜您收藏成功", type: "success" });
+        this.$router.go(0);
+        let newlist = JSON.parse(localStorage.getItem("collectVideo")) || [];
+        newlist.push(id);
+        localStorage.setItem("collectVideo", JSON.stringify(newlist));
+      } else {
+        this.$confirm("确认不在收藏此专辑?", "提示", {
+          confirmButtonText: "确定",
+          cancelButtonText: "取消",
+          type: "warning"
+        })
+          .then(() => {
+            this.t = 0;
+            this.getCollectVideo(id, t);
+            this.mvData.subscribeCount -= 1;
+            this.$router.go(0);
+            let arr = JSON.parse(localStorage.getItem("collectVideo"));
+            var len = arr.length;
+            for (let i = 0; i < len; i++) {
+              if (arr[i] == id) {
+                arr.splice(i, 1);
+              }
+            }
+            localStorage.setItem("collectVideo", JSON.stringify(arr));
+            this.$message({
+              type: "success",
+              message: "删除收藏成功!"
+            });
+          })
+          .catch(() => {
+            this.$message({
+              type: "info",
+              message: "已取消删除收藏"
+            });
+          });
+      }
     }
   },
   computed: {
@@ -103,6 +233,28 @@ export default {
     },
     publishTime() {
       return dateFormat(this.mvData.publishTime);
+    },
+    isCollect() {
+      if (JSON.parse(localStorage.getItem("collectMv")) !== null) {
+        let list = JSON.parse(localStorage.getItem("collectMv"));
+        let key = list.indexOf(Number(this.$route.query.id), 0);
+        if (key === -1) {
+          return false;
+        } else {
+          return true;
+        }
+      }
+    },
+    isCollectVideo() {
+      if (JSON.parse(localStorage.getItem("collectVideo")) !== null) {
+        let list = JSON.parse(localStorage.getItem("collectVideo"));
+        let key = list.indexOf(String(this.$route.query.id), 0);
+        if (key === -1) {
+          return false;
+        } else {
+          return true;
+        }
+      }
     }
   }
 };

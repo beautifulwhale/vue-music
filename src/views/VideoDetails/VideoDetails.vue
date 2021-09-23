@@ -135,7 +135,6 @@ export default {
   },
   mounted() {
     this.mvId = this.$route.query.id;
-    // this.commnetInfo.commentId = this.$router.query.id;
     this.getMvPlay(this.mvId);
     this.getMvData(this.mvId);
     this.getRecomMv(this.mvId);

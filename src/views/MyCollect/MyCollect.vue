@@ -7,14 +7,20 @@
       <el-tab-pane label="歌手" name="second">
         <collect-singer></collect-singer>
       </el-tab-pane>
-      <el-tab-pane label="视频" name="third">角色管理</el-tab-pane>
-      <el-tab-pane label="专栏" name="fourth">定时任务补偿</el-tab-pane>
+      <el-tab-pane label="视频" name="third">
+        <collect-mv></collect-mv>
+      </el-tab-pane>
+      <el-tab-pane label="歌单" name="fourth">
+        <collect-plat-list></collect-plat-list>
+      </el-tab-pane>
     </el-tabs>
   </div>
 </template>
 <script>
 import CollectAlbum from "@/views/MyCollect/CollectAlbum";
-import CollectSinger from '@/views/MyCollect/CollectSinger'
+import CollectSinger from "@/views/MyCollect/CollectSinger";
+import CollectMv from "@/views/MyCollect/CollectMv";
+import CollectPlatList from "@/views/MyCollect/CollectPlatList";
 export default {
   data() {
     return {
@@ -26,7 +32,9 @@ export default {
   },
   components: {
     CollectAlbum,
-    CollectSinger
+    CollectSinger,
+    CollectMv,
+    CollectPlatList
   }
 };
 </script>

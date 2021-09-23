@@ -68,3 +68,14 @@ export function getVideoLiked(vid) {
         }
     })
 }
+//收藏视频
+export function collectVideo(id, t) {
+    return request({
+        url: "/video/sub",
+        params: {
+            id,
+            t,
+            cookie
+        }
+    })
+}

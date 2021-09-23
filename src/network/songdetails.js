@@ -63,3 +63,14 @@ export function getMusicUrl(id) {
         }
     })
 }
+//收藏/取消收藏歌单
+export function collectPlayList(id, t) {
+    return request({
+        url: "/playlist/subscribe",
+        params: {
+            id,
+            t,
+            cookie
+        }
+    })
+}

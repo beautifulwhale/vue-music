@@ -1,4 +1,6 @@
 import { request } from './request'
+import Cookies from 'js-cookie'
+const cookie = Cookies.get('userCookie');
 //获取mv
 export function getMvPlay(id) {
     return request({
@@ -72,6 +74,27 @@ export function getVideoComment(id, limit, offset) {
             id,
             limit,
             offset
+        }
+    })
+}
+
+//收藏/取消收藏 MV
+export function collectMv(mvid, t) {
+    return request({
+        url: "/mv/sub",
+        params: {
+            mvid,
+            t,
+            cookie
+        }
+    })
+}
+//收藏的 MV 列表
+export function myCollectMv() {
+    return request({
+        url: "/mv/sublist",
+        params: {
+            cookie
         }
     })
 }
