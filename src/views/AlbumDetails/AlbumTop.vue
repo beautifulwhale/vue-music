@@ -20,8 +20,22 @@
           <span class="iconfont icon-bofang1"></span>
           播放全部
         </el-button>
-        <el-button round size="mini">
-          <span class="iconfont icon-a-shoucang"></span>
+        <el-button
+          round
+          size="mini"
+          @click="collectClick(albumTop.id, t)"
+          v-if="isCollect"
+        >
+          <span class="el-icon-folder-checked"></span>
+          已收藏
+        </el-button>
+        <el-button
+          round
+          size="mini"
+          @click="collectClick(albumTop.id, t)"
+          v-else
+        >
+          <span class="el-icon-folder-add"></span>
           收藏
         </el-button>
         <el-button round size="mini">
@@ -42,6 +56,7 @@
 <script>
 import { dateFormat } from "../../utils/utils";
 import { mapState } from "vuex";
+import { collectAlbum } from "../../network/album";
 export default {
   name: "DetailTop",
   props: {
@@ -50,10 +65,26 @@ export default {
       default: () => ({})
     }
   },
+  data() {
+    return {
+      t: 1
+    };
+  },
   computed: {
     ...mapState(["songList"]),
     publishTime() {
       return dateFormat(this.albumTop.publishTime, "YYYY-MM-DD HH-MM-SS");
+    },
+    isCollect() {
+      if (JSON.parse(localStorage.getItem("hasCollect")) !== null) {
+        let list = JSON.parse(localStorage.getItem("hasCollect"));
+        let key = list.indexOf(Number(this.$route.query.id), 0);
+        if (key === -1) {
+          return false;
+        } else {
+          return true;
+        }
+      }
     }
   },
   methods: {
@@ -62,6 +93,49 @@ export default {
     },
     getSinger(id) {
       this.$router.push({ path: "/singerdetails", query: { id: id } });
+    },
+    async collectAlbum(id, t) {
+      const res = await collectAlbum(id, t);
+    },
+    collectClick(id, t) {
+      if (!this.isCollect) {
+        this.t = 1;
+        this.collectAlbum(id, t);
+        this.$message({ message: "恭喜您收藏成功", type: "success" });
+        this.$router.go(0);
+        let newlist = JSON.parse(localStorage.getItem("hasCollect")) || [];
+        newlist.push(id);
+        localStorage.setItem("hasCollect", JSON.stringify(newlist));
+      } else {
+        this.$confirm("确认不在收藏此专辑?", "提示", {
+          confirmButtonText: "确定",
+          cancelButtonText: "取消",
+          type: "warning"
+        })
+          .then(() => {
+            this.t = 0;
+            this.collectAlbum(id, t);
+            this.$router.go(0);
+            let arr = JSON.parse(localStorage.getItem("hasCollect"));
+            var len = arr.length;
+            for (let i = 0; i < len; i++) {
+              if (arr[i] == id) {
+                arr.splice(i, 1);
+              }
+            }
+            localStorage.setItem("hasCollect", JSON.stringify(arr));
+            this.$message({
+              type: "success",
+              message: "删除收藏成功!"
+            });
+          })
+          .catch(() => {
+            this.$message({
+              type: "info",
+              message: "已取消删除收藏"
+            });
+          });
+      }
     }
   }
 };

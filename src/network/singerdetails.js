@@ -1,4 +1,6 @@
 import { request } from './request'
+import Cookies from 'js-cookie'
+const cookie = Cookies.get('userCookie');
 //获取歌手详情
 export function getSingerDetails(id) {
     return request({
@@ -55,3 +57,24 @@ export function getSimiSinger(id) {
         }
     })
 }
+//收藏/取消收藏歌手
+export function collectSinger(id, t) {
+    return request({
+        url: "/artist/sub",
+        params: {
+            id,
+            t,
+            cookie
+        }
+    })
+}
+//收藏的歌手列表
+export function myCollectSinger() {
+    return request({
+        url: "/artist/sublist",
+        params: {
+            cookie
+        }
+    })
+}
+

@@ -79,7 +79,7 @@ export default {
       const res = await phoneLogin(LoginPhone.phone, LoginPhone.password);
       this.userInfo.avatarUrl = res.profile.avatarUrl;
       this.userInfo.nickname = res.profile.nickname;
-      Cookies.set('userCookie',res.cookie,{expires:7})
+      Cookies.set('userCookie',res.cookie,{expires:10})
       //在localStorage存储token
       localStorage.setItem("token", res.token);
       localStorage.setItem("avatarUrl", res.profile.avatarUrl);
