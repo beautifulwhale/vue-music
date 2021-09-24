@@ -79,3 +79,24 @@ export function collectVideo(id, t) {
         }
     })
 }
+//收藏专栏
+export function collectColumn() {
+    return request({
+        url: "/topic/sublist",
+        params: {
+            cookie
+        }
+    })
+}
+//给视频点赞
+export function praiseVideo(type, id, t) {
+    return request({
+        url: "/resource/like",
+        params: {
+            type,
+            id,
+            t,
+            cookie
+        }
+    })
+}

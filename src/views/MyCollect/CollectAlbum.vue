@@ -68,7 +68,6 @@ export default {
             font-size: 12px;
             color: gray;
         }
-
     }
 }
 .size {

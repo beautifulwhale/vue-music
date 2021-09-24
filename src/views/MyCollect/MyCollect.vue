@@ -10,8 +10,8 @@
       <el-tab-pane label="视频" name="third">
         <collect-mv></collect-mv>
       </el-tab-pane>
-      <el-tab-pane label="歌单" name="fourth">
-        <collect-plat-list></collect-plat-list>
+      <el-tab-pane label="专栏" name="fourth">
+        <collect-column></collect-column>
       </el-tab-pane>
     </el-tabs>
   </div>
@@ -20,7 +20,7 @@
 import CollectAlbum from "@/views/MyCollect/CollectAlbum";
 import CollectSinger from "@/views/MyCollect/CollectSinger";
 import CollectMv from "@/views/MyCollect/CollectMv";
-import CollectPlatList from "@/views/MyCollect/CollectPlatList";
+import CollectColumn from '@/views/MyCollect/CollectColumn'
 export default {
   data() {
     return {
@@ -34,7 +34,7 @@ export default {
     CollectAlbum,
     CollectSinger,
     CollectMv,
-    CollectPlatList
+    CollectColumn
   }
 };
 </script>

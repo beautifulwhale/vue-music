@@ -1,19 +1,29 @@
 <template>
   <div class="user">
     <user-info :user-info="userInfo"></user-info>
-    <div class="title">
-      <h4>歌单({{ playList.length }})</h4>
-    </div>
     <div class="playlist">
-      <div class="playlist-item" v-for="item in playList" :key="item.id">
-        <user-play-item
-          :play-item="item"
-        ></user-play-item>
+      <!-- 个人创建歌单 -->
+      <div class="title">
+        <h4>歌单({{ personalList.length }})</h4>
+      </div>
+      <div class="personal">
+        <div class="playlist-item" v-for="item in personalList" :key="item.id">
+          <user-play-item :play-item="item"></user-play-item>
+        </div>
+      </div>
+      <!-- 收藏的歌单 -->
+      <div class="title">
+        <h4>收藏({{ myCollectList.length }})</h4>
+      </div>
+      <div class="collect">
+        <div class="playlist-item" v-for="item in myCollectList" :key="item.id">
+          <user-play-item :play-item="item"></user-play-item>
+        </div>
       </div>
       <!-- 分页 -->
       <div class="pagination">
         <el-pagination
-          v-if="playList.length >= 30"
+          v-if="myCollectList.length >= 30"
           @current-change="handleCurrentChange"
           :current-page="currentPage"
           :page-size="pageSize"
@@ -39,13 +49,15 @@ export default {
     return {
       userId: 0,
       userInfo: {},
-      limit: 29,
+      limit: 169,
       offset: 0,
       playList: [],
       playListCount: 0,
       total: 0,
       currentPage: 1,
-      pageSize: 30
+      pageSize: 30,
+      personalList: [],
+      myCollectList: []
     };
   },
   methods: {
@@ -59,11 +71,22 @@ export default {
     async UserPlayList(id, limit, offset) {
       const res = await getUserPlayList(id, limit, offset);
       this.playList = res.playlist;
-      console.log(res);
+      this.playList.filter(item => {
+        if (item.userId === Number(this.$route.query.id)) {
+          this.personalList.push(item);
+        }
+      });
+      let playListSet = new Set(this.playList);
+      let personalListSet = new Set(this.personalList);
+      let diff = new Set(
+        [...playListSet].filter(function(item) {
+          return !personalListSet.has(item);
+        })
+      );
+      this.myCollectList = [...diff];
     },
     async getUserSubcount() {
       const res = await getUserSubcount();
-      // console.log(res);
     },
     handleCurrentChange(newPage) {
       this.currentPage = newPage;
@@ -93,7 +116,8 @@ export default {
     margin-top: 30px;
     color: black;
   }
-  .playlist {
+  .personal,
+  .collect {
     width: 1260px;
     display: flex;
     flex: 1;

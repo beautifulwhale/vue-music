@@ -45,7 +45,7 @@ export default {
     margin-left: 20px;
   }
   .singer {
-    width: 1300px;
+    width: 1200px;
     height: 600px;
     display: flex;
     flex: 1;
@@ -53,7 +53,7 @@ export default {
     margin-top: 20px;
     margin-left: 20px;
     .singeritem {
-      margin-right: 20px;
+      margin-right: 15px;
       margin-bottom: 20px;
       width: 170px;
       height: 190px;

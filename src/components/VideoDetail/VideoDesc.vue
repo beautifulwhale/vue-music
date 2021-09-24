@@ -40,10 +40,36 @@
       </div>
     </div>
     <div class="operation">
-      <el-button round size="mini">
-        <span class="iconfont icon-zan1"></span>
-        赞({{ mvData.praisedCount || mvData.commentCount }})
-      </el-button>
+      <span v-if="mvData.praisedCount">
+        <el-button
+          round
+          size="mini"
+          v-if="isPraise"
+          @click="goPraiseVideo(mvData.vid)"
+        >
+          <span class="iconfont icon-zan1"></span>
+          赞({{ mvData.praisedCount }})
+        </el-button>
+        <el-button round size="mini" v-else @click="goPraiseVideo(mvData.vid)">
+          <span class="iconfont icon-zan1" style="color:red"></span>
+          已赞({{ mvData.praisedCount }})
+        </el-button>
+      </span>
+      <span v-else>
+        <el-button
+          round
+          size="mini"
+          v-if="isPraise"
+          @click="goPraiseMv(mvData.id)"
+        >
+          <span class="iconfont icon-zan1"></span>
+          赞({{ likeCount.likedCount }})
+        </el-button>
+        <el-button round size="mini" v-else @click="goPraiseMv(mvData.id)">
+          <span class="iconfont icon-zan1" style="color:red"></span>
+          已赞({{ likeCount.likeCount }})
+        </el-button>
+      </span>
 
       <span v-if="mvData.subCount">
         <el-button
@@ -60,7 +86,6 @@
           收藏({{ mvData.subCount }})
         </el-button>
       </span>
-
       <span v-if="mvData.subscribeCount">
         <el-button
           round
@@ -81,7 +106,6 @@
           收藏({{ mvData.subscribeCount }})
         </el-button>
       </span>
-
       <el-button round size="mini">
         <span class="iconfont icon-fenxiang2"></span>
         分享({{ mvData.shareCount }})
@@ -92,14 +116,17 @@
 <script>
 import { dateFormat } from "../../utils/utils";
 import { collectMv } from "../../network/mvdetails";
-import { collectVideo } from "../../network/video";
+import { collectVideo, praiseVideo } from "../../network/video";
 export default {
   data() {
     return {
       isShowDesc: false,
       isShowBottom: true,
       isShowTop: false,
-      t: 1
+      t: 1,
+      isPraise: true,
+      videoType: 5,
+      mvType: 1
     };
   },
   props: {
@@ -122,12 +149,43 @@ export default {
       this.isShowBottom = !this.isShowBottom;
       this.isShowDesc = !this.isShowDesc;
     },
+    //收藏MV
     async getCollectMv(id, t) {
       const res = await collectMv(id, t);
     },
+    //收藏视频
     async getCollectVideo(id, t) {
       const res = await collectVideo(id, t);
-      console.log(res);
+    },
+    //点赞
+    async praiseVideo(type, id, t) {
+      const res = await praiseVideo(type, id, t);
+    },
+    goPraiseVideo(id) {
+      if (this.isPraise) {
+        this.t = 1;
+        this.praiseVideo(this.videoType, id, this.t);
+        this.$message({ message: "点赞成功", type: "success" });
+        this.isPraise = false;
+      } else {
+        this.t = 0;
+        this.praiseVideo(this.videoType, id, this.t);
+        this.$message({ message: "取消点赞", type: "info" });
+        this.isPraise = true;
+      }
+    },
+    goPraiseMv(id) {
+      if (this.isPraise) {
+        this.t = 1;
+        this.praiseVideo(this.mvType, id, this.t);
+        this.$message({ message: "点赞成功", type: "success" });
+        this.isPraise = false;
+      } else {
+        this.t = 0;
+        this.praiseVideo(this.mvType, id, this.t);
+        this.$message({ message: "取消点赞", type: "info" });
+        this.isPraise = true;
+      }
     },
     //收藏mv
     collectClick(id, t) {
@@ -172,7 +230,7 @@ export default {
     },
     //收藏视频
     collectClickVideo(id, t) {
-      if (!this.isCollectVideo  ) {
+      if (!this.isCollectVideo) {
         this.t = 1;
         this.getCollectVideo(id, t);
         this.mvData.subscribeCount += 1;

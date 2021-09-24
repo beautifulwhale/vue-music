@@ -78,6 +78,34 @@
               </template>
             </el-menu-item>
           </el-menu-item-group>
+
+          <el-submenu index="1">
+            <template slot="title"
+              ><span class="gedantitle"> 创建的歌单</span
+              ><span class="el-icon-plus"></span
+            ></template>
+            <el-menu-item v-for="item in personalList" :key="item.id">
+              <template>
+                <div class="personal" @click="getPlayList(item.id)">
+                  <span class="iconfont icon-gedan"></span>
+                  {{ item.name }}
+                </div>
+              </template>
+            </el-menu-item>
+          </el-submenu>
+          <el-submenu index="2">
+            <template slot="title"
+              ><span class="gedantitle">收藏的歌单</span>
+            </template>
+            <el-menu-item v-for="item in myCollectList" :key="item.id">
+              <template>
+                <div class="collect" @click="getPlayList(item.id)">
+                  <span class="iconfont icon-gedan"></span>
+                  {{ item.name }}
+                </div>
+              </template>
+            </el-menu-item>
+          </el-submenu>
         </el-menu>
       </el-aside>
       <el-main>
@@ -90,13 +118,47 @@
 <script>
 import NavBar from "@/components/Header/NavBar";
 import Foot from "@/components/Foot/Foot";
+import { getUserPlayList } from "../../network/user";
 export default {
   data() {
-    return {};
+    return {
+      limit: 100,
+      offset: 0,
+      userId: 3243961585,
+      playList: [],
+      personalList: [],
+      myCollectList: []
+    };
   },
   components: {
     NavBar,
     Foot
+  },
+  methods: {
+    //获取用户的歌单
+    async UserPlayList(id, limit, offset) {
+      const res = await getUserPlayList(id, limit, offset);
+      this.playList = res.playlist;
+      this.playList.filter(item => {
+        if (item.userId === 3243961585) {
+          this.personalList.push(item);
+        }
+      });
+      let playListSet = new Set(this.playList);
+      let personalListSet = new Set(this.personalList);
+      let diff = new Set(
+        [...playListSet].filter(function(item) {
+          return !personalListSet.has(item);
+        })
+      );
+      this.myCollectList = [...diff];
+    },
+    getPlayList(id) {
+      this.$router.push({ path: "/songdetails", query: { id: id } });
+    }
+  },
+  created() {
+    this.UserPlayList(this.userId, this.limit, this.offset);
   }
 };
 </script>
@@ -116,12 +178,26 @@ export default {
       height: 680px;
       border-right: 1px solid gainsboro;
     }
+    .gedantitle {
+      font-size: 12px;
+      color: rgb(177, 176, 176);
+    }
     .el-menu-item {
       width: 200px;
-
       .routers {
         font-size: 15px;
       }
+      .personal,
+      .collect {
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+      }
+    }
+    .el-icon-plus {
+      margin-left: 30px;
+      font-size: 14px;
+      color: black;
     }
   }
   .el-main {

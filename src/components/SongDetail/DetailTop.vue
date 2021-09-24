@@ -32,7 +32,7 @@
         <el-button
           round
           size="mini"
-          @click="collectClick(mvData.id, t)"
+          @click="collectClick(songDetailsTop.id, t)"
           v-if="isCollect"
         >
           <span class="el-icon-folder-checked"></span>
@@ -136,7 +136,7 @@ export default {
         newlist.push(id);
         localStorage.setItem("collectPlayList", JSON.stringify(newlist));
       } else {
-        this.$confirm("确认不在收藏此专辑?", "提示", {
+        this.$confirm("确认不在收藏此歌单?", "提示", {
           confirmButtonText: "确定",
           cancelButtonText: "取消",
           type: "warning"
