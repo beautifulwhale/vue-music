@@ -82,7 +82,7 @@
           <el-submenu index="1">
             <template slot="title"
               ><span class="gedantitle"> 创建的歌单</span
-              ><span class="el-icon-plus"></span
+              ><span class="el-icon-plus" @click="createPlayList"></span
             ></template>
             <el-menu-item v-for="item in personalList" :key="item.id">
               <template>
@@ -110,6 +110,21 @@
       </el-aside>
       <el-main>
         <router-view></router-view>
+        <el-card v-show="isCreate">
+          <div class="title">
+            <div class="el-icon-close" @click="closeCreate"></div>
+            <h4>新建歌单</h4>
+          </div>
+          <div class="content">
+            <el-input
+              v-model="playListTilte"
+              placeholder="请输入新歌单标题"
+            ></el-input>
+            <el-button type="danger" round size="medium" @click="goCreate"
+              >创建</el-button
+            >
+          </div>
+        </el-card>
       </el-main>
     </el-container>
     <foot></foot>
@@ -119,6 +134,7 @@
 import NavBar from "@/components/Header/NavBar";
 import Foot from "@/components/Foot/Foot";
 import { getUserPlayList } from "../../network/user";
+import { createPlayList } from "../../network/songdetails";
 export default {
   data() {
     return {
@@ -127,7 +143,10 @@ export default {
       userId: 3243961585,
       playList: [],
       personalList: [],
-      myCollectList: []
+      myCollectList: [],
+      playListTilte: "",
+      isCreate: false,
+      type: "NORMAL"
     };
   },
   components: {
@@ -153,8 +172,24 @@ export default {
       );
       this.myCollectList = [...diff];
     },
+    //创建歌单
+    async goCreatePlayList(name, type) {
+      const res = await createPlayList(name, type);
+      console.log(res);
+    },
     getPlayList(id) {
       this.$router.push({ path: "/songdetails", query: { id: id } });
+    },
+    //创建歌单
+    createPlayList() {
+      this.isCreate = true;
+    },
+    goCreate() {
+      this.goCreatePlayList(this.playListTilte, this.type);
+      this.isCreate = false;
+    },
+    closeCreate() {
+      this.isCreate = false;
     }
   },
   created() {
@@ -203,6 +238,32 @@ export default {
   .el-main {
     width: 1300px;
     margin-left: 200px;
+    position: relative;
+    .el-card {
+      width: 500px;
+      height: 250px;
+      position: absolute;
+      top: 200px;
+      left: 350px;
+      z-index: 999;
+      .title {
+        width: 500px;
+        margin-bottom: 40px;
+        .el-icon-close {
+          font-size: 20px;
+          margin-left: 430px;
+        }
+        h4 {
+          width: 480px;
+          color: black;
+          text-align: center;
+        }
+      }
+      .el-button {
+        margin-top: 30px;
+        margin-left: 200px;
+      }
+    }
   }
 }
 </style>

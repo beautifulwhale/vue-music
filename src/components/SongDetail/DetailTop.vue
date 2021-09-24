@@ -6,6 +6,15 @@
     <div class="content" v-if="Object.keys(songDetailsTop).length !== 0">
       <div class="title">
         <h2>{{ songDetailsTop.name }}</h2>
+        <span
+          class="el-icon-edit-outline"
+          v-if="songDetailsTop.userId === 3243961585"
+          @click="editPlayList(songDetailsTop.id)"
+        ></span>
+        <span
+          class="el-icon-delete"
+          v-if="songDetailsTop.userId === 3243961585"
+        ></span>
       </div>
       <!-- 作者 -->
       <div class="creator">
@@ -28,7 +37,6 @@
           <span class="iconfont icon-bofang1"></span>
           播放全部
         </el-button>
-
         <el-button
           round
           size="mini"
@@ -91,8 +99,8 @@ export default {
   },
   data() {
     return {
-      t:1
-    }
+      t: 1
+    };
   },
   computed: {
     ...mapState(["songList"]),
@@ -123,7 +131,6 @@ export default {
     },
     async getcollectPlayList(id, t) {
       const res = await collectPlayList(id, t);
-      console.log(res);
     },
     //收藏mv
     collectClick(id, t) {
@@ -165,6 +172,12 @@ export default {
             });
           });
       }
+    },
+    editPlayList(id) {
+      this.$router.push({
+        path: "/editplayList",
+        query: { id }
+      });
     }
   }
 };
@@ -189,7 +202,22 @@ export default {
     height: 160px;
     flex-flow: column;
     .title {
-      color: black;
+      width: 500px;
+      display: flex;
+      flex: 1;
+      h2 {
+        color: black;
+        margin-right: 5px;
+      }
+      .el-icon-edit-outline {
+        font-size: 25px;
+        color: rgb(161, 161, 161);
+      }
+      .el-icon-delete {
+        font-size: 20px;
+        color: rgb(141, 141, 141);
+        margin-left: 200px;
+      }
       margin-bottom: 10px;
     }
     .creator {
@@ -199,7 +227,7 @@ export default {
       margin-bottom: 10px;
       .nickname {
         font-size: 13px;
-        color: rgb(82, 82, 253);
+        color: rgb(133, 133, 241);
         cursor: pointer;
       }
       .imghead {

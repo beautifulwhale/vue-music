@@ -70,7 +70,6 @@
           已赞({{ likeCount.likeCount }})
         </el-button>
       </span>
-
       <span v-if="mvData.subCount">
         <el-button
           round
@@ -198,7 +197,7 @@ export default {
         newlist.push(id);
         localStorage.setItem("collectMv", JSON.stringify(newlist));
       } else {
-        this.$confirm("确认不在收藏此专辑?", "提示", {
+        this.$confirm("确认不在收藏此MV?", "提示", {
           confirmButtonText: "确定",
           cancelButtonText: "取消",
           type: "warning"

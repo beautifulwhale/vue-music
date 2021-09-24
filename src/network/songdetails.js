@@ -74,3 +74,14 @@ export function collectPlayList(id, t) {
         }
     })
 }
+//新建歌单
+export function createPlayList(name, type) {
+    return request({
+        url: "/playlist/create",
+        params: {
+            name,
+            type,
+            cookie
+        }
+    })
+}
