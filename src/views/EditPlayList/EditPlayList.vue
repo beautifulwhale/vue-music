@@ -33,12 +33,11 @@
           <el-button type="danger" round size="mini" @click="saveUpdate"
             >保存</el-button
           >
-          <el-button round size="mini">取消</el-button>
+          <el-button round size="mini" @click="cancel">取消</el-button>
         </div>
       </div>
       <div class="img">
         <img :src="imgUrl" />
-        <!-- <el-button round size="mini">编辑封面</el-button> -->
         <input
           id="file"
           type="file"
@@ -148,6 +147,9 @@ export default {
         this.imgUrl = res.data.url;
         this.$router.go(0);
       });
+    },
+    cancel() {
+      this.$router.back();
     }
   },
   created() {

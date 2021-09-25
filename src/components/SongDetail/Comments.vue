@@ -87,6 +87,11 @@ export default {
     albumId: {
       type: Number,
       default: 0
+    },
+    //歌曲ID
+    musicId: {
+      type: Number,
+      default: 0
     }
   },
   inject: ["reload"],
@@ -99,6 +104,7 @@ export default {
       videoType: 5,
       dynamicType: 6,
       albumType: 3,
+      musicType: 0,
       tLike: 1
     };
   },
@@ -140,6 +146,12 @@ export default {
         this.tSend,
         this.albumType,
         this.albumId,
+        this.commentContent
+      );
+      this.sendComment(
+        this.tSend,
+        this.musicType,
+        this.musicId,
         this.commentContent
       );
       this.commentContent = "";

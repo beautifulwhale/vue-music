@@ -62,7 +62,7 @@ export default {
     },
     clearSongList() {
       this.$store.dispatch("clearSongList");
-      this.$emit('clearPlay');
+      this.$emit("clearPlay");
     }
   }
 };

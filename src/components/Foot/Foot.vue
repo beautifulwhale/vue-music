@@ -1,15 +1,23 @@
 <template>
   <div class="player-bar" v-if="music.length">
     <div class="content">
-      <div class="music-img">
-        <img :src="musicInfo.musicImg" />
+      <div
+        class="music-img"
+        @mouseenter="mouseEnter"
+        @mouseleave="mouseLeave"
+        @click="getMusicDetail(currentId)"
+      >
+        <img :src="musicInfo.al.picUrl" />
+        <span class="el-icon-arrow-up" v-if="isShowFold"></span>
+        <span class="el-icon-arrow-down" v-else></span>
+        <div class="smoker" v-show="isActive"></div>
       </div>
       <!-- 歌曲名字/作者 -->
       <div class="music-message">
         <div class="name">
-          <h3>{{ musicInfo.musicName }}</h3>
+          <h3>{{ musicInfo.name }}</h3>
         </div>
-        <div class="art">{{ musicInfo.musicArtist }}</div>
+        <div class="art">{{ musicInfo.ar[0].name }}</div>
       </div>
       <!-- 播放暂停 -->
       <div class="control">
@@ -96,12 +104,7 @@ import { mapState } from "vuex";
 export default {
   data() {
     return {
-      musicInfo: {
-        musicImg: "",
-        musicName: "",
-        musicArtist: "",
-        musicPlayTime: 0
-      },
+      musicInfo: {},
       music: [],
       musicUrl: "",
       duration: 0,
@@ -111,7 +114,9 @@ export default {
       isShowCurrentPlay: false,
       //当前歌曲下标
       currentId: null,
-      currentIndex: null
+      currentIndex: null,
+      isShowFold: false,
+      isActive: false
     };
   },
   methods: {
@@ -119,10 +124,7 @@ export default {
     async getSongDetails(id) {
       const res = await getSongDetails(id);
       this.music = res.songs;
-      this.musicInfo.musicImg = res.songs[0].al.picUrl;
-      this.musicInfo.musicName = res.songs[0].name;
-      this.musicInfo.musicArtist = res.songs[0].ar[0].name;
-      this.musicInfo.musicPlayTime = res.songs[0].dt;
+      this.musicInfo = res.songs[0];
     },
     //获取歌曲url
     async getMusicUrl(id) {
@@ -139,12 +141,14 @@ export default {
           : Math.floor(sec / 60);
       return min + ":" + s;
     },
+    //是否播放
     isPlayMusic() {
       if (!this.songList.length) {
         this.$store.commit("isPlay", false);
       }
       this.isPlay ? this.$refs.audioRef.pause() : this.$refs.audioRef.play();
       this.$store.commit("isPlay", !this.$refs.audioRef.paused);
+      this.$bus.$emit("togglePlay");
     },
     //获取时长
     onLoadMetaData(res) {
@@ -156,7 +160,7 @@ export default {
       this.progress = parseInt((this.currentTime / this.duration) * 100);
       if (this.currentTime === this.duration) {
         if (this.playMode === 0) {
-          this.currentIndex--
+          this.currentIndex--;
           this.changeSong("down");
         } else {
           this.changeSong();
@@ -168,8 +172,9 @@ export default {
       let ct = (this.progress * this.duration) / 100;
       if (!isNaN(ct)) {
         this.$refs.audioRef.currentTime = ct;
-         this.$store.commit("isPlay", true);
+        this.$store.commit("isPlay", true);
         this.$refs.audioRef.play();
+        this.$bus.$emit("changeTime", this.$refs.audioRef.currentTime);
       }
     },
     //控制声音
@@ -215,6 +220,7 @@ export default {
         this.getMusicUrl(this.songList[this.currentIndex].id);
       } else if (this.playMode === 2) {
         this.$refs.audioRef.load();
+        this.$bus.$emit("loopPlay");
       }
       this.$store.commit("isPlay", true);
     },
@@ -222,12 +228,28 @@ export default {
     clearPlay() {
       this.$store.state.isPlay = false;
       this.$refs.audioRef.pause();
+    },
+    mouseEnter() {
+      this.isShowFold = true;
+      this.isActive = true;
+    },
+    mouseLeave() {
+      this.isShowFold = false;
+      this.isActive = false;
+    },
+    getMusicDetail(id) {
+      if (this.isShowFold) {
+        this.$router.push({ path: "/singlemusic", query: { id } });
+        this.isShowFold = false;
+      } else {
+        this.$router.back();
+      }
     }
   },
   computed: {
     ...mapState(["playMode", "songList", "isPlay"]),
     playTime() {
-      return FormatTime(this.musicInfo.musicPlayTime / 1000);
+      return FormatTime(this.musicInfo.dt / 1000);
     }
   },
   mounted() {
@@ -239,6 +261,14 @@ export default {
   },
   components: {
     CurrentPlayList
+  },
+  watch: {
+    currentId(newId, oldId) {
+      if (newId === oldId) {
+        return;
+      }
+      this.$bus.$emit("changeMusic", newId);
+    }
   }
 };
 </script>
@@ -261,11 +291,32 @@ export default {
     display: flex;
     justify-content: space-around;
     .music-img {
-      width: 51.2px;
-      height: 51.2px;
+      width: 50px;
+      height: 50px;
+      position: relative;
       img {
-        width: 51.2px;
-        height: 51.2px;
+        width: 50px;
+        height: 50px;
+        border-radius: 5px;
+      }
+      .el-icon-arrow-up {
+        position: absolute;
+        top: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 30px;
+        color: white;
+        z-index: 9;
+      }
+      .smoker {
+        width: 50px;
+        height: 50px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-color: #000;
+        opacity: 0.5;
+        border-radius: 5px;
       }
     }
     .music-message {
@@ -290,13 +341,13 @@ export default {
       align-items: center;
       .icon-prev,
       .icon-xiayishou {
-        color: gray;
+        color: black;
         font-size: 25px;
       }
       .icon-bofang,
       .icon-zanting {
         font-weight: bolder;
-        color: gray;
+        color: black;
         font-size: 40px;
       }
     }

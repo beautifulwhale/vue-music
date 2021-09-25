@@ -22,34 +22,49 @@ export default {
     }
   },
   data() {
-    return {
-      
-    }
+    return {};
   },
   components: {
     HotSearchItem
   },
   methods: {
     searchHot(keywords) {
-      this.$emit('searchHot',keywords);
+      this.$emit("searchHot", keywords);
     }
   }
 };
 </script>
 <style lang="less" scoped>
 .hot-search {
-  width: 350px;
+  width: 390px;
   height: 500px;
   background-color: #fff;
   z-index: 99;
   position: fixed;
   top: 70px;
   left: 320px;
-  overflow: scroll;
+  overflow-y: scroll;
   padding: 20px;
-  .hot-search::-webkit-scrollbar {
-    display: none;
-    width: 0;
-  }
+}
+/*定义滚动条高宽及背景
+ 高宽分别对应横竖滚动条的尺寸*/
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+  background-color: #f5f5f5;
+}
+/*定义滚动条轨道
+ 内阴影+圆角*/
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(252, 252, 252, 0.3);
+  border-radius: 10px;
+  background-color: #f5f5f5;
+}
+/*定义滑块
+ 内阴影+圆角*/
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px rgba(247, 247, 247, 0.3);
+  background-color: gainsboro;
 }
 </style>

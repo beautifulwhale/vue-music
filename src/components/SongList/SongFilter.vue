@@ -131,9 +131,6 @@ export default {
   overflow: hidden;
   overflow-y: scroll;
   z-index: 9;
-  .cat-detail::-webkit-scrollbar {
-    display: none;
-  }
   .detail-item {
     margin-bottom: 20px;
     .cattitle {
@@ -149,6 +146,28 @@ export default {
     }
   }
 }
+/*定义滚动条高宽及背景
+ 高宽分别对应横竖滚动条的尺寸*/
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+  background-color: #f5f5f5;
+}
+/*定义滚动条轨道
+ 内阴影+圆角*/
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
+  background-color: #f5f5f5;
+}
+/*定义滑块
+ 内阴影+圆角*/
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px rgba(247, 242, 242, 0.3);
+  background-color: rgb(240, 240, 240);
+}
+
 .v-enter,
 .v-leave-to {
   opacity: 0; /*透明度*/

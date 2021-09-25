@@ -234,6 +234,7 @@ export default {
       font-size: 14px;
       color: black;
     }
+    
   }
   .el-main {
     width: 1300px;

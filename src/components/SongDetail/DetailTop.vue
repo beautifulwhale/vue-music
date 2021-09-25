@@ -14,6 +14,7 @@
         <span
           class="el-icon-delete"
           v-if="songDetailsTop.userId === 3243961585"
+          @click="goDeletePlayList(songDetailsTop.id)"
         ></span>
       </div>
       <!-- 作者 -->
@@ -83,6 +84,7 @@
 import { dateFormat } from "../../utils/utils";
 import { mapState } from "vuex";
 import { collectPlayList } from "../../network/songdetails";
+import { deletePlayList } from "../../network/playlist";
 export default {
   name: "DetailTop",
   props: {
@@ -129,8 +131,14 @@ export default {
     getUser(id) {
       this.$router.push({ path: "/user", query: { id: id } });
     },
+    //收藏歌单
     async getcollectPlayList(id, t) {
       const res = await collectPlayList(id, t);
+    },
+    //删除歌单
+    async deletePlayList(id) {
+      const res = await deletePlayList(id);
+      console.log(res);
     },
     //收藏mv
     collectClick(id, t) {
@@ -173,11 +181,33 @@ export default {
           });
       }
     },
+    //编辑歌单
     editPlayList(id) {
       this.$router.push({
         path: "/editplayList",
         query: { id }
       });
+    },
+    //删除创建的歌单
+    goDeletePlayList(id) {
+      this.$confirm("此操作将永久删除该歌单, 是否继续?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      })
+        .then(() => {
+          this.deletePlayList(id);
+          this.$message({
+            type: "success",
+            message: "删除成功!"
+          });
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "已取消删除"
+          });
+        });
     }
   }
 };

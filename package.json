@@ -10,10 +10,12 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "better-scroll": "^1.15.2",
     "element-ui": "^2.15.5",
     "js-cookie": "^3.0.1",
     "less": "^4.1.1",
     "less-loader": "^5.0.0",
+    "lyric-parser": "^1.0.1",
     "mitt": "^3.0.0",
     "qs": "^6.10.1",
     "swiper": "^4.5.1",

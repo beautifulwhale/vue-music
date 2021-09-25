@@ -14,3 +14,13 @@ export function updatePlayList(id, name, desc, tags) {
         }
     })
 }
+//删除歌单
+export function deletePlayList(id) {
+    return request({
+        url: "/playlist/delete",
+        params: {
+            id,
+            cookie
+        }
+    })
+}
