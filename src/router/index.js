@@ -38,6 +38,8 @@ const MyPodcast = () => import('../views/MyPodcast/MyPodcast.vue')
 const MyCollect = () => import('../views/MyCollect/MyCollect.vue')
 const EditPlayList = () => import('../views/EditPlayList/EditPlayList.vue')
 const SingleMusic = () => import('../views/SingleMusic/SingleMusic.vue')
+const PersonalFM = () => import('../views/PersonalFM/PersonalFM.vue')
+
 const router = new Router({
   routes: [
     {
@@ -199,6 +201,10 @@ const router = new Router({
               component: DynamicComment
             }
           ]
+        },
+        {
+          path: '/personalfm',
+          component: PersonalFM,
         },
         {
           path: '/recentplay',

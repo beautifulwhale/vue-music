@@ -37,6 +37,16 @@
               >
             </template>
           </el-menu-item>
+          <el-menu-item>
+            <template slot="title">
+              <router-link
+                class="routers"
+                active-class="activeClass"
+                to="/personalfm"
+                >私人FM</router-link
+              >
+            </template>
+          </el-menu-item>
           <el-menu-item-group>
             <template slot="title">我的音乐</template>
             <el-menu-item>
@@ -175,7 +185,6 @@ export default {
     //创建歌单
     async goCreatePlayList(name, type) {
       const res = await createPlayList(name, type);
-      console.log(res);
     },
     getPlayList(id) {
       this.$router.push({ path: "/songdetails", query: { id: id } });
@@ -234,7 +243,6 @@ export default {
       font-size: 14px;
       color: black;
     }
-    
   }
   .el-main {
     width: 1300px;
