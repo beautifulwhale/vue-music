@@ -10,3 +10,14 @@ export function getPersonalFm() {
         }
     })
 }
+//添加到喜欢音乐
+export function likeMusic(id, like) {
+    return request({
+        url: "/like",
+        params: {
+            id,
+            like,
+            cookie
+        }
+    })
+}

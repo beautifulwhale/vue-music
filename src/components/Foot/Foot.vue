@@ -223,6 +223,7 @@ export default {
         this.$bus.$emit("loopPlay");
       }
       this.$store.commit("isPlay", true);
+      this.$bus.$emit('nextFmPlay')
     },
     //清空列表
     clearPlay() {

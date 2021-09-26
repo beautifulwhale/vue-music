@@ -40,11 +40,6 @@ export default {
 };
 </script>
 <style lang="less">
-// .el-table_3_column_11 {
-//   .cell {
-//     font-weight: bold;
-//   }
-// }
 .el-table_3_column_12 {
   .cell {
     font-size: 13px;
