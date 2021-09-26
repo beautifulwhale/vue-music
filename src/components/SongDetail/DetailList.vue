@@ -16,7 +16,6 @@
         <span v-else>{{ scope.$index + 1 }}</span>
       </template>
     </el-table-column>
-
     <el-table-column width="40" :show-overflow-tooltip="true">
       <template slot-scope="scope">
         <span
@@ -26,12 +25,22 @@
         ></span>
       </template>
     </el-table-column>
-    <el-table-column
-      prop="name"
-      label="音乐标题"
-      width="400"
-      :show-overflow-tooltip="true"
-    >
+    <!-- prop="name" -->
+    <el-table-column label="音乐标题" width="400" :show-overflow-tooltip="true">
+      <template slot-scope="scope" class="title">
+        <span class="name">{{ scope.row.name }}</span>
+        <span
+          v-if="scope.row.copyright === 0"
+          style="color:red;border:1px solid red;width:20px;height:8px;fontSize:10px;marginLeft:5px"
+          >SQ</span
+        >
+        <span
+          @click="getMvPlay(scope.row.mv)"
+          v-if="scope.row.mv !== 0"
+          style="color:red;border:1px solid red;width:20px;height:8px;fontSize:10px;marginLeft:5px"
+          >MV<i class="el-icon-caret-right"></i
+        ></span>
+      </template>
     </el-table-column>
     <el-table-column
       prop="ar[0].name"
@@ -87,6 +96,12 @@ export default {
         message: "已添加到我喜欢的音乐",
         type: "success"
       });
+    },
+    getMvPlay(id) {
+      this.$router.push({
+        path: "/videodetails",
+        query: { id: id }
+      });
     }
   }
 };
@@ -101,9 +116,6 @@ export default {
   /deep/ td {
     padding: 0;
     height: 35px;
-  }
-  .el-table[data-v-4e11c6d0] {
-    margin-top: 0;
   }
 }
 </style>

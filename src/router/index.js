@@ -39,7 +39,7 @@ const MyCollect = () => import('../views/MyCollect/MyCollect.vue')
 const EditPlayList = () => import('../views/EditPlayList/EditPlayList.vue')
 const SingleMusic = () => import('../views/SingleMusic/SingleMusic.vue')
 const PersonalFM = () => import('../views/PersonalFM/PersonalFM.vue')
-
+const Radio = () => import('../views/Radio/Radio.vue')
 const router = new Router({
   routes: [
     {
@@ -112,6 +112,10 @@ const router = new Router({
               component: NewMusic
             }
           ]
+        },
+        {
+          path: '/radio',
+          component: Radio
         },
         {
           path: '/exclusive',

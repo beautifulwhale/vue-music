@@ -22,6 +22,16 @@
               <router-link
                 class="routers"
                 active-class="activeClass"
+                to="/radio"
+                >播客</router-link
+              >
+            </template>
+          </el-menu-item>
+          <el-menu-item>
+            <template slot="title">
+              <router-link
+                class="routers"
+                active-class="activeClass"
                 to="/video"
                 >视频</router-link
               >
