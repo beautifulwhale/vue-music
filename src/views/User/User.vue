@@ -66,6 +66,7 @@ export default {
       const res = await getUserDetail(id);
       this.userInfo = res;
       this.total = res.profile.playlistCount;
+      console.log(res)
     },
     //获取用户的歌单
     async UserPlayList(id, limit, offset) {

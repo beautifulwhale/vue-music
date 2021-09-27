@@ -1,29 +1,72 @@
 import { request } from './request'
 import Cookies from 'js-cookie'
 const cookie = Cookies.get('userCookie');
-//获取电台Banner
-export function getRadioBanner() {
-    return request({
-        url: "/dj/category/recommend",
-        params: {
-            cookie
-        }
-    })
-}
-//获取电台分类
+//获取分类
 export function getRadioCate() {
     return request({
-        url: "/dj/catelist",
+        url: '/dj/catelist',
         params: {
             cookie
         }
     })
 }
-//获取推荐电台
-export function getRadioRecom() {
+//获取电台个性推荐
+export function getRadioCharact() {
     return request({
-        url: "/dj/recommend",
+        url: '/dj/today/perfered',
         params: {
+            cookie
+        }
+    })
+}
+//获取电台 - 分类推荐
+export function getCateRecommend(type) {
+    return request({
+        url: "/dj/recommend/type",
+        params: {
+            type,
+            cookie
+        }
+    })
+}
+//获取热门电台
+export function getRadioHot(limit, offset) {
+    return request({
+        url: "/dj/hot",
+        params: {
+            limit,
+            offset,
+            cookie
+        }
+    })
+}
+// 获取电台 - 类别热门电台
+export function getCateHot(limit, offset, cateId) {
+    return request({
+        url: "/dj/radio/hot",
+        params: {
+            limit,
+            offset,
+            cateId,
+            cookie
+        }
+    })
+}
+//推荐节目
+export function recomShow() {
+    return request({
+        url: "/program/recommend",
+        params: {
+            cookie
+        }
+    })
+}
+//获取电台详情
+export function getRadioDetail(rid) {
+    return request({
+        url: "/dj/detail",
+        params: {
+            rid,
             cookie
         }
     })

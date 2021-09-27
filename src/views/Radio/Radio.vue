@@ -1,34 +1,93 @@
 <template>
-  <div></div>
+  <div>
+    <cate-list :cate-list="cateList"></cate-list>
+    <charact :charact-list="charactList"></charact>
+    <!-- 本周上新 -->
+    <recom-show :recom-show-list="recomShowList"></recom-show>
+    <hot-radio :hot-radio="hotRadio"></hot-radio>
+    <electronic></electronic>
+    <create-cover></create-cover>
+    <star></star>
+    <life></life>
+    <old-music-recom></old-music-recom>
+    <secondary></secondary>
+    <emotional></emotional>
+    <knowledge></knowledge>
+  </div>
 </template>
 <script>
 import {
+  getRadioCharact,
+  getRadioHot,
   getRadioCate,
-  getRadioRecom,
-  getRadioBanner
+  getRadioBanner,
+  recomShow
 } from "../../network/radio";
+import CateList from "@/components/RadioList/CateList";
+import Charact from "@/components/RadioList/Charact";
+import HotRadio from "@/components/RadioList/HotRadio";
+import RecomShow from "@/components/RadioList/RecomShow";
+import Electronic from "@/components/RadioMain/Electronic";
+import CreateCover from "@/components/RadioMain/CreateCover";
+import Star from "@/components/RadioMain/Star";
+import OldMusicRecom from "@/components/RadioMain/OldMusicRecom";
+import Life from "@/components/RadioMain/Life";
+import Secondary from "@/components/RadioMain/Secondary";
+import Emotional from "@/components/RadioMain/Emotional";
+import Knowledge from "@/components/RadioMain/Knowledge";
 export default {
   data() {
-    return {};
+    return {
+      charactList: [],
+      hotRadio: [],
+      limit: 12,
+      offset: 0,
+      cateList: [],
+      recomShowList: []
+    };
   },
   created() {
-    this.getRadioRecom();
+    this.getRadioCharact();
     this.getRadioCate();
-    this.getRadioBanner();
+    this.getRadioHot(this.limit, this.offset);
+    this.recomShow();
   },
   methods: {
-    async getRadioRecom() {
-      const res = await getRadioRecom();
-      console.log(res);
+    //猜你喜欢推荐
+    async getRadioCharact() {
+      const res = await getRadioCharact();
+      this.charactList = res.data;
     },
+    //获取分类
     async getRadioCate() {
       const res = await getRadioCate();
+      this.cateList = res.categories;
       console.log(res);
     },
-    async getRadioBanner() {
-      const res = await getRadioBanner();
-      console.log(res);
+    //获取热门电台
+    async getRadioHot(limit, offset) {
+      const res = await getRadioHot(limit, offset);
+      this.hotRadio = res.djRadios;
+    },
+    //获取推荐节目
+    async recomShow() {
+      const res = await recomShow();
+      this.recomShowList = res.programs;
     }
+  },
+  components: {
+    CateList,
+    Charact,
+    HotRadio,
+    RecomShow,
+    Electronic,
+    CreateCover,
+    Star,
+    OldMusicRecom,
+    Life,
+    Secondary,
+    Emotional,
+    Knowledge,
   }
 };
 </script>
