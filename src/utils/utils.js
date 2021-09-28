@@ -5,27 +5,36 @@ export function formatZero(num, len) {
 }
 
 // 秒转00:00
-export function FormatTime (t){
+export function FormatTime(t) {
     let m = parseInt((t % 3600) / 60);
     m = m < 10 ? '0' + m : m;
     let s = parseInt(t % 60);
     s = s < 10 ? '0' + s : s;
     return m + ':' + s;
-  };
+};
 
 // 日期格式化
 //传入timestamp时间戳
 export function dateFormat(timestamp) {
     var date = new Date(timestamp);
     var Y = date.getFullYear() + '-';
-    var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
-    var D = (date.getDate() < 10 ? '0'+date.getDate() : date.getDate()) + ' ';
-    var h = (date.getHours() < 10 ? '0'+date.getHours() : date.getHours()) + ':';
-    var m = (date.getMinutes() < 10 ? '0'+date.getMinutes() : date.getMinutes()) + ':';
-    var s = (date.getSeconds() < 10 ? '0'+date.getSeconds() : date.getSeconds());
-    return Y+M+D+h+m+s;
- }
-  
+    var M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
+    var D = (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()) + ' ';
+    var h = (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ':';
+    var m = (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()) + ':';
+    var s = (date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds());
+    return Y + M + D + h + m + s;
+}
+
+// 使用es6的padStart()方法来补0
+export function getYMDHMS(timestamp) {
+    let time = new Date(timestamp)
+    let year = time.getFullYear()
+    const month = (time.getMonth() + 1).toString().padStart(2, '0')
+    const date = (time.getDate()).toString().padStart(2, '0')
+    return year + '-' + month + '-' + date
+}
+
 
 // 格式化时间毫秒转分秒
 export function formatTime(time) {
@@ -95,15 +104,15 @@ export function getRadomIndex(m, n) {
 * param {需要保留的小数位数} point
 */
 export function tranNumber(num) {
-	num = Number(num);
-	if (num == 0) {
-		return num + '';
-	} else
-	if (num > 1 && num < 10000) {
-		return num + '';
-	} else {
-		return (num / 10000).toFixed(0) + '万';
-	}
+    num = Number(num);
+    if (num == 0) {
+        return num + '';
+    } else
+        if (num > 1 && num < 10000) {
+            return num + '';
+        } else {
+            return (num / 10000).toFixed(0) + '万';
+        }
 }
 
 // export function tranNumber(num, point) {

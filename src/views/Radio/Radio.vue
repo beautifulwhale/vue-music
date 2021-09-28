@@ -5,6 +5,7 @@
     <!-- 本周上新 -->
     <recom-show :recom-show-list="recomShowList"></recom-show>
     <hot-radio :hot-radio="hotRadio"></hot-radio>
+    <radio-banner :banner-list="bannerList"></radio-banner>
     <electronic></electronic>
     <create-cover></create-cover>
     <star></star>
@@ -35,6 +36,7 @@ import Life from "@/components/RadioMain/Life";
 import Secondary from "@/components/RadioMain/Secondary";
 import Emotional from "@/components/RadioMain/Emotional";
 import Knowledge from "@/components/RadioMain/Knowledge";
+import RadioBanner from "@/components/RadioList/RadioBanner";
 export default {
   data() {
     return {
@@ -43,7 +45,8 @@ export default {
       limit: 12,
       offset: 0,
       cateList: [],
-      recomShowList: []
+      recomShowList: [],
+      bannerList: []
     };
   },
   created() {
@@ -51,6 +54,7 @@ export default {
     this.getRadioCate();
     this.getRadioHot(this.limit, this.offset);
     this.recomShow();
+    this.getBanner();
   },
   methods: {
     //猜你喜欢推荐
@@ -62,7 +66,6 @@ export default {
     async getRadioCate() {
       const res = await getRadioCate();
       this.cateList = res.categories;
-      console.log(res);
     },
     //获取热门电台
     async getRadioHot(limit, offset) {
@@ -73,6 +76,11 @@ export default {
     async recomShow() {
       const res = await recomShow();
       this.recomShowList = res.programs;
+    },
+    //获取电台Banner
+    async getBanner() {
+      const res = await getRadioBanner();
+      this.bannerList = res.data;
     }
   },
   components: {
@@ -88,6 +96,7 @@ export default {
     Secondary,
     Emotional,
     Knowledge,
+    RadioBanner
   }
 };
 </script>

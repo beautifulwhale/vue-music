@@ -1,5 +1,5 @@
 <template>
-  <div class="content">
+  <div class="content" @click="getRadioDetail(contentItem.id)">
     <div class="img">
       <img :src="contentItem.picUrl" />
     </div>
@@ -22,6 +22,11 @@ export default {
         return {};
       }
     }
+  },
+  methods: {
+    getRadioDetail(id) {
+      this.$router.push({ path: "/radiodetail", query: { id } });
+    }
   }
 };
 </script>
@@ -32,6 +37,7 @@ export default {
   display: flex;
   flex: 1;
   margin-top: 20px;
+  cursor: pointer;
   .img {
     width: 150px;
     height: 150px;
@@ -41,24 +47,24 @@ export default {
       border-radius: 5px;
     }
   }
-  .info{
-      width: 450px;
-      height: 150px;
-      margin-left: 10px;
-      .name{
-          font-size: 14px;
-          margin-top: 30px;
-          margin-bottom: 20px;
-      }
-      .desc{
-          font-size: 13px;
-          color: rgb(172, 172, 172);
-          margin-bottom: 10px;
-      }
-      .msg{
-          font-size: 13px;
-          color: rgb(172, 172, 172);
-      }
+  .info {
+    width: 450px;
+    height: 150px;
+    margin-left: 10px;
+    .name {
+      font-size: 14px;
+      margin-top: 30px;
+      margin-bottom: 20px;
+    }
+    .desc {
+      font-size: 13px;
+      color: rgb(172, 172, 172);
+      margin-bottom: 10px;
+    }
+    .msg {
+      font-size: 13px;
+      color: rgb(172, 172, 172);
+    }
   }
 }
 </style>

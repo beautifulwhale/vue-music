@@ -10,6 +10,15 @@ export function getRadioCate() {
         }
     })
 }
+//获取电台Banner
+export function getRadioBanner() {
+    return request({
+        url: '/dj/banner',
+        params: {
+            cookie
+        }
+    })
+}
 //获取电台个性推荐
 export function getRadioCharact() {
     return request({
@@ -67,6 +76,18 @@ export function getRadioDetail(rid) {
         url: "/dj/detail",
         params: {
             rid,
+            cookie
+        }
+    })
+}
+//获取电台节目
+export function getProgram(rid, limit, offset) {
+    return request({
+        url: "/dj/program",
+        params: {
+            rid,
+            limit,
+            offset,
             cookie
         }
     })
