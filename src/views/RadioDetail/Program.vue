@@ -1,6 +1,11 @@
 <template>
   <div>
-    <el-table :data="programList" stripe style="width: 100%">
+    <el-table
+      :data="programList"
+      stripe
+      style="width: 100%"
+      @row-click="getRadioPlay"
+    >
       <el-table-column width="45" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           <!-- <span
@@ -13,11 +18,12 @@
       </el-table-column>
       <el-table-column width="80">
         <template slot-scope="scope">
-          <el-image style="width: 50px; height: 50px" :src="scope.row.coverUrl">
-            <div slot="error" class="image-slot">
-              <i class="el-icon-picture-outline"></i>
+          <div class="img">
+            <img :src="scope.row.coverUrl" />
+            <div class="play">
+              <span class="iconfont icon-bofang1"></span>
             </div>
-          </el-image>
+          </div>
         </template>
       </el-table-column>
       <el-table-column prop="name" width="450"> </el-table-column>
@@ -64,11 +70,41 @@ export default {
     },
     FormatTime(time) {
       return FormatTime(time);
+    },
+
+    getRadioPlay(row) {
+      this.$bus.$emit("getMusic", row.mainSong.id);
+      this.$bus.$emit("getDjShowInfo", row.id);
+      this.$store.commit("getSongList", this.programList);
     }
   }
 };
 </script>
 <style lang="less" scoped>
+.img {
+  width: 50px;
+  height: 50px;
+  position: relative;
+  img {
+    width: 50px;
+    height: 50px;
+    border-radius: 5px;
+  }
+  .play {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #fff;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    opacity: 0.8;
+    .iconfont {
+      margin-left: 5px;
+      color: red;
+    }
+  }
+}
 .count,
 .iconfont {
   font-size: 12px;

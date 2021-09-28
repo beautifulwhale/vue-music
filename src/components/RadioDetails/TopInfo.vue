@@ -22,7 +22,7 @@
       </div>
       <!-- 播放/收藏/分享 -->
       <div class="operation">
-        <el-button type="danger" round size="mini">
+        <el-button type="danger" round size="mini" @click="getRadioPlay()">
           <span class="iconfont icon-bofang1"></span>
           播放全部
         </el-button>
@@ -54,6 +54,7 @@
   </div>
 </template>
 <script>
+import { mapState } from "vuex";
 export default {
   props: {
     radioInfo: {
@@ -61,6 +62,17 @@ export default {
       default() {
         return {};
       }
+    }
+  },
+  computed: {
+    ...mapState(["songList"])
+  },
+  methods: {
+    getUser(id) {
+      this.$router.push({ path: "/user", query: { id: id } });
+    },
+    getRadioPlay() {
+      this.$bus.$emit("getMusic", this.songList[0].mainSong.id);
     }
   }
 };
@@ -78,6 +90,7 @@ export default {
     img {
       width: 200px;
       height: 200px;
+      border-radius: 10px;
     }
   }
   .content {

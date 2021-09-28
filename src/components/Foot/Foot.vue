@@ -7,7 +7,7 @@
         @mouseleave="mouseLeave"
         @click="getMusicDetail(currentId)"
       >
-        <img :src="musicInfo.al.picUrl" />
+        <img :src="djCoverUrl || musicInfo.al.picUrl" />
         <span class="el-icon-arrow-up" v-if="isShowFold"></span>
         <span class="el-icon-arrow-down" v-else></span>
         <div class="smoker" v-show="isActive"></div>
@@ -15,9 +15,9 @@
       <!-- 歌曲名字/作者 -->
       <div class="music-message">
         <div class="name">
-          <h3>{{ musicInfo.name }}</h3>
+          <h3>{{ musicInfo.name || djName }}</h3>
         </div>
-        <div class="art">{{ musicInfo.ar[0].name }}</div>
+        <div class="art">{{ musicInfo.ar[0].name || djArtist }}</div>
       </div>
       <!-- 播放暂停 -->
       <div class="control">
@@ -101,6 +101,7 @@ import CurrentPlayList from "@/components/Foot/CurrentPlayList";
 import { getSongDetails, getMusicUrl } from "../../network/songdetails";
 import { FormatTime } from "../../utils/utils";
 import { mapState } from "vuex";
+import { getShowDetail } from "../../network/radio";
 export default {
   data() {
     return {
@@ -116,7 +117,10 @@ export default {
       currentId: null,
       currentIndex: null,
       isShowFold: false,
-      isActive: false
+      isActive: false,
+      djCoverUrl: "",
+      djName: "",
+      djArtist: ""
     };
   },
   methods: {
@@ -192,6 +196,15 @@ export default {
     //切换上一曲下一曲
     changeSong(type) {
       for (let i = 0; i <= this.songList.length; i++) {
+        // if (
+        //   this.songList[i].mainSong &&
+        //   Object.keys(this.songList[i].mainSong).length !== 0
+        // ) {
+        //   if (this.currentId === this.songList[i].mainSong.id) {
+        //     this.currentIndex = i;
+        //     break;
+        //   }
+        // }
         if (this.currentId === this.songList[i].id) {
           this.currentIndex = i;
           break;
@@ -223,7 +236,7 @@ export default {
         this.$bus.$emit("loopPlay");
       }
       this.$store.commit("isPlay", true);
-      this.$bus.$emit('nextFmPlay')
+      this.$bus.$emit("nextFmPlay");
     },
     //清空列表
     clearPlay() {
@@ -245,6 +258,12 @@ export default {
       } else {
         this.$router.back();
       }
+    },
+    async showDjDetail(id) {
+      const res = await getShowDetail(id);
+      this.djCoverUrl = res.program.coverUrl;
+      this.djName = res.program.name;
+      this.djArtist = res.program.dj.nickname;
     }
   },
   computed: {
@@ -258,6 +277,9 @@ export default {
       this.currentId = data;
       this.getSongDetails(data);
       this.getMusicUrl(data);
+    });
+    this.$bus.$on("getDjShowInfo", data => {
+      this.showDjDetail(data);
     });
   },
   components: {

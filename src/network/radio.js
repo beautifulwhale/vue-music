@@ -92,3 +92,25 @@ export function getProgram(rid, limit, offset) {
         }
     })
 }
+//获取电台收藏者
+export function getRadioCollect(id, limit, time) {
+    return request({
+        url: "/dj/subscriber",
+        params: {
+            id,
+            limit,
+            time,
+            cookie
+        }
+    })
+}
+//获取节目详情
+export function getShowDetail(id) {
+    return request({
+        url: "/dj/program/detail",
+        params: {
+            id,
+            cookie
+        }
+    })
+}

@@ -51,7 +51,7 @@ export default {
       border-radius: 50%;
     }
     .nickname {
-      width: 100px;
+      width: 120px;
       height: 120px;
       font-size: 13px;
       line-height: 120px;

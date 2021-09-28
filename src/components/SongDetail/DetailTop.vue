@@ -138,7 +138,6 @@ export default {
     //删除歌单
     async deletePlayList(id) {
       const res = await deletePlayList(id);
-      console.log(res);
     },
     //收藏mv
     collectClick(id, t) {
