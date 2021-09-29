@@ -1,6 +1,9 @@
 <template>
   <div class="header_title">
-    <img src="../../assets/image/logo.jpg" />
+    <div class="logo">
+      <span class="iconfont icon-wangyiyun1"></span>
+      <h3>网易云音乐</h3>
+    </div>
     <!-- 搜索 -->
     <search></search>
     <!-- 登陆状态 -->
@@ -10,7 +13,6 @@
           style="width: 50px; height: 50px"
           :src="userInfo.avatarUrl"
         ></el-image>
-        <!-- <img :src="" /> -->
       </div>
       <span class="nickname">{{ userInfo.nickname }}</span>
     </div>
@@ -29,11 +31,19 @@
       :sellect-qr-code="sellectQrCode"
       :qr-code="qrCode"
     ></login>
+    <!-- 私信 -->
+    <div class="message">
+      <span class="el-icon-message" @click="getEmail"></span>
+    </div>
+    <email :show="show"></email>
+    <send-email :is-send="isSend" :user="sendUser"></send-email>
   </div>
 </template>
 <script>
 import Search from "@/components/Search/Search";
+import Email from "@/components/Email/Email";
 import Login from "@/views/Login/Login";
+import SendEmail from "@/components/Email/SendEmail";
 import {
   phoneLogin,
   getLoginKey,
@@ -41,7 +51,7 @@ import {
   CheckQrCode
 } from "../../network/login";
 import { mapState } from "vuex";
-import Cookies from 'js-cookie'
+import Cookies from "js-cookie";
 export default {
   data() {
     return {
@@ -53,12 +63,17 @@ export default {
       loginKey: "",
       qrCode: "",
       sellectPhone: true,
-      sellectQrCode: false
+      sellectQrCode: false,
+      show: false,
+      isSend: false,
+      sendUser: {}
     };
   },
   components: {
     Search,
-    Login
+    Login,
+    Email,
+    SendEmail
   },
   methods: {
     login() {
@@ -79,12 +94,11 @@ export default {
       const res = await phoneLogin(LoginPhone.phone, LoginPhone.password);
       this.userInfo.avatarUrl = res.profile.avatarUrl;
       this.userInfo.nickname = res.profile.nickname;
-      Cookies.set('userCookie',res.cookie,{expires:10})
+      Cookies.set("userCookie", res.cookie, { expires: 10 });
       //在localStorage存储token
       localStorage.setItem("token", res.token);
       localStorage.setItem("avatarUrl", res.profile.avatarUrl);
       localStorage.setItem("nickname", res.profile.nickname);
-      console.log(res)
     },
     async getLoginKey() {
       const res = await getLoginKey();
@@ -96,7 +110,6 @@ export default {
     },
     async CheckQrCode(key) {
       const res = await CheckQrCode(key);
-      // console.log(res);
     },
     changeQrCodeLogin() {
       this.sellectPhone = false;
@@ -106,6 +119,9 @@ export default {
       this.isLoginStatus = true;
       this.$router.push("/recommend");
     },
+    getEmail() {
+      this.show = !this.show;
+    }
   },
   created() {
     this.getLoginKey();
@@ -113,9 +129,19 @@ export default {
     this.userInfo.nickname = window.localStorage.getItem("nickname");
   },
   computed: {
-    isLoginStatus(){
-      return window.localStorage.getItem('token') === null ? false : true
+    isLoginStatus() {
+      return window.localStorage.getItem("token") === null ? false : true;
     }
+  },
+  mounted() {
+    this.$bus.$on("closeEmail", () => {
+      this.show = false;
+    });
+    this.$bus.$on("sendEmail", user => {
+      this.sendUser = user;
+      this.isSend = true;
+      this.show = false;
+    });
   }
 };
 </script>
@@ -132,9 +158,25 @@ export default {
   display: flex;
   flex: 1;
   box-shadow: 2px 0 1px rgba(0, 0, 0, 0.8);
-  img {
+  background-color: rgb(252, 79, 49);
+  .logo {
     padding: 4px 20px;
     margin-right: 150px;
+    width: 200px;
+    height: 62px;
+    display: flex;
+    flex: 1;
+    .iconfont {
+      font-size: 25px;
+      color: whitesmoke;
+      margin-right: 5px;
+      margin-top: 20px;
+    }
+    h3 {
+      color: whitesmoke;
+      margin-top: 24px;
+      font-family: "方正兰亭黑简体";
+    }
   }
   .login {
     width: 100px;
@@ -160,7 +202,7 @@ export default {
     .img {
       width: 50px;
       height: 50px;
-      margin-right: 10px;
+      margin-right: 5px;
       .el-image {
         width: 50px;
         height: 50px;
@@ -169,8 +211,20 @@ export default {
       }
     }
     .nickname {
-      font-size: 13px;
-      color: gray;
+      width: 100px;
+      font-size: 12px;
+      color: whitesmoke;
+    }
+  }
+  .message {
+    width: 40px;
+    height: 70px;
+    margin-right: 130px;
+    cursor: pointer;
+    span {
+      line-height: 70px;
+      font-size: 25px;
+      color: whitesmoke;
     }
   }
 }

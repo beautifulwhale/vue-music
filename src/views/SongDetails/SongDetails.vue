@@ -106,7 +106,6 @@ export default {
     //获取歌曲
     async getSongDetails(id) {
       const result = await getSongDetails(id);
-      console.log(result)
       this.songList = result.songs;
       this.$store.commit("getSongList", this.songList);
     },

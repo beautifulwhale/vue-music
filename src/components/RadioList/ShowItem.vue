@@ -24,7 +24,8 @@ export default {
         return {};
       }
     }
-  }
+  },
+ 
 };
 </script>
 <style lang="less" scoped>
@@ -44,43 +45,42 @@ export default {
       height: 70px;
       border-radius: 5px;
     }
-    .play{
-        position: absolute;
-        bottom: 5px;
-        right: 10px;
-        width: 25px;
-        height: 25px;
-        border-radius: 50%;
-        background-color: #fff;
-        text-align: center;
-        line-height: 25px;
-        span{
-            color: red;
-            font-size: 13px;
-        }
+    .play {
+      position: absolute;
+      bottom: 5px;
+      right: 10px;
+      width: 25px;
+      height: 25px;
+      border-radius: 50%;
+      background-color: #fff;
+      text-align: center;
+      line-height: 25px;
+      span {
+        color: red;
+        font-size: 13px;
+      }
     }
   }
-  .info{
-      width: 300px;
-      height: 70px;
-      .name{
-          margin-top: 10px;
-          font-size: 14px;
-          margin-bottom: 10px;
+  .info {
+    width: 300px;
+    height: 70px;
+    .name {
+      margin-top: 10px;
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+    .art {
+      font-size: 12px;
+      .label {
+        border: 1px solid gainsboro;
+        color: gainsboro;
+        padding: 1px;
+        margin-right: 10px;
       }
-      .art{
-          font-size: 12px;
-          .label{
-              border: 1px solid gainsboro;
-              color: gainsboro;
-              padding: 1px;
-              margin-right: 10px;
-          }
-          .artist{
-              color: gainsboro;
-          }
+      .artist {
+        color: gainsboro;
       }
-
+    }
   }
 }
 </style>

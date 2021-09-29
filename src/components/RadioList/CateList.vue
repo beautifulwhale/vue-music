@@ -1,6 +1,6 @@
 <template>
   <div class="catelist">
-    <div class="radiorank">
+    <div class="radiorank" @click="getRadioRank">
       <span class="iconfont icon-paihangbang--"></span>
       <span class="rank">排行榜</span>
     </div>
@@ -28,6 +28,9 @@ export default {
   methods: {
     getRadioContent(id, name) {
       this.$router.push({ path: "/radiocatecontent", query: { id, name } });
+    },
+    getRadioRank() {
+      this.$router.push("/radiorank");
     }
   }
 };

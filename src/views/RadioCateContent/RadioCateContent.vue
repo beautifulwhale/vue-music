@@ -57,7 +57,6 @@ export default {
     async getCateHot(limit, offset, cateId) {
       const res = await getCateHot(limit, offset, cateId);
       this.hotRadioList = res.djRadios;
-      console.log(res)
     }
   },
   components: {

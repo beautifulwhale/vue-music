@@ -42,6 +42,7 @@ const PersonalFM = () => import('../views/PersonalFM/PersonalFM.vue')
 const Radio = () => import('../views/Radio/Radio.vue')
 const RadioDetail = () => import('../views/RadioDetail/RadioDetail.vue')
 const RadioCateContent = () => import('../views/RadioCateContent/RadioCateContent.vue')
+const RadioRank = () => import('../views/RadioDetail/RadioRank.vue')
 const router = new Router({
   routes: [
     {
@@ -126,6 +127,10 @@ const router = new Router({
         {
           path: '/radiocatecontent',
           component: RadioCateContent
+        },
+        {
+          path: '/radiorank',
+          component: RadioRank
         },
         {
           path: '/exclusive',

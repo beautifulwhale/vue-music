@@ -71,7 +71,6 @@ export default {
     FormatTime(time) {
       return FormatTime(time);
     },
-
     getRadioPlay(row) {
       this.$bus.$emit("getMusic", row.mainSong.id);
       this.$bus.$emit("getDjShowInfo", row.id);

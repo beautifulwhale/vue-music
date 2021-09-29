@@ -3,7 +3,10 @@
     <div class="title"><h3>本周上新</h3></div>
     <div class="show">
       <div class="showitem" v-for="item in recomShowList" :key="item.id">
-        <show-item :show-item="item"></show-item>
+        <show-item
+          :show-item="item"
+          @click.native="getRadioPlay(item.mainSong.id, item.id)"
+        ></show-item>
       </div>
     </div>
   </div>
@@ -19,6 +22,13 @@ export default {
   },
   components: {
     ShowItem
+  },
+  methods: {
+    getRadioPlay(mainId, id) {
+      this.$bus.$emit("getMusic", mainId);
+      this.$bus.$emit("getDjShowInfo", id);
+      this.$store.commit("getSongList", this.recomShowList);
+    }
   }
 };
 </script>

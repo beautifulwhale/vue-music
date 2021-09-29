@@ -114,3 +114,22 @@ export function getShowDetail(id) {
         }
     })
 }
+//获取节目榜
+export function getShowRank() {
+    return request({
+        url: "/dj/program/toplist",
+        params: {
+            cookie
+        }
+    })
+}
+//电台 - 新晋电台榜/热门电台榜
+export function getDjRank(type) {
+    return request({
+        url: "/dj/toplist",
+        params: {
+            type,
+            cookie
+        }
+    })
+}
