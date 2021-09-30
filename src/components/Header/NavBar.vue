@@ -3,6 +3,12 @@
     <div class="logo">
       <span class="iconfont icon-wangyiyun1"></span>
       <h3>网易云音乐</h3>
+      <span class="back" @click="goBackRouter">
+        <i class="el-icon-arrow-left"></i>
+      </span>
+      <span class="refresh" @click="refreshRouter">
+        <i class="el-icon-refresh-right"></i>
+      </span>
     </div>
     <!-- 搜索 -->
     <search></search>
@@ -121,6 +127,12 @@ export default {
     },
     getEmail() {
       this.show = !this.show;
+    },
+    goBackRouter() {
+      this.$router.back();
+    },
+    refreshRouter() {
+      this.$router.go(0);
     }
   },
   created() {
@@ -142,6 +154,10 @@ export default {
       this.isSend = true;
       this.show = false;
     });
+    this.$bus.$on("goback", () => {
+      this.isSend = false;
+      this.show = true;
+    });
   }
 };
 </script>
@@ -158,11 +174,11 @@ export default {
   display: flex;
   flex: 1;
   box-shadow: 2px 0 1px rgba(0, 0, 0, 0.8);
-  background-color: rgb(252, 79, 49);
+  background-color: rgb(253, 60, 26);
   .logo {
     padding: 4px 20px;
-    margin-right: 150px;
-    width: 200px;
+    margin-right: 0px;
+    width: 150px;
     height: 62px;
     display: flex;
     flex: 1;
@@ -176,6 +192,38 @@ export default {
       color: whitesmoke;
       margin-top: 24px;
       font-family: "方正兰亭黑简体";
+    }
+    .back {
+      width: 28px;
+      height: 28px;
+      margin-top: 20px;
+      border-radius: 50%;
+      margin-left: 100px;
+      font-size: 20px;
+      padding: 3px;
+      cursor: pointer;
+      text-align: center;
+      background-color: rgba(0, 0, 0, 0.1);
+      i {
+        margin-right: 3px;
+        color: #fff;
+      }
+    }
+    .refresh {
+      width: 28px;
+      height: 28px;
+      margin-top: 20px;
+      border-radius: 50%;
+      margin-left: 15px;
+      font-size: 20px;
+      padding: 3px;
+      cursor: pointer;
+      text-align: center;
+      background-color: rgba(0, 0, 0, 0.1);
+      i {
+        margin-right: 3px;
+        color: #fff;
+      }
     }
   }
   .login {

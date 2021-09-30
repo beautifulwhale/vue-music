@@ -2,16 +2,12 @@
   <div class="search">
     <el-input
       :placeholder="defaultKeyWords"
+      prefix-icon="el-icon-search"
       v-model="keywords"
-      class="input-with-select"
+      @change="searchContent"
       @focus="focusEvent"
       @blur.prevent="blurEvent"
     >
-      <el-button
-        slot="append"
-        icon="el-icon-search"
-        @click="searchContent"
-      ></el-button>
     </el-input>
     <hot-search
       :hot-search="hotSearch"
@@ -91,8 +87,21 @@ export default {
 </script>
 <style lang="less" scoped>
 .el-input {
-  width: 320px;
-  margin-top: 20px;
+  width: 200px;
+  margin-top: 10px;
   padding: 5px 5px;
 }
+/deep/ .el-input__inner {
+  border-radius: 20px;
+  background-color: rgba(255, 77, 77, 0.3);
+}
+  /deep/ input::-webkit-input-placeholder {
+    color: white;
+  }
+  /deep/ input::-moz-input-placeholder {
+    color: white;
+  }
+  /deep/ input::-ms-input-placeholder {
+    color: white;
+  }
 </style>

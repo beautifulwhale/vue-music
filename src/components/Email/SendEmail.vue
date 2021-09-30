@@ -1,7 +1,7 @@
 <template>
   <div class="sendemail" v-show="isSend">
     <div class="navbar">
-      <span class="el-icon-arrow-left"></span>
+      <span class="el-icon-arrow-left" @click="goback"></span>
       <span class="username">{{ user.nickname }}</span>
     </div>
     <div class="content">
@@ -10,10 +10,14 @@
           <div class="time">{{ formatTime(item.time) }}</div>
           <div v-if="item.toUser.userId === 3243961585" class="friend-say">
             <img :src="item.fromUser.avatarUrl" />
-            <div class="friend-say">{{ JSON.parse(item.msg).msg }}</div>
+            <div class="friends">
+              <span>{{ JSON.parse(item.msg).msg }}</span>
+            </div>
           </div>
           <div class="mySay" v-else>
-            <div class="my-content">{{ JSON.parse(item.msg).msg }}</div>
+            <div class="my-content">
+              <span>{{ JSON.parse(item.msg).msg }}</span>
+            </div>
             <img :src="item.fromUser.avatarUrl" />
           </div>
         </div>
@@ -36,7 +40,7 @@
   </div>
 </template>
 <script>
-import { letterContent, sendEmail } from "../../network/email";
+import { sendEmail } from "../../network/email";
 import { dateFormat } from "../../utils/utils";
 export default {
   props: {
@@ -57,7 +61,8 @@ export default {
       limit: 30,
       before: 0,
       msg: "",
-      newMsgList: []
+      newMsgList: [],
+      oldMsgList: []
     };
   },
   computed: {
@@ -66,15 +71,13 @@ export default {
     }
   },
   methods: {
-    async getContent(id, limit, before) {
-      const res = await letterContent(id, limit, before);
-      //   console.log(res);
-    },
+    // async getContent(id, limit, before) {
+    //   const res = await letterContent(id, limit, before);
+    //   this.oldMsgList = res.msgs;
+    // },
     async sendEmail(id, msg) {
       const res = await sendEmail(id, msg);
       this.newMsgList = res.newMsgs.reverse();
-      console.log(this.newMsgList);
-      //   console.log(res);
     },
     sendMsg() {
       this.sendEmail(this.user.userId, this.msg);
@@ -82,10 +85,11 @@ export default {
     },
     formatTime(time) {
       return dateFormat(time);
+    },
+    goback() {
+      this.$bus.$emit("goback");
+      this.newMsgList = [];
     }
-  },
-  created() {
-    this.getContent(this.userId, this.limit, this.before);
   }
 };
 </script>
@@ -120,29 +124,37 @@ export default {
       overflow-y: scroll;
       .msg-item {
         width: 320px;
-        height: 50px;
+        height: 60px;
         margin-bottom: 10px;
         .time {
           width: 320px;
           text-align: center;
           font-size: 10px;
           color: gainsboro;
+          height: 30px;
         }
         .friend-say {
           width: 320px;
-          height: 50px;
+          height: 60px;
           display: flex;
           flex: 1;
           img {
             width: 35px;
             height: 35px;
             border-radius: 50%;
-            margin-right: 15px;
+            margin-right: 10px;
           }
-          .friend-say {
+          .friends {
             height: 35px;
             font-size: 12px;
-            padding: 3px;
+            line-height: 35px;
+            span {
+              padding: 5px;
+              border: 1px solid gainsboro;
+              border-radius: 8px;
+              background-color: rgb(253, 207, 215);
+              color: black;
+            }
           }
         }
         .mySay {
@@ -150,9 +162,16 @@ export default {
           display: flex;
           justify-content: flex-end;
           .my-content {
-            height: 50px;
+            height: 60px;
             font-size: 12px;
-            padding: 3px;
+            line-height: 40px;
+            span {
+              padding: 5px;
+              border: 1px solid gainsboro;
+              border-radius: 8px;
+              color: black;
+              background-color: rgb(14, 240, 248);
+            }
           }
           img {
             width: 35px;

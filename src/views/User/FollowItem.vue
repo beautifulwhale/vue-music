@@ -22,8 +22,9 @@
         <span>粉丝: {{ fanItem.followeds }}</span>
       </div>
     </div>
+
     <div class="foucsbutton">
-      <el-button round size="mini">
+      <el-button round size="mini" @click="sendEmail">
         <span><i class="iconfont icon-youjian"></i>私信</span>
       </el-button>
     </div>
@@ -42,8 +43,11 @@ export default {
   methods: {
     getUser(id) {
       this.$router.push({ path: "/user", query: { id: id } });
+    },
+    sendEmail() {
+      this.$bus.$emit("sendEmail", this.fanItem);
     }
-  },
+  }
 };
 </script>
 <style lang="less" scoped>
