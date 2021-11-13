@@ -2,7 +2,7 @@ import axios from 'axios'
 import Vue from 'vue'
 export function request(config) {
     const reqInterface = axios.create({
-        baseURL: "http://localhost:3000/",
+        baseURL: "http://47.93.100.102:3000",
         timeout: 3000,
     })
     // request interceptor

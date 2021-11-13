@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <div class="header_title">
     <div class="logo">
       <span class="iconfont icon-wangyiyun1"></span>
@@ -98,6 +98,7 @@ export default {
     //手机号登陆
     async phoneLogin(LoginPhone) {
       const res = await phoneLogin(LoginPhone.phone, LoginPhone.password);
+console.log(res)
       this.userInfo.avatarUrl = res.profile.avatarUrl;
       this.userInfo.nickname = res.profile.nickname;
       Cookies.set("userCookie", res.cookie, { expires: 10 });
