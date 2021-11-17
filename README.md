@@ -29,3 +29,18 @@ Ps:记得要先进行登录，登陆后刷新就可以了，因为好多功能�
 ###### 6.lyric-parser：歌词解析
 ###### 7.js-cookie：cookie缓存，存储个人信息状态
 ###### 8.qs:用于生成二维码
+
+### 安装运行
+# install dependencies
+npm install
+
+# serve with hot reload at localhost:8080
+npm run dev
+
+# build for production with minification
+npm run build
+
+# build for production and view the bundle analyzer report
+npm run build --report
+
+### 最后
