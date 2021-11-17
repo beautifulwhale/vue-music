@@ -1,21 +1,11 @@
-# vue_music
+# 网易云音乐
 
-> A Vue.js project
+它是一个功能齐全的PC端网易云音乐，PC端软件的功能他基本上都能够实现，例如听歌，听电台，看自己喜欢的视频，发表自己的评论，通过云盘上传自己喜欢的歌曲等等
 
-## Build Setup
+##### 预览地址：http://47.93.100.102
 
-``` bash
-# install dependencies
-npm install
+##### 测试账号密码：15544889664    521liusiyu
 
-# serve with hot reload at localhost:8080
-npm run dev
+Ps:记得要先进行登录，登陆后刷新就可以了，因为好多功能是需要登录才可以实现的。  这是本人账号，请各位不能乱改谢谢
 
-# build for production with minification
-npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
-```
-
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+  
