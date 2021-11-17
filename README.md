@@ -11,61 +11,14 @@ Ps:记得要先进行登录，登陆后刷新就可以了，因为好多功能�
 ## 功能实现：
 
 ###### 1.推荐歌曲/歌单/歌手/排行榜
-
-![image-20211117205943382](/Users/liyuehui/Library/Application Support/typora-user-images/image-20211117205943382.png)
-
-![image-20211117210016409](/Users/liyuehui/Library/Application Support/typora-user-images/image-20211117210016409.png)
-
-![image-20211117210337999](/Users/liyuehui/Library/Application Support/typora-user-images/image-20211117210337999.png)
-
 ###### 2.歌单详情/歌手详情/歌单(歌曲)评论收藏者等
-
-![image-20211117211238534](/Users/liyuehui/Library/Application Support/typora-user-images/image-20211117211238534.png)
-
-![image-20211117211305561](/Users/liyuehui/Library/Application Support/typora-user-images/image-20211117211305561.png)
-
-![image-20211117211402454](/Users/liyuehui/Library/Application Support/typora-user-images/image-20211117211402454.png)
-
-![image-20211117211451544](/Users/liyuehui/Library/Application Support/typora-user-images/image-20211117211451544.png
-
-![image-20211117211715462](/Users/liyuehui/Library/Application Support/typora-user-images/image-20211117211715462.png)
-
 ###### 3.电台
-
-![image-20211117211854256](/Users/liyuehui/Library/Application Support/typora-user-images/image-20211117211854256.png)
-
-![image-20211117211913170](/Users/liyuehui/Library/Application Support/typora-user-images/image-20211117211913170.png)
-
 ###### 4.视频及MV
-
-![image-20211117212232207](/Users/liyuehui/Library/Application Support/typora-user-images/image-20211117212232207.png)
-
-![image-20211117212250881](/Users/liyuehui/Library/Application Support/typora-user-images/image-20211117212250881.png)
-
-![image-20211117212319523](/Users/liyuehui/Library/Application Support/typora-user-images/image-20211117212319523.png)
-
-![image-20211117212424722](/Users/liyuehui/Library/Application Support/typora-user-images/image-20211117212424722.png)
-
 ###### 5.动态和热门话题
-
-![image-20211117212556784](/Users/liyuehui/Library/Application Support/typora-user-images/image-20211117212556784.png)
-
-![image-20211117212625033](/Users/liyuehui/Library/Application Support/typora-user-images/image-20211117212625033.png)
-
 ###### 6.私人FM推荐
-
-![image-20211117212744233](/Users/liyuehui/Library/Application Support/typora-user-images/image-20211117212744233.png)
-
 ###### 7.最近播放/音乐云盘/个人收藏
-
-![image-20211117212822046](/Users/liyuehui/Library/Application Support/typora-user-images/image-20211117212822046.png)
-
-![image-20211117212850822](/Users/liyuehui/Library/Application Support/typora-user-images/image-20211117212850822.png)
-
-![image-20211117213042916](/Users/liyuehui/Library/Application Support/typora-user-images/image-20211117213042916.png)
-
 ###### 8.创建歌单/收藏歌单
+[网易云音乐.md](https://github.com/beautifulwhale/vue-music/files/7554973/default.md)
 
-![image-20211117213158653](/Users/liyuehui/Library/Application Support/typora-user-images/image-20211117213158653.png)
 
 
