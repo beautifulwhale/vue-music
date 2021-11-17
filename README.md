@@ -18,7 +18,7 @@ Ps:记得要先进行登录，登陆后刷新就可以了，因为好多功能�
 ###### 6.私人FM推荐
 ###### 7.最近播放/音乐云盘/个人收藏
 ###### 8.创建歌单/收藏歌单
-[网易云音乐.md](https://github.com/beautifulwhale/vue-music/files/7554973/default.md)
+
 
 
 
