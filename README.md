@@ -31,16 +31,17 @@ Ps:记得要先进行登录，登陆后刷新就可以了，因为好多功能�
 ###### 8.qs:用于生成二维码
 
 ### 安装运行
-# install dependencies
+###### install dependencies
 npm install
 
-# serve with hot reload at localhost:8080
+###### serve with hot reload at localhost:8080
 npm run dev
 
-# build for production with minification
+###### build for production with minification
 npm run build
 
-# build for production and view the bundle analyzer report
+###### build for production and view the bundle analyzer report
 npm run build --report
 
 ### 最后
+本人能力有限，该项目还存在布局
